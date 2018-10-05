@@ -1,0 +1,7 @@
+{
+  "name": "Ruuvi_Weather_Station",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
