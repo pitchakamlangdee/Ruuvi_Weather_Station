@@ -1,11 +1,35 @@
-<ion-header>
-    <ion-navbar>
-      <ion-title>
-        About
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
 
 <ion-content padding>
-
+    <ion-item>
+        <ion-label>Ruuvitag</ion-label>
+        <ion-select [(ngModel)]="selectedItemGraphs" (ionChange)="getGraphsDataDay()">
+          <ion-option *ngFor="let item of select_mac_graphs" [value]="item.mac_id">{{item.Name_Ruuvitag}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="myDate" (ionChange)="getGraphsDataDay()"></ion-datetime>
+      </ion-item>
+      <!-- <ion-slides pager="true" direction = "vertical" (ionSlideDidChange)="slideChanged()">
+        <ion-slide> -->
+          <ion-card>
+            <ion-card-header>
+              Line Chart Data
+            </ion-card-header>
+            <ion-card-content>
+              <canvas height="25vh" width="80vw" #lineCanvas></canvas>
+            </ion-card-content>
+          </ion-card>
+        <!-- </ion-slide>
+        <ion-slide> -->
+          <ion-card>
+            <ion-card-header>
+              Bar Chart Average
+            </ion-card-header>
+            <ion-card-content>
+              <canvas height="25vh" width="80vw" #barCanvas></canvas>
+            </ion-card-content>
+          </ion-card>
+        <!-- </ion-slide>
+      </ion-slides> -->
 </ion-content>
