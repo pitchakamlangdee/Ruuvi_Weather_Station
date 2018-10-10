@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { HttpModule } from '@angular/http';
 import { WelcomePage } from '../pages/welcome/welcome'; 
 import { LoginPage } from '../pages/login/login'; 
 import { SignupPage } from '../pages/signup/signup'; 
@@ -17,6 +17,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SuperTabsModule } from 'ionic2-super-tabs';
 import { SensorsApiProvider } from '../providers/sensors-api/sensors-api';
+import { MomentModule} from 'angular2-moment';
+import { LinkyModule} from 'angular-linky';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,10 @@ import { SensorsApiProvider } from '../providers/sensors-api/sensors-api';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     SuperTabsModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    HttpModule,
+    MomentModule,
+    LinkyModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

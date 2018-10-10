@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
+import { TabsPage } from "../tabs/tabs";
+import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -10,16 +12,52 @@ import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: "page-login",
+  templateUrl: "login.html"
 })
 export class LoginPage {
+  resposeData: any;
+  userData = { username: "", password: "" };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public sensorsApiProvider: SensorsApiProvider,
+    private toastCtrl : ToastController
+  ) {}
+
+  login() {
+    if (this.userData.username && this.userData.password) {
+      this.sensorsApiProvider.postData(this.userData, "login").then(
+        result => {
+          this.resposeData = result;
+          console.log(result);
+          if(this.resposeData.userData){
+          localStorage.setItem("userData", JSON.stringify(this.resposeData));
+          this.navCtrl.push(TabsPage);
+          }
+          else{
+            this.presentToast("Please give valid username and password");
+          }
+        },
+        (err) => {
+          //Connection failed message
+        }
+      );
+    }
+    else{
+      this.presentToast("Give username and password");
+    }
   }
 
-  login(){
-    this.navCtrl.push(TabsPage);
-  }
 
+  presentToast(msg){
+    let toast = this.toastCtrl.create({
+        message: msg,
+        duration: 2000
+    });
+    toast.present();
+
+
+  }
 }
