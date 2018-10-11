@@ -19,6 +19,7 @@ import { SuperTabsModule } from 'ionic2-super-tabs';
 import { SensorsApiProvider } from '../providers/sensors-api/sensors-api';
 import { MomentModule} from 'angular2-moment';
 import { LinkyModule} from 'angular-linky';
+import { CommonProvider } from '../providers/common/common';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { LinkyModule} from 'angular-linky';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SensorsApiProvider
+    SensorsApiProvider,
+    CommonProvider
   ]
 })
 export class AppModule {}

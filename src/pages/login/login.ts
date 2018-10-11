@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from "ionic-angu
 import { TabsPage } from "../tabs/tabs";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -23,18 +24,24 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public sensorsApiProvider: SensorsApiProvider,
+    
     private toastCtrl : ToastController
   ) {}
 
   login() {
     if (this.userData.username && this.userData.password) {
+      
       this.sensorsApiProvider.postData(this.userData, "login").then(
         result => {
           this.resposeData = result;
-          console.log(result);
+          console.log(this.resposeData);
+          
           if(this.resposeData.userData){
+           
+           
           localStorage.setItem("userData", JSON.stringify(this.resposeData));
           this.navCtrl.push(TabsPage);
+           
           }
           else{
             this.presentToast("Please give valid username and password");

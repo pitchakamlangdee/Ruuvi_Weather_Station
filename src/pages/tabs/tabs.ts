@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
-
+import { CommonProvider } from "../../providers/common/common";
 
 @Component({
 
@@ -17,8 +17,15 @@ pages = [
     { pageName: ContactPage, title: "Contact", icon:"body", id: "contactTab"}
 
 ];
- constructor(public navCtrl: NavController, public navParams: NavParams) {
-
+ constructor(public navCtrl: NavController, public navParams: NavParams, public common: CommonProvider) {
+this.displayPages();
   }
-  
+
+
+  displayPages(){
+    this.common.presentLoading();
+    this.pages;
+    this.common.closeLoading();
+  }
 }
+

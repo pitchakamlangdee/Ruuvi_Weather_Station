@@ -11,13 +11,23 @@
 <ion-content padding>
   <ion-content>
     <h2>My Account {{userDetails.name}}</h2>
-    <h3>{{userDetails.email}}</h3>
-    <ion-card *ngFor="let item of dataSet">
-      <ion-card-content>
-        <p [innerHTML]="item.feed | linky"></p>
-        <span>{{item.created | amTimeAgo}}</span>
-      </ion-card-content>
+    <!-- <h3>{{userDetails.email}}</h3> -->
+    <ion-item id="updateBox">
+      <textarea [(ngModel)] = "userPostData.feed" maxlength="17" placeholder="F4:CC:8D:5E:45:23"></textarea>
+      <ion-row>
+        <button ion-button color="energy" (click)="feedUpdate()">Add</button>
+      </ion-row>
+    </ion-item>
+    <ion-card *ngFor="let item of dataSet; let msgIndex = index">
+      <ion-item>
+          <ion-icon name="trash" item-right (click)="feedDelete(item.feed_id, index)"></ion-icon>
+        <ion-card-content>
 
+          
+          <p [innerHTML]="item.feed | linky"></p>
+          <span>{{item.created | amTimeAgo}}</span>
+        </ion-card-content>
+      </ion-item>
 
 
     </ion-card>
