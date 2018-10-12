@@ -46,7 +46,7 @@ export class SignupPage {
           if(this.resposeData.userData){
             localStorage.setItem("userData", JSON.stringify(this.resposeData));
           this.navCtrl.push(TabsPage);
-            this.presentToast("Give username and password");
+            this.presentToast("Login Sucess !");
           }
           else{
             this.presentToast("Give valid details");

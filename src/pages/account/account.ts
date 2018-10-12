@@ -25,7 +25,7 @@ import { CommonProvider } from "../../providers/common/common";
 export class AccountPage {
   public userDetails: any;
   public resposeData: any;
-  public dataSet: any;
+  public dataSet = [];
   userPostData = { user_id: "", token: "", feed: "", feed_id: "" };
 
   constructor(
@@ -45,12 +45,12 @@ export class AccountPage {
   }
 
   getFeed() {
-    this.common.presentLoading();
+    // this.common.presentLoading();
     this.sensorsApiProvider.postData(this.userPostData, "feed").then(
       result => {
         this.resposeData = result;
         if (this.resposeData.feedData) {
-          this.common.closeLoading();
+          // this.common.closeLoading();
           this.dataSet = this.resposeData.feedData;
           console.log(this.dataSet);
         } else {
@@ -68,6 +68,7 @@ export class AccountPage {
       let alert = this.alertCtrl.create({
         title: "ADD",
         message: "คุณต้องการจะเพิ่มข้อมูล Mac Address หรือไม่?",
+       
         buttons: [
           {
             text: "Cancel",
@@ -85,13 +86,17 @@ export class AccountPage {
                 .then(
                   result => {
                     this.resposeData = result;
-                    if (this.resposeData.feedData) {
+                    if (this.dataSet == undefined) {
+                      this.dataSet[0] = this.userPostData.feed;
+                    }
+                    else if (this.resposeData.feedData && this.dataSet ) {
                       this.common.presentLoading();
                       
                       this.dataSet.unshift(this.resposeData.feedData);
                       console.log(this.dataSet);
                       this.common.closeLoading();
-                    } else {
+                    }
+                     else {
                       console.log("No access");
                     }
                   },
