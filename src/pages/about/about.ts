@@ -42,6 +42,11 @@ export class AboutPage {
   sum_temperature : any = 0;
   average_humidity : any = 0;
   sum_humidity : any = 0;
+
+  public userDetails: any;
+  public resposeDataMac : any;
+  public dataMac =[];
+  userPostData = { user_id: "", token: "", feed: "", feed_id: "" };
   
   //getGraphsData
 
@@ -50,6 +55,10 @@ export class AboutPage {
     public navParams: NavParams,
     public sensorsApiProvider: SensorsApiProvider
   ) {
+    const data = JSON.parse(localStorage.getItem("userData"));
+    this.userDetails = data.userData;
+    this.userPostData.user_id = this.userDetails.user_id;
+    this.userPostData.token = this.userDetails.token;
     this.getMacSelectGraphs(); 
     
   }
@@ -59,11 +68,24 @@ export class AboutPage {
   }
 
   getMacSelectGraphs() {
-    this.sensorsApiProvider.getMacSelect().then(select_mac => {
-      this.select_mac_graphs = select_mac;
-      console.log(this.select_mac_graphs);
+    // this.common.presentLoading();
+    this.sensorsApiProvider.postData(this.userPostData, "macRuuvitag").then(
+      result => {
+        this.resposeDataMac = result;
+        if (this.resposeDataMac.macData) {
+          // this.common.closeLoading();
+          this.dataMac = this.resposeDataMac.macData;
+          console.log(this.dataMac);
+        } else {
+          console.log("No access");
+        }
+      },
+      err => {
+        //Connection failed message
+      }
+    );
       
-    });
+    
   }
 
   getGraphsDataDay() {

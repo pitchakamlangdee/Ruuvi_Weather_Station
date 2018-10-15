@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   App,
-  AlertController
+  AlertController,
+  ToastController
 } from "ionic-angular";
 import { WelcomePage } from "../welcome/welcome";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
@@ -25,7 +26,9 @@ import { CommonProvider } from "../../providers/common/common";
 export class AccountPage {
   public userDetails: any;
   public resposeData: any;
+  public resposeDataSensor : any;
   public dataSet = [];
+  public dataSensor =[];
   userPostData = { user_id: "", token: "", feed: "", feed_id: "" };
 
   constructor(
@@ -34,7 +37,8 @@ export class AccountPage {
     public app: App,
     public sensorsApiProvider: SensorsApiProvider,
     private alertCtrl: AlertController,
-    public common: CommonProvider
+    public common: CommonProvider,
+    private toastCtrl : ToastController
   ) {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
@@ -91,13 +95,12 @@ export class AccountPage {
                     }
                     else if (this.resposeData.feedData && this.dataSet ) {
                       this.common.presentLoading();
-                      
                       this.dataSet.unshift(this.resposeData.feedData);
                       console.log(this.dataSet);
                       this.common.closeLoading();
                     }
                      else {
-                      console.log("No access");
+                      this.presentToast("มี Ruuvitag อยู่ในระบบเเล้ว");
                     }
                   },
                   err => {
@@ -111,7 +114,7 @@ export class AccountPage {
       alert.present();
     }
     else{
-      console.log("No access");
+      this.presentToast("กรุณากรอก Mac Address !!");
     }
   }
 
@@ -157,10 +160,29 @@ export class AccountPage {
     }
   }
 
-  converTime(time) {
-    let a = new Date(time * 1000);
-    return a;
+
+  getSensor() {
+    // this.common.presentLoading();
+    this.sensorsApiProvider.postData(this.userPostData, "sensor").then(
+      result => {
+        this.resposeDataSensor = result;
+        if (this.resposeDataSensor.sensorData) {
+          // this.common.closeLoading();
+          this.dataSensor = this.resposeDataSensor.sensorData;
+          console.log(this.dataSensor);
+        } else {
+          console.log("No access");
+        }
+      },
+      err => {
+        //Connection failed message
+      }
+    );
   }
+  // converTime(time) {
+  //   let a = new Date(time * 1000);
+  //   return a;
+  // }
 
   backToWelcome() {
     this.navCtrl.push(WelcomePage);
@@ -193,5 +215,16 @@ export class AccountPage {
       ]
     });
     alert.present();
+  }
+
+
+  presentToast(msg){
+    let toast = this.toastCtrl.create({
+        message: msg,
+        duration: 2000
+    });
+    toast.present();
+
+
   }
 }

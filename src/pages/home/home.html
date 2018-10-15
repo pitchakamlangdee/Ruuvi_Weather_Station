@@ -12,7 +12,7 @@
         <ion-label class="content">Select Show Ruuvitag</ion-label>
         <ion-select [(ngModel)]="selectedItem" multiple="true" (ionChange)="getLastDataSensors()" interface="popover"
           class="selector" placeholder="Select Show Ruuvitag">
-          <ion-option *ngFor="let item of select_mac_home" [value]="item.mac_id" class="option" text-wrap>
+          <ion-option *ngFor="let item of dataMac" [value]="item.mac_id" class="option" text-wrap>
             {{item.Name_Ruuvitag}}
           </ion-option>
         </ion-select>
