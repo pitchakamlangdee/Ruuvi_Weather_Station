@@ -5,7 +5,11 @@ import {
   NavParams,
   App,
   AlertController,
-  ToastController
+  // ToastController,
+  ModalController,
+  ModalOptions,
+  Modal
+  
 } from "ionic-angular";
 import { WelcomePage } from "../welcome/welcome";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
@@ -38,7 +42,8 @@ export class AccountPage {
     public sensorsApiProvider: SensorsApiProvider,
     private alertCtrl: AlertController,
     public common: CommonProvider,
-    private toastCtrl : ToastController
+    // private toastCtrl : ToastController,
+    private modalCtrl : ModalController
   ) {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
@@ -67,56 +72,95 @@ export class AccountPage {
     );
   }
 
-  feedUpdate() {
-    if (this.userPostData.feed) {
-      let alert = this.alertCtrl.create({
-        title: "ADD",
-        message: "คุณต้องการจะเพิ่มข้อมูล Mac Address หรือไม่?",
+  // feedUpdate() {
+  //   if (this.userPostData.feed) {
+  //     let alert = this.alertCtrl.create({
+  //       title: "ADD",
+  //       message: "คุณต้องการจะเพิ่มข้อมูล Mac Address หรือไม่?",
        
-        buttons: [
-          {
-            text: "Cancel",
-            role: "cancel",
-            handler: () => {
-              console.log("Cancel clicked");
-            }
-          },
-          {
-            text: "Add",
-            handler: () => {
+  //       buttons: [
+  //         {
+  //           text: "Cancel",
+  //           role: "cancel",
+  //           handler: () => {
+  //             console.log("Cancel clicked");
+  //           }
+  //         },
+  //         {
+  //           text: "Add",
+  //           handler: () => {
               
-              this.sensorsApiProvider
-                .postData(this.userPostData, "feedUpdate")
-                .then(
-                  result => {
-                    this.resposeData = result;
-                    if (this.dataSet == undefined) {
-                      this.dataSet[0] = this.userPostData.feed;
-                    }
-                    else if (this.resposeData.feedData && this.dataSet ) {
-                      this.common.presentLoading();
-                      this.dataSet.unshift(this.resposeData.feedData);
-                      console.log(this.dataSet);
-                      this.common.closeLoading();
-                    }
-                     else {
-                      this.presentToast("มี Ruuvitag อยู่ในระบบเเล้ว");
-                    }
-                  },
-                  err => {
-                    //Connection failed message
-                  }
-                );
-            }
-          }
-        ]
-      });
-      alert.present();
-    }
-    else{
-      this.presentToast("กรุณากรอก Mac Address !!");
-    }
+  //             this.sensorsApiProvider
+  //               .postData(this.userPostData, "feedUpdate")
+  //               .then(
+  //                 result => {
+  //                   this.resposeData = result;
+  //                   if (this.dataSet == undefined) {
+  //                     this.dataSet[0] = this.userPostData.feed;
+  //                   }
+  //                   else if (this.resposeData.feedData && this.dataSet ) {
+  //                     this.common.presentLoading();
+  //                     this.dataSet.unshift(this.resposeData.feedData);
+  //                     console.log(this.dataSet);
+  //                     this.common.closeLoading();
+  //                   }
+  //                    else {
+  //                     this.presentToast("มี Ruuvitag อยู่ในระบบเเล้ว");
+  //                   }
+  //                 },
+  //                 err => {
+  //                   //Connection failed message
+  //                 }
+  //               );
+  //           }
+  //         }
+  //       ]
+  //     });
+  //     alert.present();
+  //   }
+  //   else{
+  //     this.presentToast("กรุณากรอก Mac Address !!");
+  //   }
+  // }
+
+
+  openModal() {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: true
+      
+    };
+    
+    let addMacModal: Modal = this.modalCtrl.create('ModalAddMacaddressPage', { data:this.dataSet },myModalOptions);
+    addMacModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    addMacModal.present();
   }
+
+  // openModal(){
+    // const myModalOptions: ModalOptions = {
+    //   enableBackdropDismiss: false,
+      
+    // }
+
+  //   const myModalData = {
+  //     name: 'Pitcha',
+  //     occupation: 'Developer'
+  //   };
+  //   const myModal: Modal = this.modal.create('ModalAddMacaddressPage', {data:myModalData},myModalOptions);
+
+  //   myModal.present();
+
+  //   myModal.onDidDismiss((data) => {
+  //     console.log("I have dismiss");
+  //     console.log(data);
+  //   })
+
+  //   myModal.onWillDismiss((data) =>{
+  //     console.log("I'm about to dismiss");
+  //     console.log(data);
+  //   })
+  // }
 
   feedDelete(feed_id, msgIndex) {
     if (feed_id > 0) {
@@ -218,13 +262,13 @@ export class AccountPage {
   }
 
 
-  presentToast(msg){
-    let toast = this.toastCtrl.create({
-        message: msg,
-        duration: 2000
-    });
-    toast.present();
+  // presentToast(msg){
+  //   let toast = this.toastCtrl.create({
+  //       message: msg,
+  //       duration: 2000
+  //   });
+  //   toast.present();
 
 
-  }
+  // }
 }

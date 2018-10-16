@@ -11,26 +11,28 @@
 <ion-content padding>
   <ion-content>
     <h2>My Account {{userDetails.name}}</h2>
-    <!-- <h3>{{userDetails.email}}</h3> -->
-    <ion-item id="updateBox">
-      <textarea [(ngModel)] = "userPostData.feed" maxlength="17" placeholder="F4:CC:8D:5E:45:23"></textarea>
-      <ion-row>
-        <button ion-button color="energy" (click)="feedUpdate()">Add</button>
-      </ion-row>
+    <h3>{{userDetails.email}}</h3>
+    <ion-item >
+      <!-- <textarea [(ngModel)] = "userPostData.feed" maxlength="17" placeholder="F4:CC:8D:5E:45:23"></textarea> -->
+      
+        <ion-buttons end>
+          <button ion-button color="energy" round outline (click)="openModal()">เพิ่ม Ruuvitag</button>
+        </ion-buttons>
+      
     </ion-item>
     <ion-card *ngFor="let item of dataSet; let msgIndex = index">
       <ion-item>
-          <ion-icon name="trash" item-right (click)="feedDelete(item.feed_id, index)"></ion-icon>
+        <ion-icon name="trash" item-right (click)="feedDelete(item.feed_id, index)"></ion-icon>
         <ion-card-content>
 
-          
-          <p [innerHTML]="item.feed | linky"></p>
+
+          <p text-uppercase [innerHTML]="item.feed | linky"></p>
           <span>{{item.created | amTimeAgo}}</span>
         </ion-card-content>
       </ion-item>
 
 
     </ion-card>
-    <button ion-button (click)="logout()">LOGOUT</button>
+    <button ion-button round outline (click)="logout()">LOGOUT</button>
   </ion-content>
 </ion-content>

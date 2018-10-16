@@ -1,13 +1,11 @@
 page-account {
 
-
-#updateBox{
-    textarea{
-        width:100%;
-        //text-transform: uppercase;
-    }
-
-}
+    .bg-image {
+        background-image: url(../../assets/imgs/rice_background.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        //background-size: contain;
+      }
 
 
 }
