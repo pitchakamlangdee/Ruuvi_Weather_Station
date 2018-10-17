@@ -33,7 +33,7 @@ export class ModalAddMacaddressPage {
     public sensorsApiProvider: SensorsApiProvider,
     private alertCtrl: AlertController,
     public common: CommonProvider,
-    private toastCtrl : ToastController,
+    private toastCtrl: ToastController
   ) {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
@@ -55,20 +55,21 @@ export class ModalAddMacaddressPage {
   // }
   feedUpdate() {
     if (this.userPostData.feed) {
+      if(this.userPostData.feed.length == 17){
       let alert = this.alertCtrl.create({
-        title: "ADD",
+        title: "เพิ่ม",
         message: "คุณต้องการจะเพิ่มข้อมูล Mac Address หรือไม่?",
 
         buttons: [
           {
-            text: "Cancel",
+            text: "ยกเลิก",
             role: "cancel",
             handler: () => {
               console.log("Cancel clicked");
             }
           },
           {
-            text: "Add",
+            text: "ตกลง",
             handler: () => {
               this.sensorsApiProvider
                 .postData(this.userPostData, "feedUpdate")
@@ -96,19 +97,32 @@ export class ModalAddMacaddressPage {
         ]
       });
       alert.present();
+      } else{
+        this.presentToast("กรุณากรอก Mac Address ให้ครบ !!");
+      }
     } else {
       this.presentToast("กรุณากรอก Mac Address !!");
     }
   }
+  macSystax() {
+    if (
+      this.userPostData.feed.length == 2 ||
+      this.userPostData.feed.length == 5 ||
+      this.userPostData.feed.length == 8 ||
+      this.userPostData.feed.length == 11 ||
+      this.userPostData.feed.length == 14 
+    ) {
+      this.userPostData.feed = this.userPostData.feed + ":";
+      console.log(this.userPostData.feed);
+    }
+  }
 
-  presentToast(msg){
+  presentToast(msg) {
     let toast = this.toastCtrl.create({
-        message: msg,
-        duration: 2000
+      message: msg,
+      duration: 2000
     });
     toast.present();
-
-
   }
 
   closeModal() {
