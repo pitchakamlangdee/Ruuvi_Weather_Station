@@ -1,34 +1,44 @@
-
 <ion-header>
-    <ion-navbar>
-      <ion-title>
-        SIGN UP
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-<ion-content padding>
-  <ion-list>
+  <ion-navbar>
+    <ion-title>
+      สมัครสมาชิก
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
-    <ion-item>
-      <ion-label fixed>Name</ion-label>
-      <ion-input type="text" value="" [(ngModel)]="userData.name"></ion-input>
-    </ion-item>
+<ion-content class="background">
+  <ion-card>
+    <ion-card-header>
+      SIGNUP
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list no-lines>
+        <ion-item>
+          <ion-label fixed>Name</ion-label>
+          <ion-input type="text" value="" [(ngModel)]="userData.name"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label fixed>Email</ion-label>
-      <ion-input type="text" value="" [(ngModel)]="userData.email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>Username</ion-label>
-      <ion-input type="text" value="" [(ngModel)]="userData.username"></ion-input>
-    </ion-item>
+        <ion-item>
+          <ion-label fixed>Email</ion-label>
+          <ion-input type="text" value="" [(ngModel)]="userData.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Username</ion-label>
+          <ion-input type="text" value="" [(ngModel)]="userData.username"></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-label fixed>Password</ion-label>
-      <ion-input type="password" value="" [(ngModel)]="userData.password"></ion-input>
-    </ion-item>
-
-    <button ion-button block (click)="signup()">SIGNUP</button>
-    <a href="#" (click) = "login()">Login Page</a>
-  </ion-list>
+        <ion-item>
+          <ion-label fixed>Password</ion-label>
+          <ion-input type="password" value="" [(ngModel)]="userData.password"></ion-input>
+        </ion-item>
+        <br>
+        <button ion-button block round color="Skyblue" (click)="signup()">
+          <ion-icon name="person-add"></ion-icon>สมัครสมาชิก
+        </button>
+        <ion-item>
+          <a href="#" (click)="login()">Login Page</a>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

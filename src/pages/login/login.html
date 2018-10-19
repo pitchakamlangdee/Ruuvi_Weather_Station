@@ -1,25 +1,35 @@
 <ion-header>
-    <ion-navbar>
-      <ion-title>
-        LOG IN
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar>
+    <ion-title>
+      เข้าสู่ระบบ
+    </ion-title>
+  </ion-navbar>
+</ion-header>
 
 
-<ion-content padding>
-    <ion-list>
+<ion-content class="background">
+  <ion-card>
+    <ion-card-header>
+      LOGIN
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list no-lines>
 
         <ion-item>
           <ion-label fixed>Username</ion-label>
           <ion-input type="text" value="" [(ngModel)]="userData.username"></ion-input>
         </ion-item>
-      
+
         <ion-item>
           <ion-label fixed>Password</ion-label>
           <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
         </ion-item>
-        <button ion-button block round  (click)="login()">เข้าสู่ระบบ</button>
-      
+        <br>
+        <button ion-button block round color="Gainsboro" class="margintop" (click)="login()">
+            <ion-icon name="log-in"></ion-icon>เข้าสู่ระบบ
+        </button>
+
       </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

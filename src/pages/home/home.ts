@@ -13,7 +13,7 @@ export class HomePage {
   // firstLoad = true;
   select_mac_home: any;
   sensors_data_last = [];
-  selectedItem: any;
+  selectedItem = [];
 
   public userDetails: any;
   public resposeDataMac: any;
@@ -46,13 +46,7 @@ export class HomePage {
           console.log("No access");
         }
         this.selectedItem = this.dataMac;
-        // this.selectedItem[1] = this.select_mac_home[1].mac_id;
-        //this.selectedItem = this.select_mac_home;
-        console.log(this.selectedItem[0].mac_id);
-        // for (let i in this.select_mac_home) {
-        // this.selectedItem[i] = this.select_mac_home[i].mac_id;
-        // console.log(this.selectedItem)
-        // }
+
         console.log(this.selectedItem);
         this.getFirstLastDataSensors();
       },
@@ -63,9 +57,9 @@ export class HomePage {
   }
 
   getFirstLastDataSensors() {
-        console.log(this.selectedItem);
-        this.sensors_data_last = this.selectedItem;
-        console.log(this.sensors_data_last);
+    console.log(this.selectedItem);
+    this.sensors_data_last = this.selectedItem;
+    console.log(this.sensors_data_last);
 
     for (let i in this.selectedItem) {
       //console.log(this.selectedItem[i]);
@@ -76,38 +70,23 @@ export class HomePage {
           //this.sensors_data_last[i+1] = "";
           console.log(this.sensors_data_last[i]);
         });
-      }
+    }
   }
 
   getLastDataSensors() {
-    // this.sensorsApiProvider
-    //     .getLastDataSensors(this.selectedItem[0])
-    //     .then(data_last => {
-    //       this.sensors_data_last[0] = data_last[0];
-    //       console.log(this.sensors_data_last)
-    //     });
-    //     this.sensorsApiProvider
-    //     .getLastDataSensors(this.selectedItem[1])
-    //     .then(data_last => {
-    //       this.sensors_data_last[1] = data_last[0];
-    //     });
-
     console.log(this.selectedItem);
     this.sensors_data_last = this.selectedItem;
     console.log(this.sensors_data_last);
 
     for (let i in this.selectedItem) {
-      //console.log(this.selectedItem[i]);
       this.sensorsApiProvider
         .getLastDataSensors(this.selectedItem[i])
         .then(data_last => {
           this.sensors_data_last[i] = data_last[0];
-          //this.sensors_data_last[i+1] = "";
+
           console.log(this.sensors_data_last[i]);
         });
     }
-
-    // console.log(this.sensors_data_last);
   }
   slideChanged() {
     //this.slides.slidePrev(0);

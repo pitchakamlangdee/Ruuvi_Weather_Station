@@ -8,25 +8,28 @@ import {
 } from "ionic-angular";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
-
-/**
- * Generated class for the ModalAddMacaddressPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
-  selector: "page-modal-add-macaddress",
-  templateUrl: "modal-add-macaddress.html"
+  selector: "page-modal-update-ruuvitag",
+  templateUrl: "modal-update-ruuvitag.html"
 })
-export class ModalAddMacaddressPage {
+export class ModalUpdateRuuvitagPage {
   public userDetails: any;
   public resposeData: any;
-  public dataSet = [];
-  userPostData = { user_id: "", token: "", feed: "", feed_id: "", device_name:"", device_des:"" };
 
+  public dataSet = [];
+  public feed_id: any;
+  public feed: any;
+  public device_name1: any;
+  public device_des1: any;
+  userPostData = {
+    user_id: "",
+    token: "",
+    feed: "",
+    feed_id: "",
+    device_name: "",
+    device_des: ""
+  };
   constructor(
     public navParams: NavParams,
     private viewCtrl: ViewController,
@@ -43,23 +46,25 @@ export class ModalAddMacaddressPage {
 
   ionViewDidLoad() {
     this.dataSet = this.navParams.get("data");
+    this.feed_id = this.navParams.get("data2");
+    this.feed = this.navParams.get("data3");
+    this.device_name1 = this.navParams.get("data4");
+    this.device_des1 = this.navParams.get("data5");
+
     console.log(this.dataSet);
+    console.log(this.feed_id);
+    console.log(this.feed);
+    console.log(this.device_name1);
+    console.log(this.device_des1);
   }
 
-  // closeModal(){
-  //   const data = {
-  //     name: 'Aong',
-  //     occupation: 'ddddddd'
-  //   };
-  //   this.view.dismiss(data);
-  // }
-  feedInsert() {
-    if (this.userPostData.feed) {
-      if(this.userPostData.feed.length == 17){
+  feedUpdate() {
+    if (this.feed_id > 0) {
+      console.log(this.device_name1);
+      console.log(this.device_des1);
       let alert = this.alertCtrl.create({
-        title: "เพิ่ม Ruuvitag",
-        message: "คุณต้องการจะเพิ่มข้อมูล Ruuvitag หรือไม่?",
-
+        title: "เเก้ไข Ruuvitag",
+        message: "คุณต้องการจะเเก้ไขข้อมูล Ruuvitag หรือไม่?",
         buttons: [
           {
             text: "ยกเลิก",
@@ -71,22 +76,22 @@ export class ModalAddMacaddressPage {
           {
             text: "ยืนยัน",
             handler: () => {
-              console.log(this.userPostData);
+              this.common.presentLoading();
+              this.userPostData.feed_id = this.feed_id;
+              this.userPostData.device_name = this.device_name1;
+              this.userPostData.device_des = this.device_des1;
               this.sensorsApiProvider
-                .postData(this.userPostData, "feedInsert")
+                .postData(this.userPostData, "feedUpdate")
                 .then(
                   result => {
                     this.resposeData = result;
-                    if (this.dataSet == undefined) {
-                      this.dataSet[0] = this.userPostData.feed;
-                    } else if (this.resposeData.feedData && this.dataSet) {
-                      this.common.presentLoading();
-                      this.dataSet.unshift(this.resposeData.feedData);
-                      console.log(this.dataSet);
+                    console.log(result);
+                    if (this.resposeData.feedData) {
+                      this.dataSet = this.resposeData.feedData;
                       this.viewCtrl.dismiss(this.dataSet);
                       this.common.closeLoading();
                     } else {
-                      this.presentToast("มี Ruuvitag อยู่ในระบบเเล้ว");
+                      console.log("No access");
                     }
                   },
                   err => {
@@ -98,26 +103,8 @@ export class ModalAddMacaddressPage {
         ]
       });
       alert.present();
-      } else{
-        this.presentToast("กรุณากรอก Mac Address ให้ครบ !!");
-      }
-    } else {
-      this.presentToast("กรุณากรอก Mac Address !!");
     }
   }
-  macSystax() {
-    if (
-      this.userPostData.feed.length == 2 ||
-      this.userPostData.feed.length == 5 ||
-      this.userPostData.feed.length == 8 ||
-      this.userPostData.feed.length == 11 ||
-      this.userPostData.feed.length == 14 
-    ) {
-      this.userPostData.feed = this.userPostData.feed + ":";
-      console.log(this.userPostData.feed);
-    }
-  }
-
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,

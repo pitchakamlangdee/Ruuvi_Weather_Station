@@ -9,7 +9,6 @@ import {
   ModalController,
   ModalOptions,
   Modal
-  
 } from "ionic-angular";
 import { WelcomePage } from "../welcome/welcome";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
@@ -30,10 +29,17 @@ import { CommonProvider } from "../../providers/common/common";
 export class AccountPage {
   public userDetails: any;
   public resposeData: any;
-  public resposeDataSensor : any;
+  //public resposeDataSensor : any;
   public dataSet = [];
-  public dataSensor =[];
-  userPostData = { user_id: "", token: "", feed: "", feed_id: "" };
+  //public dataSensor =[];
+  userPostData = {
+    user_id: "",
+    token: "",
+    feed: "",
+    feed_id: "",
+    device_name: "",
+    device_des: ""
+  };
 
   constructor(
     public navCtrl: NavController,
@@ -43,14 +49,14 @@ export class AccountPage {
     private alertCtrl: AlertController,
     public common: CommonProvider,
     // private toastCtrl : ToastController,
-    private modalCtrl : ModalController
+    private modalCtrl: ModalController
   ) {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
 
-    this.getFeed();
+    this.displayAccount();
   }
 
   getFeed() {
@@ -77,7 +83,7 @@ export class AccountPage {
   //     let alert = this.alertCtrl.create({
   //       title: "ADD",
   //       message: "คุณต้องการจะเพิ่มข้อมูล Mac Address หรือไม่?",
-       
+
   //       buttons: [
   //         {
   //           text: "Cancel",
@@ -89,7 +95,7 @@ export class AccountPage {
   //         {
   //           text: "Add",
   //           handler: () => {
-              
+
   //             this.sensorsApiProvider
   //               .postData(this.userPostData, "feedUpdate")
   //               .then(
@@ -123,25 +129,42 @@ export class AccountPage {
   //   }
   // }
 
-
-  openModal() {
+  openModalAddRuuvitag() {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: true
-      
     };
-    
-    let addMacModal: Modal = this.modalCtrl.create('ModalAddMacaddressPage', { data:this.dataSet },myModalOptions);
+    let addMacModal: Modal = this.modalCtrl.create(
+      "ModalAddMacaddressPage",
+      { data: this.dataSet },
+      myModalOptions
+    );
     addMacModal.onDidDismiss(data => {
       console.log(data);
     });
     addMacModal.present();
   }
 
+  openModalUpdateRuuvitag(feed_id, feed, device_name, device_des) {
+    const myModalOptions2: ModalOptions = {
+      enableBackdropDismiss: true
+    };
+    let updateRuuvitagModal: Modal = this.modalCtrl.create(
+      "ModalUpdateRuuvitagPage",
+      { data:this.dataSet, data2:feed_id, data3:feed, data4:device_name, data5:device_des},
+      myModalOptions2
+    );
+    updateRuuvitagModal.onDidDismiss(data => {
+      console.log(data);
+      this.getFeed();
+    });
+    updateRuuvitagModal.present();
+  }
+
   // openModal(){
-    // const myModalOptions: ModalOptions = {
-    //   enableBackdropDismiss: false,
-      
-    // }
+  // const myModalOptions: ModalOptions = {
+  //   enableBackdropDismiss: false,
+
+  // }
 
   //   const myModalData = {
   //     name: 'Pitcha',
@@ -165,18 +188,18 @@ export class AccountPage {
   feedDelete(feed_id, msgIndex) {
     if (feed_id > 0) {
       let alert = this.alertCtrl.create({
-        title: "Delete Feed",
-        message: "Do you want to Delete this feed?",
+        title: "ลบ Ruuvitag",
+        message: "คุณต้องการจะลบข้อมูล Ruuvitag หรือไม่?",
         buttons: [
           {
-            text: "Cancel",
+            text: "ยกเลิก",
             role: "cancel",
             handler: () => {
               console.log("Cancel clicked");
             }
           },
           {
-            text: "Delete",
+            text: "ยืนยัน",
             handler: () => {
               this.common.presentLoading();
               this.userPostData.feed_id = feed_id;
@@ -204,25 +227,24 @@ export class AccountPage {
     }
   }
 
-
-  getSensor() {
-    // this.common.presentLoading();
-    this.sensorsApiProvider.postData(this.userPostData, "sensor").then(
-      result => {
-        this.resposeDataSensor = result;
-        if (this.resposeDataSensor.sensorData) {
-          // this.common.closeLoading();
-          this.dataSensor = this.resposeDataSensor.sensorData;
-          console.log(this.dataSensor);
-        } else {
-          console.log("No access");
-        }
-      },
-      err => {
-        //Connection failed message
-      }
-    );
-  }
+  // getSensor() {
+  //   // this.common.presentLoading();
+  //   this.sensorsApiProvider.postData(this.userPostData, "sensor").then(
+  //     result => {
+  //       this.resposeDataSensor = result;
+  //       if (this.resposeDataSensor.sensorData) {
+  //         // this.common.closeLoading();
+  //         this.dataSensor = this.resposeDataSensor.sensorData;
+  //         console.log(this.dataSensor);
+  //       } else {
+  //         console.log("No access");
+  //       }
+  //     },
+  //     err => {
+  //       //Connection failed message
+  //     }
+  //   );
+  // }
   // converTime(time) {
   //   let a = new Date(time * 1000);
   //   return a;
@@ -236,18 +258,18 @@ export class AccountPage {
     // const root = this.app.getRootNav();
     // root.popToRoot();
     let alert = this.alertCtrl.create({
-      title: "LOG OUT",
+      title: "ออกจากระบบ",
       message: "คุณต้องการจะออกจากระบบหรือไม่?",
       buttons: [
         {
-          text: "Cancel",
+          text: "ยกเลิก",
           role: "cancel",
           handler: () => {
             console.log("Cancel clicked");
           }
         },
         {
-          text: "Log Out",
+          text: "ยืนยัน",
           handler: () => {
             this.common.presentLoading();
             localStorage.clear();
@@ -261,14 +283,17 @@ export class AccountPage {
     alert.present();
   }
 
-
+  displayAccount(){
+    this.common.presentLoading();
+    this.getFeed();
+    this.common.closeLoading();
+  }
   // presentToast(msg){
   //   let toast = this.toastCtrl.create({
   //       message: msg,
   //       duration: 2000
   //   });
   //   toast.present();
-
 
   // }
 }

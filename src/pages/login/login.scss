@@ -1,3 +1,17 @@
 page-login {
-
+    .background{
+        width:100%;
+        height:100%;
+        background: linear-gradient(10deg,rgb(52, 136, 156),rgb(57, 136, 156),rgb(57, 187, 187));
+    }
+    .scroll-content{
+        text-align: center;
+    }
+    ion-card.card{
+        background: rgb(255, 255, 255);
+        border-radius: 10px;
+    }
+    ion-input{
+        border-bottom: #fd4d73 solid 1px;
+    }
 }

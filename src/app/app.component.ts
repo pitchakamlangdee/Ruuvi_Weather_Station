@@ -23,8 +23,8 @@ export class MyApp {
       splashScreen.hide();
     });
     this.pages = [
-      { title: 'Home', component: TabsPage, icon : "home"},
-      { title: 'Account', component: AccountPage, icon : "contact"}
+      { title: 'หน้าหลัก', component: TabsPage, icon : "home"},
+      { title: 'จัดการข้อมูล', component: AccountPage, icon : "contact"}
     ];
 
   }

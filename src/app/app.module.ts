@@ -36,7 +36,14 @@ import { CommonProvider } from '../providers/common/common';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      backButtonIcon: 'ios-arrow-back',
+      backButtonText: 'ย้อนหลับ',
+      pageTransition: 'iostransition',
+      activator:'ripple',
+      mode:'ios',
+      tabsHideonSubPages: true
+    }),
     SuperTabsModule.forRoot(),
     HttpClientModule,
     HttpModule,
