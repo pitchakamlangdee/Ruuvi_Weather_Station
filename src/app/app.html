@@ -10,6 +10,12 @@
             <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                     <ion-icon [name]= "p.icon"></ion-icon> {{p.title}}
             </button>
+            
+          </ion-list>
+          <ion-list>
+          <button ion-button menuClose round outline color="danger" (click)="logout()">
+            <ion-icon name="log-out"></ion-icon>ออกจากระบบ
+          </button>
           </ion-list>
         </ion-content>
       

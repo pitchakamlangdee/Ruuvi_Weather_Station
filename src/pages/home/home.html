@@ -13,7 +13,7 @@
         <ion-select [(ngModel)]="selectedItem" multiple="true" (ionChange)="getLastDataSensors()" interface="popover"
           class="selector" placeholder="Select Show Ruuvitag">
           <ion-option *ngFor="let item of dataMac" [value]="item.mac_id" class="option" text-wrap>
-            {{item.Name_Ruuvitag}}
+            {{item.device_name}}
           </ion-option>
         </ion-select>
       </div>
@@ -24,29 +24,29 @@
   <ion-content class="card-background-page">
     <!-- <ion-slides pager="true" direction = "vertical" (ionSlideDidChange)="slideChanged()">
       <ion-slide *ngFor="let n of selectedItem ; let i = index"> -->
-    <ion-card *ngFor="let n of selectedItem ; let i = index">
-      <img [src] = "slider[i].image"/>
+    <ion-card *ngFor="let n of sensors_data_last ; let i = index">
+      <img [src] = "images[i].image"/>
         
       <div  class="card-title">
-        {{sensors_data_last[i].Name_Ruuvitag}}
+        {{dataMac[i].device_name}}
       </div>
       <div  class="card-subtitle1">
-        <ion-icon color="primary" name="bluetooth"></ion-icon> {{sensors_data_last[i].mac_id}}
+        <ion-icon color="primary" name="bluetooth"></ion-icon> {{n.mac_id}}
       </div>
       <div class="card-subtitle2">
-        <ion-icon color="danger" name="thermometer"></ion-icon> {{sensors_data_last[i].temperature}} ํC
+        <ion-icon color="danger" name="thermometer"></ion-icon> {{n.temperature}} ํC
       </div>
       
       <div class="card-subtitle3">
-        <ion-icon color="water" name="water"></ion-icon> {{sensors_data_last[i].humidity}} %
+        <ion-icon color="water" name="water"></ion-icon> {{n.humidity}} %
       </div>
       
       <div class="card-subtitle4">
-        <ion-icon color="secondary" name="leaf"></ion-icon> {{sensors_data_last[i].pressure}} hPa
+        <ion-icon color="secondary" name="leaf"></ion-icon> {{n.pressure}} hPa
       </div>
       <br>
       <div class="card-subtitle5">
-        <ion-icon name="clock"></ion-icon> {{sensors_data_last[i].Time_Stamp}}
+        <ion-icon name="clock"></ion-icon> {{n.Time_Stamp}}
       </div>
       
     </ion-card>

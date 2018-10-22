@@ -41,6 +41,7 @@ export class HomePage {
         if (this.resposeDataMac.macData) {
           // this.common.closeLoading();
           this.dataMac = this.resposeDataMac.macData;
+
           console.log(this.dataMac);
         } else {
           console.log("No access");
@@ -58,7 +59,8 @@ export class HomePage {
 
   getFirstLastDataSensors() {
     console.log(this.selectedItem);
-    this.sensors_data_last = this.selectedItem;
+
+    this.sensors_data_last = [this.selectedItem.length];
     console.log(this.sensors_data_last);
 
     for (let i in this.selectedItem) {
@@ -75,17 +77,19 @@ export class HomePage {
 
   getLastDataSensors() {
     console.log(this.selectedItem);
-    this.sensors_data_last = this.selectedItem;
-    console.log(this.sensors_data_last);
+    if (this.selectedItem.length > 0) {
+      this.sensors_data_last = [this.selectedItem.length];
+      console.log(this.sensors_data_last);
 
-    for (let i in this.selectedItem) {
-      this.sensorsApiProvider
-        .getLastDataSensors(this.selectedItem[i])
-        .then(data_last => {
-          this.sensors_data_last[i] = data_last[0];
+      for (let i in this.selectedItem) {
+        this.sensorsApiProvider
+          .getLastDataSensors(this.selectedItem[i])
+          .then(data_last => {
+            this.sensors_data_last[i] = data_last[0];
 
-          console.log(this.sensors_data_last[i]);
-        });
+            console.log(this.sensors_data_last[i]);
+          });
+      }
     }
   }
   slideChanged() {
@@ -94,7 +98,7 @@ export class HomePage {
 
     console.log("Current index is", currentIndex);
   }
-  slider = [
+  images = [
     { title: "Home", image: "assets/imgs/maple_background.jpg" },
     { title: "Graphs", image: "assets/imgs/sunset_background.jpg" },
     { title: "Contact", image: "assets/imgs/sunset_background.jpg" }

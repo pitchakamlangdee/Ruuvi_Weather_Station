@@ -35,11 +35,11 @@
           </ion-item>
           <ion-item>
             <ion-label fixed>ชื่อ :</ion-label>
-            <ion-input text-uppercase [innerHTML]="item.device_name | linky"></ion-input>
+            <ion-input  [innerHTML]="item.device_name | linky"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label fixed>รายละเอียด :</ion-label>
-            <ion-input text-uppercase [innerHTML]="item.device_des | linky"></ion-input>
+            <ion-input  [innerHTML]="item.device_des | linky"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label fixed>อัพเดตเมื่อ :</ion-label>
@@ -65,8 +65,8 @@
 
 
   </ion-card>
-  <button ion-button round outline color="danger" (click)="logout()">
+  <!-- <button ion-button round outline color="danger" (click)="logout()">
     <ion-icon name="log-out"></ion-icon>ออกจากระบบ
-  </button>
+  </button> -->
 
 </ion-content>
