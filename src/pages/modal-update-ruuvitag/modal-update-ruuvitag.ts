@@ -18,15 +18,15 @@ export class ModalUpdateRuuvitagPage {
   public resposeData: any;
 
   public dataSet = [];
-  public feed_id: any;
-  public feed: any;
+  public device_id: any;
+  public device_mac: any;
   public device_name1: any;
   public device_des1: any;
   userPostData = {
     user_id: "",
     token: "",
-    feed: "",
-    feed_id: "",
+    device_mac: "",
+    device_id: "",
     device_name: "",
     device_des: ""
   };
@@ -46,20 +46,20 @@ export class ModalUpdateRuuvitagPage {
 
   ionViewDidLoad() {
     this.dataSet = this.navParams.get("data");
-    this.feed_id = this.navParams.get("data2");
-    this.feed = this.navParams.get("data3");
+    this.device_id = this.navParams.get("data2");
+    this.device_mac = this.navParams.get("data3");
     this.device_name1 = this.navParams.get("data4");
     this.device_des1 = this.navParams.get("data5");
 
     console.log(this.dataSet);
-    console.log(this.feed_id);
-    console.log(this.feed);
+    console.log(this.device_id);
+    console.log(this.device_mac);
     console.log(this.device_name1);
     console.log(this.device_des1);
   }
 
-  feedUpdate() {
-    if (this.feed_id > 0) {
+  deviceUpdate() {
+    if (this.device_id > 0) {
       console.log(this.device_name1);
       console.log(this.device_des1);
       let alert = this.alertCtrl.create({
@@ -77,17 +77,17 @@ export class ModalUpdateRuuvitagPage {
             text: "ยืนยัน",
             handler: () => {
               this.common.presentLoading();
-              this.userPostData.feed_id = this.feed_id;
+              this.userPostData.device_id = this.device_id;
               this.userPostData.device_name = this.device_name1;
               this.userPostData.device_des = this.device_des1;
               this.sensorsApiProvider
-                .postData(this.userPostData, "feedUpdate")
+                .postData(this.userPostData, "deviceUpdate")
                 .then(
                   result => {
                     this.resposeData = result;
                     console.log(result);
-                    if (this.resposeData.feedData) {
-                      this.dataSet = this.resposeData.feedData;
+                    if (this.resposeData.deviceData) {
+                      this.dataSet = this.resposeData.deviceData;
                       this.viewCtrl.dismiss(this.dataSet);
                       this.common.closeLoading();
                     } else {

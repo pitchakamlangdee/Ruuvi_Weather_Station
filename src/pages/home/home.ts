@@ -18,7 +18,7 @@ export class HomePage {
   public userDetails: any;
   public resposeDataMac: any;
   public dataMac = [];
-  userPostData = { user_id: "", token: "", feed: "", feed_id: "" };
+  userPostData = { user_id: "", token: "", device_mac: "", device_id: "" };
   //numbers = ["a", "b", "c", "d", "e"];
 
   constructor(

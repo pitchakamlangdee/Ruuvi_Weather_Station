@@ -35,8 +35,8 @@ export class AccountPage {
   userPostData = {
     user_id: "",
     token: "",
-    feed: "",
-    feed_id: "",
+    device_mac: "",
+    device_id: "",
     device_name: "",
     device_des: ""
   };
@@ -59,14 +59,14 @@ export class AccountPage {
     this.displayAccount();
   }
 
-  getFeed() {
+  getDevice() {
     // this.common.presentLoading();
-    this.sensorsApiProvider.postData(this.userPostData, "feed").then(
+    this.sensorsApiProvider.postData(this.userPostData, "device").then(
       result => {
         this.resposeData = result;
-        if (this.resposeData.feedData) {
+        if (this.resposeData.deviceData) {
           // this.common.closeLoading();
-          this.dataSet = this.resposeData.feedData;
+          this.dataSet = this.resposeData.deviceData;
           console.log(this.dataSet);
         } else {
           console.log("No access");
@@ -78,8 +78,8 @@ export class AccountPage {
     );
   }
 
-  // feedUpdate() {
-  //   if (this.userPostData.feed) {
+  // devicesUpdate() {
+  //   if (this.userPostData.devices) {
   //     let alert = this.alertCtrl.create({
   //       title: "ADD",
   //       message: "คุณต้องการจะเพิ่มข้อมูล Mac Address หรือไม่?",
@@ -97,16 +97,16 @@ export class AccountPage {
   //           handler: () => {
 
   //             this.sensorsApiProvider
-  //               .postData(this.userPostData, "feedUpdate")
+  //               .postData(this.userPostData, "devicesUpdate")
   //               .then(
   //                 result => {
   //                   this.resposeData = result;
   //                   if (this.dataSet == undefined) {
-  //                     this.dataSet[0] = this.userPostData.feed;
+  //                     this.dataSet[0] = this.userPostData.devices;
   //                   }
-  //                   else if (this.resposeData.feedData && this.dataSet ) {
+  //                   else if (this.resposeData.devicesData && this.dataSet ) {
   //                     this.common.presentLoading();
-  //                     this.dataSet.unshift(this.resposeData.feedData);
+  //                     this.dataSet.unshift(this.resposeData.devicesData);
   //                     console.log(this.dataSet);
   //                     this.common.closeLoading();
   //                   }
@@ -144,18 +144,18 @@ export class AccountPage {
     addMacModal.present();
   }
 
-  openModalUpdateRuuvitag(feed_id, feed, device_name, device_des) {
+  openModalUpdateRuuvitag(device_id, device_mac, device_name, device_des) {
     const myModalOptions2: ModalOptions = {
       enableBackdropDismiss: true
     };
     let updateRuuvitagModal: Modal = this.modalCtrl.create(
       "ModalUpdateRuuvitagPage",
-      { data:this.dataSet, data2:feed_id, data3:feed, data4:device_name, data5:device_des},
+      { data:this.dataSet, data2:device_id, data3:device_mac, data4:device_name, data5:device_des},
       myModalOptions2
     );
     updateRuuvitagModal.onDidDismiss(data => {
       console.log(data);
-      this.getFeed();
+      this.getDevice();
     });
     updateRuuvitagModal.present();
   }
@@ -185,8 +185,8 @@ export class AccountPage {
   //   })
   // }
 
-  feedDelete(feed_id, msgIndex) {
-    if (feed_id > 0) {
+  deviceDelete(device_id, msgIndex) {
+    if (device_id > 0) {
       let alert = this.alertCtrl.create({
         title: "ลบ Ruuvitag",
         message: "คุณต้องการจะลบข้อมูล Ruuvitag หรือไม่?",
@@ -202,9 +202,9 @@ export class AccountPage {
             text: "ยืนยัน",
             handler: () => {
               this.common.presentLoading();
-              this.userPostData.feed_id = feed_id;
+              this.userPostData.device_id = device_id;
               this.sensorsApiProvider
-                .postData(this.userPostData, "feedDelete")
+                .postData(this.userPostData, "deviceDelete")
                 .then(
                   result => {
                     this.resposeData = result;
@@ -285,7 +285,7 @@ export class AccountPage {
 
   displayAccount(){
     this.common.presentLoading();
-    this.getFeed();
+    this.getDevice();
     this.common.closeLoading();
   }
   // presentToast(msg){

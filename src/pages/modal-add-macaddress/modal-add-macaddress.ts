@@ -25,7 +25,7 @@ export class ModalAddMacaddressPage {
   public userDetails: any;
   public resposeData: any;
   public dataSet = [];
-  userPostData = { user_id: "", token: "", feed: "", feed_id: "", device_name:"", device_des:"" };
+  userPostData = { user_id: "", token: "", device_mac: "", device_id: "", device_name:"", device_des:"" };
 
   constructor(
     public navParams: NavParams,
@@ -53,9 +53,9 @@ export class ModalAddMacaddressPage {
   //   };
   //   this.view.dismiss(data);
   // }
-  feedInsert() {
-    if (this.userPostData.feed) {
-      if(this.userPostData.feed.length == 17){
+  deviceInsert() {
+    if (this.userPostData.device_mac) {
+      if(this.userPostData.device_mac.length == 17){
       let alert = this.alertCtrl.create({
         title: "เพิ่ม Ruuvitag",
         message: "คุณต้องการจะเพิ่มข้อมูล Ruuvitag หรือไม่?",
@@ -73,15 +73,15 @@ export class ModalAddMacaddressPage {
             handler: () => {
               console.log(this.userPostData);
               this.sensorsApiProvider
-                .postData(this.userPostData, "feedInsert")
+                .postData(this.userPostData, "deviceInsert")
                 .then(
                   result => {
                     this.resposeData = result;
                     if (this.dataSet == undefined) {
-                      this.dataSet[0] = this.userPostData.feed;
-                    } else if (this.resposeData.feedData && this.dataSet) {
+                      this.dataSet[0] = this.userPostData.device_mac;
+                    } else if (this.resposeData.deviceData && this.dataSet) {
                       this.common.presentLoading();
-                      this.dataSet.unshift(this.resposeData.feedData);
+                      this.dataSet.unshift(this.resposeData.deviceData);
                       console.log(this.dataSet);
                       this.viewCtrl.dismiss(this.dataSet);
                       this.common.closeLoading();
@@ -107,14 +107,14 @@ export class ModalAddMacaddressPage {
   }
   macSystax() {
     if (
-      this.userPostData.feed.length == 2 ||
-      this.userPostData.feed.length == 5 ||
-      this.userPostData.feed.length == 8 ||
-      this.userPostData.feed.length == 11 ||
-      this.userPostData.feed.length == 14 
+      this.userPostData.device_mac.length == 2 ||
+      this.userPostData.device_mac.length == 5 ||
+      this.userPostData.device_mac.length == 8 ||
+      this.userPostData.device_mac.length == 11 ||
+      this.userPostData.device_mac.length == 14 
     ) {
-      this.userPostData.feed = this.userPostData.feed + ":";
-      console.log(this.userPostData.feed);
+      this.userPostData.device_mac = this.userPostData.device_mac + ":";
+      console.log(this.userPostData.device_mac);
     }
   }
 

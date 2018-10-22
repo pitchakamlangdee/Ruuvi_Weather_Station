@@ -19,7 +19,7 @@
 <ion-content padding>
   <ion-item id="updateBox">']'
     <ion-label fixed>MacAddress</ion-label>
-    <ion-input text-uppercase [(ngModel)]="userPostData.feed" (keypress)="macSystax()" maxlength="17" placeholder="XX:XX:XX:XX:XX:XX"></ion-input>
+    <ion-input text-uppercase [(ngModel)]="userPostData.device_mac" (keypress)="macSystax()" maxlength="17" placeholder="XX:XX:XX:XX:XX:XX"></ion-input>
   </ion-item>
 
   <ion-item >
@@ -38,7 +38,7 @@
 
   <ion-buttons end>
     <button ion-button round outline (click)="closeModal()">ยกเลิก</button>
-    <button ion-button round outline (click)="feedInsert()">เพิ่ม</button>
+    <button ion-button round outline (click)="deviceInsert()">เพิ่ม</button>
   </ion-buttons>
 
 

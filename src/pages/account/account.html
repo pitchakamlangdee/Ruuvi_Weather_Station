@@ -31,7 +31,7 @@
           <!-- <ion-card-content> -->
           <ion-item>
             <ion-label fixed>MacAddress:</ion-label>
-            <ion-input text-uppercase [innerHTML]="item.feed | linky"></ion-input>
+            <ion-input text-uppercase [innerHTML]="item.device_mac | linky"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label fixed>ชื่อ :</ion-label>
@@ -51,10 +51,10 @@
         </ion-col>
         <ion-col>
           <ion-buttons end>
-            <button ion-button color="yellow" round outline solid (click)="openModalUpdateRuuvitag(item.feed_id, item.feed, item.device_name, item.device_des)">
+            <button ion-button color="yellow" round outline solid (click)="openModalUpdateRuuvitag(item.device_id, item.device_mac, item.device_name, item.device_des)">
               <ion-icon name="hammer"></ion-icon>เเก้ไข Ruuvitag
             </button>
-            <button ion-button color="danger" round outline solid (click)="feedDelete(item.feed_id, index)">
+            <button ion-button color="danger" round outline solid (click)="deviceDelete(item.device_id, index)">
               <ion-icon name="trash"></ion-icon>ลบ Ruuvitag
             </button>
           </ion-buttons>
