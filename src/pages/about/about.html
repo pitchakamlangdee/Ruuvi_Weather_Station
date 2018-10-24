@@ -3,7 +3,7 @@
     <ion-item>
         <ion-label>Ruuvitag</ion-label>
         <ion-select [(ngModel)]="selectedItemGraphs" (ionChange)="getGraphsDataDay()">
-          <ion-option *ngFor="let item of dataMac" [value]="item.mac_id">{{item.Name_Ruuvitag}}</ion-option>
+          <ion-option *ngFor="let item of dataMac" [value]="item.mac_id">{{item.device_name}}</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>

@@ -18,14 +18,14 @@ pages = [
 
 ];
  constructor(public navCtrl: NavController, public navParams: NavParams, public common: CommonProvider) {
-this.displayPages();
+//this.displayPages();
   }
 
 
-  displayPages(){
-    this.common.presentLoading();
-    this.pages;
-    this.common.closeLoading();
-  }
+  // displayPages(){
+  //   this.common.presentLoading();
+  //   this.pages;
+  //   this.common.closeLoading();
+  // }
 }
 
