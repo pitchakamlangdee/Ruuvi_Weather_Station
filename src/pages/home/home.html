@@ -6,56 +6,59 @@
       <ion-option *ngFor="let item of select_mac_home"  [value]="item.mac_id" >{{item.Name_Ruuvitag}}</ion-option>
     </ion-select>
   </ion-item> -->
+
   <ion-row>
     <ion-col col-12>
-      <div class="form-group">
-        <ion-label class="content">Select Show Ruuvitag</ion-label>
+      <ion-item no-lines >
+        <ion-label class="content">เลือก Ruuvitag ที่ต้องการ</ion-label>
         <ion-select [(ngModel)]="selectedItem" multiple="true" (ionChange)="getLastDataSensors()" interface="popover"
-          class="selector" placeholder="Select Show Ruuvitag">
+          class="selector" placeholder="เลือก Ruuvitag"  >
           <ion-option *ngFor="let item of dataMac" [value]="item.mac_id" class="option" text-wrap>
             {{item.device_name}}
           </ion-option>
         </ion-select>
-      </div>
+      </ion-item>
+
     </ion-col>
   </ion-row>
 
 
-  <ion-content class="card-background-page">
+
+  <ion-content class="card-background-page"  >
     <!-- <ion-slides pager="true" direction = "vertical" (ionSlideDidChange)="slideChanged()">
       <ion-slide *ngFor="let n of selectedItem ; let i = index"> -->
-    <ion-card *ngFor="let n of sensors_data_last ; let i = index">
-      <img [src] = "images[i].image"/>
-        
-      <div  class="card-title">
+    <ion-card *ngFor="let n of sensors_data_last ; let i = index" >
+      <img [src]="images[i].image" />
+
+      <div class="card-title">
         {{dataMac[i].device_name}}
       </div>
-      <div  class="card-subtitle1">
+      <div class="card-subtitle1">
         <ion-icon color="primary" name="bluetooth"></ion-icon> {{n.mac_id}}
       </div>
       <div class="card-subtitle2">
         <ion-icon color="danger" name="thermometer"></ion-icon> {{n.temperature}} ํC
       </div>
-      
+
       <div class="card-subtitle3">
-        <ion-icon color="water" name="water"></ion-icon> {{n.humidity}} %
+        <ion-icon color="DarkTurquoise" name="water"></ion-icon> {{n.humidity}} %
       </div>
-      
+
       <div class="card-subtitle4">
         <ion-icon color="secondary" name="leaf"></ion-icon> {{n.pressure}} hPa
       </div>
       <br>
       <div class="card-subtitle5">
-        <ion-icon name="clock"></ion-icon> {{n.Time_Stamp}} 
+        <ion-icon name="clock"></ion-icon> {{n.Time_Stamp}}
       </div>
       <div class="card-subtitle6">
-        <ion-icon name="pulse"></ion-icon>  อัพเดตเมื่อ : {{n.Time_Stamp| amTimeAgo}}  
+        <ion-icon name="pulse"></ion-icon> อัพเดตเมื่อ : {{n.Time_Stamp| amTimeAgo}}
       </div>
-      
+
     </ion-card>
     <!-- </ion-slide>
     </ion-slides> -->
-  </ion-content>
+  </ion-content >
   <!-- <ion-content padding class="bg-image" *ngFor="let last_data of sensors_data_last">
       <h1 align='center'>
            {{last_data.Name_Ruuvitag}}

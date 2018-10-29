@@ -1,5 +1,193 @@
-
+<!-- <ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Local Notifications
+        </ion-title>
+    </ion-navbar>
+</ion-header> -->
 
 <ion-content>
- 
+    <ion-row>
+        <ion-col col-12>
+            <ion-item no-lines>
+                <ion-label class="content">เลือก Ruuvitag ที่ต้องการ</ion-label>
+                <ion-select [(ngModel)]="selectedItem" multiple="true" (ionChange)="getLastDataSensors()" interface="popover"
+                    class="selector" placeholder="เลือก Ruuvitag">
+                    <ion-option *ngFor="let item of dataMac " [value]="item.mac_id" class="option" text-wrap>
+                        {{item.device_name}}
+                    </ion-option>
+                </ion-select>
+            </ion-item>
+
+        </ion-col>
+    </ion-row>
+
+    <ion-card *ngFor="let n of sensors_data_last ; let i = index">
+
+        <ion-card-header class="borderCardHeader" class="item-content">
+            <ion-item class="item-content">
+                <ion-avatar item-start>
+                    <img [src]="images[i].image">
+                </ion-avatar>
+                <h1>{{dataMac[i].device_name}}</h1>
+            </ion-item>
+        </ion-card-header>
+
+        <ion-card-content class="borderCardContent">
+            <ion-list>
+                <ion-item>
+                    <ion-icon color="danger" name="thermometer" item-start end></ion-icon>
+                    <h1>อุณหภูมิ </h1>
+                </ion-item>
+                <ion-item text-wrap>
+                    <ion-label class="textSize">
+                        <ion-icon color="lughtgrey" name="lock" item-start></ion-icon>สถานะเเจ้งเตือน
+                        <button class="fixButton" ion-button round color="danger">{{display}}</button>
+                    </ion-label>
+                    <ion-toggle [(ngModel)]="check" (ionChange)="addNotificationHumidity()"></ion-toggle>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize">
+                        <ion-icon color="yellow" name="notifications" item-start floating></ion-icon>เเจ้งเตือนเมื่ออุณหภูมิ
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize" color="danger">
+                        <ion-icon color="yellow" name="trending-up" item-start floating></ion-icon>มากกว่า
+                        <button class="fixButton" ion-button round color="danger" end>{{knobValuesTemperature[i].upper}}</button>
+                        °C
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon item-start end></ion-icon>
+                    <div>
+                        หรือ
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize" color="danger">
+                        <ion-icon color="yellow" name="trending-down" item-start floating></ion-icon>น้อยกว่า
+                        <button class="fixButton" ion-button round color="danger" end>{{knobValuesTemperature[i].lower}}</button>
+                        °C
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-range dualKnobs="true" pin="true" min="-200" max="200" [(ngModel)]="knobValuesTemperature[i]"
+                        (ionChange)="test(knobValuesTemperature[i].upper,knobValuesTemperature[i].lower)" color="danger">
+                        <ion-icon name="" range-left></ion-icon>
+                        <ion-label range-left>-200</ion-label>
+                        <ion-label range-right>200</ion-label>
+                    </ion-range>
+                </ion-item>
+            </ion-list><!-- end of Temperature  -->
+
+            <ion-list>
+                <ion-item>
+                    <ion-icon color="DarkTurquoise" name="water" item-start end></ion-icon>
+                    <h1>ความชื้น </h1>
+                </ion-item>
+                <ion-item text-wrap>
+                    <ion-label class="textSize">
+                        <ion-icon color="lughtgrey" name="lock" item-start floating></ion-icon>สถานะเเจ้งเตือน
+                        <button class="fixButton" ion-button round color="DarkTurquoise" end>{{checkStatusHumidity[i]}}</button>
+                    </ion-label>
+                    <ion-toggle [(ngModel)]="checkStatusHumidity[i]"></ion-toggle>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize">
+                        <ion-icon color="yellow" name="notifications" item-start floating></ion-icon>เเจ้งเตือนเมื่อความชื้น
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize" color="DarkTurquoise">
+                        <ion-icon color="yellow" name="trending-up" item-start floating></ion-icon>มากกว่า
+                        <button class="fixButton" ion-button round color="DarkTurquoise" end>{{knobValuesHumidity[i].upper}}</button>
+                        %
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon item-start end></ion-icon>
+                    <div>
+                        หรือ
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize" color="DarkTurquoise">
+                        <ion-icon color="yellow" name="trending-down" item-start floating></ion-icon>น้อยกว่า
+                        <button class="fixButton" ion-button round color="DarkTurquoise" end>{{knobValuesHumidity[i].lower}}</button>
+                        %
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-range dualKnobs="true" pin="true" min="-200" max="200" [(ngModel)]="knobValuesHumidity[i]"
+                        (ionChange)="test()" color="DarkTurquoise">
+                        <ion-icon name="" range-left></ion-icon>
+                        <ion-label range-left>-200</ion-label>
+                        <ion-label range-right>200</ion-label>
+                    </ion-range>
+                </ion-item>
+            </ion-list><!-- end of Humidity  -->
+
+            <ion-list>
+                <ion-item>
+                    <ion-icon color="secondary" name="leaf" item-start end></ion-icon>
+                    <h1>ความดันอากาศ </h1>
+                </ion-item>
+                <ion-item text-wrap>
+                    <ion-label class="textSize">
+                        <ion-icon color="lughtgrey" name="lock" item-start floating></ion-icon>สถานะเเจ้งเตือน
+                        <button class="fixButton" ion-button round color="secondary" end>{{checkStatusPressure[i]}}</button>
+                    </ion-label>
+                    <ion-toggle [(ngModel)]="checkStatusPressure[i]"></ion-toggle>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize">
+                        <ion-icon color="yellow" name="notifications" item-start floating></ion-icon>เเจ้งเตือนเมื่อความดันอากาศ
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize" color="secondary">
+                        <ion-icon color="yellow" name="trending-up" item-start floating></ion-icon>มากกว่า
+                        <button class="fixButton" ion-button round color="secondary" end>{{knobValuesPressure[i].upper}}</button>
+                        hPa
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                        <ion-icon  item-start end></ion-icon>
+                    <div>
+                        หรือ
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="textSize" color="secondary">
+                        <ion-icon color="yellow" name="trending-down" item-start floating></ion-icon>น้อยกว่า
+                        <button class="fixButton" ion-button round color="secondary" end>{{knobValuesPressure[i].lower}}</button>
+                        hPa
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-range dualKnobs="true" pin="true" min="-200" max="200" [(ngModel)]="knobValuesPressure[i]"
+                        (ionChange)="test()" color="secondary">
+                        <ion-icon name="" range-left></ion-icon>
+                        <ion-label range-left>-200</ion-label>
+                        <ion-label range-right>200</ion-label>
+                    </ion-range>
+                </ion-item>
+            </ion-list><!-- end of Pressure  -->
+        </ion-card-content>
+
+    </ion-card>
+    <!-- <ion-item>
+        <ion-label fixed>check</ion-label>
+        <ion-input [(ngModel)]="check"></ion-input>
+    </ion-item>
+    <button ion-button full (click)="addNotification()">Add a Notification!</button>
+    <ion-item> -->
+    <!-- <ion-item>
+        <ion-label>Pepperoni</ion-label>
+        <ion-toggle [(ngModel)]="check" (ionChange)="addNotification()"></ion-toggle>
+    </ion-item> -->
+
+
+
 </ion-content>

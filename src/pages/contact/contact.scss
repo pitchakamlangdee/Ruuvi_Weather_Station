@@ -1,3 +1,154 @@
 page-contact {
+    // .bg-image {
+    //     background-image: url(../../assets/imgs/tree.jpg);
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //     //background-size: contain;
+    //   }
+      h1 {
+        color: #050100;
+        font-weight: bold;
+        font-family: SFNSDisplay;
+        
+      }
+      h2 {
+        color: #050100;
+        font-weight: bold;
+        font-family: SFNSDisplay;
+        
+      }
+      .selector {
+        font-family: SFNSDisplay;
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: 0.1px;
+        color: #29235e;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center;
+        border: solid 2px #e8ebf0;
+        background-color: #ffffff;
+        text-align: center;
+      }
+      .option {
+        font-family: SFNSDisplay;
+        font-size: 8px;
+        line-height: 1.2;
+        letter-spacing: 0.1px;
+        color: #29235e;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center;
+        height: 20px;
+      }
+    
+      ion-option .list {
+        font-family: SFNSDisplay;
+        font-size: 8px !important;
+        max-width: 100% !important;
+      }
+      .ion-option-items .item {
+        font-family: SFNSDisplay;
+        font-size: 8px !important;
+        max-width: 100% !important;
+      }
+      .select-popover {
+        font-family: SFNSDisplay !important;
+        font-size: 8px !important;
+        max-width: 100% !important;
+      }
+    .fixButton{
+      width: 25px;
+      height: 30px;
+    }
+      .textSize{
+        // $font-family-md-base: "Lato";
+        // $font-family-ios-base: "Lato";
+        // $font-family-wp-base: "Lato";
+        font-size: 16px !important;
+      }
+
+      // .borderCardContent{
+      //   border-left: 1px solid grey !important;
+      //   border-right: 1px solid grey !important;
+      //   border-bottom: 2px solid grey !important;
+      //   border-radius: 10px;
+      // }
+
+      // .borderCardHeader{
+      //   border-left: 1px solid grey !important;
+      //   border-right: 1px solid grey !important;
+      //   border-top: 1px solid grey !important;
+      // }
+      .item-content {
+        background-color:Skyblue;
+      }
+      
+      ion-card.card{
+        border-top: 1px solid grey !important;
+        border-left: 1px solid grey !important;
+        border-right: 1px solid grey !important;
+        border-bottom: 1px solid grey !important;
+        border-radius: 10px;
+    }
+
+      .card-background-page {
+        ion-card {
+          position: relative;
+          text-align: center;
+        }
+    
+        .card-title {
+          position: absolute;
+          top: 5%;
+          font-size: 2em;
+          width: 100%;
+          font-weight: bold;
+          color: #fff;
+        }
+    
+        .card-subtitle1 {
+          font-size: 1em;
+          position: absolute;
+          top: 18%;
+          width: 100%;
+          color: #fff;
+        }
+        .card-subtitle2 {
+            font-size: 1em;
+            position: absolute;
+            top: 30%;
+            width: 100%;
+            color: #fff;
+          }
+          .card-subtitle3 {
+            font-size: 1em;
+            position: absolute;
+            top: 42%;
+            width: 100%;
+            color: #fff;
+          }
+          .card-subtitle4 {
+            font-size: 1em;
+            position: absolute;
+            top: 54%;
+            width: 100%;
+            color: #fff;
+          }
+          .card-subtitle5 {
+            font-size: 1em;
+            position: absolute;
+            top: 66%;
+            width: 100%;
+            color: #fff;
+          }
+          .card-subtitle6 {
+            font-size: 1em;
+            position: absolute;
+            top: 78%;
+            width: 100%;
+            color: #fff;
+          }
+      }
 
 }

@@ -20,6 +20,8 @@ import { SensorsApiProvider } from '../providers/sensors-api/sensors-api';
 import { MomentModule} from 'angular2-moment';
 import { LinkyModule} from 'angular-linky';
 import { CommonProvider } from '../providers/common/common';
+import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
+
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { CommonProvider } from '../providers/common/common';
   providers: [
     StatusBar,
     SplashScreen,
+    PhonegapLocalNotification,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SensorsApiProvider,
     CommonProvider

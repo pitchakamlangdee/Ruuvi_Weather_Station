@@ -32,6 +32,7 @@ export class HomePage {
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
+    
   }
   ionViewDidLoad() {
     this.getMacSelectHome();
@@ -70,7 +71,7 @@ export class HomePage {
 
   getLastDataSensors() {
     if (this.selectedItem.length > 0) {
-    this.common.presentLoading();
+    // this.common.presentLoading();
     this.sensors_data_last = [this.selectedItem.length];
     console.log(this.sensors_data_last);
     for (let i in this.selectedItem) {
@@ -82,9 +83,14 @@ export class HomePage {
           console.log(this.sensors_data_last[i]);
         });
      }
-    this.common.closeLoading();
+     
+    // this.common.closeLoading();
     }
   }
+
+  // setDataToLocal(){
+  //   localStorage.setItem("sensorsDataLast", JSON.stringify(this.sensors_data_last));
+  // }
 
   getCheckLastDataSensors() {
     
@@ -116,12 +122,14 @@ export class HomePage {
       if(this.check_sensors_data_last[a].Time_Stamp > this.sensors_data_last[a].Time_Stamp){
           check = true;
           console.log(check);
+          
         }else{
           console.log("No Data");
           //check = false;
         }
       }
     if(check == true){
+      localStorage.setItem("checkSensorsDataLast", JSON.stringify(this.check_sensors_data_last));
       console.log("Check > 0");
       this.check_sensors_data_last = [];
       this.sensors_data_last = [];
@@ -131,12 +139,12 @@ export class HomePage {
   }
 
 
-  slideChanged() {
-    //this.slides.slidePrev(0);
-    let currentIndex = this.slides.getActiveIndex();
+  // slideChanged() {
+  //   //this.slides.slidePrev(0);
+  //   let currentIndex = this.slides.getActiveIndex();
 
-    console.log("Current index is", currentIndex);
-  }
+  //   console.log("Current index is", currentIndex);
+  // }
 
   images = [
     { title: "Home", image: "assets/imgs/maple_background.jpg" },

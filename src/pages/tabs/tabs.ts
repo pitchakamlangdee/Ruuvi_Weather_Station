@@ -14,18 +14,18 @@ export class TabsPage {
 pages = [
     { pageName: HomePage, title: "Home", icon:"home", id: "homeTab"},
     { pageName: AboutPage, title: "Graphs", icon:"stats", id: "aboutTab"},
-    { pageName: ContactPage, title: "Contact", icon:"body", id: "contactTab"}
+    { pageName: ContactPage, title: "Alert", icon:"notifications", id: "contactTab"}
 
 ];
  constructor(public navCtrl: NavController, public navParams: NavParams, public common: CommonProvider) {
-//this.displayPages();
+this.displayPages();
   }
 
 
-  // displayPages(){
-  //   this.common.presentLoading();
-  //   this.pages;
-  //   this.common.closeLoading();
-  // }
+  displayPages(){
+    this.common.presentLoading();
+    this.pages;
+    this.common.closeLoading();
+  }
 }
 
