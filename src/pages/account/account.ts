@@ -209,8 +209,9 @@ export class AccountPage {
                   result => {
                     this.resposeData = result;
                     if (this.resposeData.success) {
+                      this.getDevice();
                       this.common.closeLoading();
-                      this.dataSet.splice(msgIndex, 1);
+                      // this.dataSet.splice(msgIndex, 1);
                     } else {
                       console.log("No access");
                     }

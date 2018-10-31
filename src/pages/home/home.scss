@@ -49,63 +49,91 @@ page-home {
     max-width: 100% !important;
   }
 
-  
+  h1 {
+    color: #050100;
+    font-weight: bold;
+    font-family: SFNSDisplay;
+  }
+
+  ion-card.card {
+    border-top: 1px solid grey !important;
+    border-left: 1px solid grey !important;
+    border-right: 1px solid grey !important;
+    border-bottom: 1px solid grey !important;
+    border-radius: 10px;
+  }
+
   .card-background-page {
-    ion-card {
+    ion-list {
       position: relative;
       text-align: center;
+      // -webkit-text-stroke-width: 0.25px;
+      // -webkit-text-stroke-color: rgb(0, 0, 0);
+
+      border-radius: 10px;
     }
 
-    .card-title {
-      position: absolute;
-      top: 5%;
-      font-size: 2em;
-      width: 100%;
-      font-weight: bold;
-      color: #fff;
-    }
+    // .card-title {
+    //   font-family: SFNSDisplay;
+    //   position: absolute;
+    //   top: 5%;
+    //   font-size: 2em;
+    //   width: 100%;
+    //   font-weight: bold;
+    //   color: #fff;
+    // }
 
     .card-subtitle1 {
-      font-size: 1em;
+      font-size: 1.7em;
       position: absolute;
-      top: 18%;
+      top: 10%;
       width: 100%;
       color: #fff;
     }
     .card-subtitle2 {
-        font-size: 1em;
-        position: absolute;
-        top: 30%;
-        width: 100%;
-        color: #fff;
-      }
-      .card-subtitle3 {
-        font-size: 1em;
-        position: absolute;
-        top: 42%;
-        width: 100%;
-        color: #fff;
-      }
-      .card-subtitle4 {
-        font-size: 1em;
-        position: absolute;
-        top: 54%;
-        width: 100%;
-        color: #fff;
-      }
-      .card-subtitle5 {
-        font-size: 1em;
-        position: absolute;
-        top: 66%;
-        width: 100%;
-        color: #fff;
-      }
-      .card-subtitle6 {
-        font-size: 1em;
-        position: absolute;
-        top: 78%;
-        width: 100%;
-        color: #fff;
-      }
+      font-size: 1.7em;
+      position: absolute;
+      top: 30%;
+      width: 100%;
+      color: #fff;
+    }
+    .card-subtitle3 {
+      font-size: 1.7em;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      color: #fff;
+    }
+    .card-subtitle4 {
+      font-size: 1.2em;
+      position: absolute;
+      top: 65%;
+      width: 100%;
+      color: #fff;
+    }
+    .card-subtitle5 {
+      font-size: 1.1em;
+      position: absolute;
+      top: 78%;
+      width: 100%;
+      color: #fff;
+    }
+    .card-subtitle6 {
+      font-size: 1.5em;
+      position: absolute;
+      top: 78%;
+      width: 100%;
+      color: #fff;
+    }
+    .item1 {
+      position: absolute;
+      top: 20%;
+      left: 80%;
+      width: 15%;
+      height: 10%;
+      opacity: 0.8;
+      text-align: center;
+      border-radius: 10px;
+    }
   }
 }

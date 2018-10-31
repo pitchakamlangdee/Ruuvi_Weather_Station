@@ -70,6 +70,22 @@ export class SensorsApiProvider {
 
   }
 
+  
+
+  // postLastData(credentials,selectedItemTotal, type){
+
+  //   return new Promise((resolve, reject) =>{
+  //     let headers = new Headers();
+  //     this.httpp.post(apiTest+type, JSON.stringify(credentials,selectedItemTotal)).subscribe(res =>{
+  //       resolve(res.json());
+  //     },(err) =>{
+  //       reject(err);
+  //     });
+  //   });
+
+
+  // }
+
 
 
 }

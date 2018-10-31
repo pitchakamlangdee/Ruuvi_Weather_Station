@@ -94,3 +94,8 @@ $toolbar-background: color($colors, Skyblue);
 
 @import "roboto";
 @import "noto-sans";
+
+@import url('https://fonts.googleapis.com/css?family=Kanit');
+*{
+  font-family: 'Kanit', sans-serif;
+}
