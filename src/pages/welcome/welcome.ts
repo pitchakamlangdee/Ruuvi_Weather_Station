@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
-import { TabsPage } from '../tabs/tabs';
+import { HomePage } from "../home/home";
+// import { TabsPage } from '../tabs/tabs';
 /**
  * Generated class for the WelcomePage page.
  *
@@ -19,7 +20,7 @@ export class WelcomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   if(localStorage.getItem("userData")){
-      this.navCtrl.setRoot(TabsPage);  
+      this.navCtrl.setRoot(HomePage);  
   }
   }
 

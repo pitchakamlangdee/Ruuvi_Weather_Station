@@ -1,3 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>หน้าหลัก</ion-title>
+  </ion-toolbar>
+  
+  <ion-toolbar>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item no-lines color="Skyblue" >
+          <ion-label class="content" >เลือก Ruuvitag ที่ต้องการเเสดง</ion-label>
+          <ion-select  [(ngModel)]="selectedItem" multiple="true" (ionChange)="getLastDataSensors()" interface="popover"
+            class="selector"  placeholder="เลือก Ruuvitag " [selectedText]="selectedItemLength">
+            <ion-option *ngFor="let item of dataMac" [value]="item.mac_id" class="option" text-wrap>
+              {{item.device_name}}
+            </ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
 
   <!-- <ion-item>
@@ -7,7 +31,7 @@
     </ion-select>
   </ion-item> -->
 
-  <ion-row>
+  <!-- <ion-row>
     <ion-col col-12>
       <ion-item no-lines>
         <ion-label class="content">เลือก Ruuvitag ที่ต้องการ</ion-label>
@@ -20,34 +44,52 @@
       </ion-item>
 
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
 
 
-  <ion-content >
+  <ion-content>
     <!-- <ion-slides pager="true" direction = "vertical" (ionSlideDidChange)="slideChanged()">
       <ion-slide *ngFor="let n of selectedItem ; let i = index"> -->
     <ion-card class="card-background-page" *ngFor="let n of sensors_data_last ; let i = index">
-      <ion-card-header>
-          <ion-item >
-              <ion-avatar item-start>
-                  <img [src]="images[i].image">
-              </ion-avatar>
-              <h1>{{n.device_name}}</h1>
+      <ion-list>
+        <ion-item-sliding #item>
+          <ion-item>
+            <ion-avatar item-start>
+              <img [src]="images[i].image">
+            </ion-avatar>
+            <h1>{{n.device_name}}</h1>
           </ion-item>
-      </ion-card-header>
+          <!-- <ion-item-options side="left">
+            <button ion-button (click)="favorite(item)">Favorite</button>
+            <button ion-button color="danger" (click)="share(item)">Share</button>
+          </ion-item-options> -->
+
+          <ion-item-options side="right" icon-start>
+            <button ion-button (click)="unread(item)" color="Skyblue">
+              <ion-icon name="stats" color="lughtgrey"></ion-icon>
+              สภาพอากาศย้อนหลัง
+            </button>
+            <button ion-button (click)="archive(item)" color="danger">
+              <ion-icon name="notifications" color="yellow"></ion-icon>
+              การเเจ้งเตือน
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+
+      </ion-list>
 
       <ion-list>
         <img [src]="images[i].image" />
         <!-- <div class="card-title">
           {{n.device_name}}
         </div> -->
-      
-        <div class="card-subtitle1" floating >
+
+        <div class="card-subtitle1" floating>
           <ion-icon color="danger" name="thermometer"></ion-icon> อุณหภูมิ : {{n.temperature}} °C
         </div>
 
-        <div class="card-subtitle2" floating >
+        <div class="card-subtitle2" floating>
           <ion-icon color="DarkTurquoise" name="water"></ion-icon> ความชื้น : {{n.humidity}} %
         </div>
 

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
-import { TabsPage } from "../tabs/tabs";
+// import { TabsPage } from "../tabs/tabs";
+import { HomePage } from "../home/home";
 import { LoginPage } from "../login/login";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 
@@ -45,7 +46,7 @@ export class SignupPage {
 
           if(this.resposeData.userData){
             localStorage.setItem("userData", JSON.stringify(this.resposeData));
-          this.navCtrl.push(TabsPage);
+          this.navCtrl.push(HomePage);
             this.presentToast("Login Sucess !");
           }
           else{

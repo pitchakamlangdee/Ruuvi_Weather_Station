@@ -16,6 +16,7 @@ export class HomePage {
   sensors_data_last :any;
   check_sensors_data_last: any;
   selectedItem : any;
+  selectedItemLength : string;
   selectedItemTotal = [];
 
   public userDetails: any;
@@ -34,6 +35,7 @@ export class HomePage {
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
+    
     // this.getMacSelectHome();
   }
   ionViewDidLoad() {
@@ -58,10 +60,11 @@ export class HomePage {
           console.log("No access");
         }
         this.selectedItem = this.dataMac;
+        
         // for (let a in this.dataMac) {
         //   this.selectedItem[a] = this.dataMac[a].mac_id;
         // }
-        console.log(this.selectedItem);
+        
 
         this.getFirstLastDataSensors();
       },
@@ -71,6 +74,9 @@ export class HomePage {
     );
   }
   getFirstLastDataSensors() {
+    this.selectedItemLength = "เเสดง Ruuvitag จำนวน"
+    this.selectedItemLength = this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
+    console.log(this.selectedItemLength);
     console.log(this.selectedItemTotal);
     if (this.selectedItem.length > 0) {
       // this.common.presentLoading();
@@ -113,6 +119,9 @@ export class HomePage {
   }
 
   getLastDataSensors() {
+    this.selectedItemLength = "เเสดง Ruuvitag จำนวน"
+    this.selectedItemLength = this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
+    console.log(this.selectedItemLength);
     console.log(this.selectedItemTotal);
     if (this.selectedItem.length > 0) {
       // this.common.presentLoading();

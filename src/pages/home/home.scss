@@ -8,6 +8,13 @@ page-home {
   h1 {
     color: #050100;
   }
+
+  //start select
+  .textLabel{
+    font-size: 2em;
+      width: 100%;
+      font-weight: bold;
+  }
   .selector {
     font-family: SFNSDisplay;
     font-size: 12px;
@@ -48,11 +55,16 @@ page-home {
     font-size: 8px !important;
     max-width: 100% !important;
   }
+  //end select
 
   h1 {
     color: #050100;
     font-weight: bold;
     font-family: SFNSDisplay;
+  
+  }
+  .input-cover {
+    pointer-events: auto;
   }
 
   ion-card.card {
@@ -60,7 +72,7 @@ page-home {
     border-left: 1px solid grey !important;
     border-right: 1px solid grey !important;
     border-bottom: 1px solid grey !important;
-    border-radius: 10px;
+    // border-radius: 10px;
   }
 
   .card-background-page {
