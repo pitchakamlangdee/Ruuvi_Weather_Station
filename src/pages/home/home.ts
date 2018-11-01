@@ -1,27 +1,34 @@
-import { Component, ViewChild } from "@angular/core";
-import { NavController, Slides } from "ionic-angular";
+import { Component } from "@angular/core";
+import {
+  NavController,
+  ModalController,
+  ModalOptions,
+  Modal
+} from "ionic-angular";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
+import { AboutPage } from "../about/about";
+import { ContactPage } from "../contact/contact";
 
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
 })
 export class HomePage {
-  @ViewChild(Slides)
-  slides: Slides;
+  // @ViewChild(Slides)
+  // slides: Slides;
   // numbers = [0, 1, 2];
   // firstLoad = true;
   select_mac_home: any;
-  sensors_data_last :any;
+  sensors_data_last: any;
   check_sensors_data_last: any;
-  selectedItem : any;
-  selectedItemLength : string;
+  selectedItem: any;
+  selectedItemLength: string;
   selectedItemTotal = [];
 
   public userDetails: any;
   public resposeDataMac: any;
-  public resposeLastData : any;
+  public resposeLastData: any;
   public dataMac = [];
   userPostData = { user_id: "", token: "", device_mac: "", device_id: "" };
   //numbers = ["a", "b", "c", "d", "e"];
@@ -29,13 +36,14 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public sensorsApiProvider: SensorsApiProvider,
-    public common: CommonProvider
+    public common: CommonProvider,
+    private modalCtrl: ModalController
   ) {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
-    
+
     // this.getMacSelectHome();
   }
   ionViewDidLoad() {
@@ -60,11 +68,10 @@ export class HomePage {
           console.log("No access");
         }
         this.selectedItem = this.dataMac;
-        
+
         // for (let a in this.dataMac) {
         //   this.selectedItem[a] = this.dataMac[a].mac_id;
         // }
-        
 
         this.getFirstLastDataSensors();
       },
@@ -74,19 +81,19 @@ export class HomePage {
     );
   }
   getFirstLastDataSensors() {
-    this.selectedItemLength = "เเสดง Ruuvitag จำนวน"
-    this.selectedItemLength = this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
+    this.selectedItemLength = "เเสดง Ruuvitag จำนวน";
+    this.selectedItemLength =
+      this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
     console.log(this.selectedItemLength);
     console.log(this.selectedItemTotal);
     if (this.selectedItem.length > 0) {
       // this.common.presentLoading();
       this.sensors_data_last = this.selectedItem;
-      
+
       this.selectedItemTotal = [this.selectedItem.length];
       console.log(this.sensors_data_last);
 
       for (let i in this.selectedItem) {
-
         this.selectedItemTotal[i] = {
           selected: this.selectedItem[i].mac_id,
           user_id: this.userPostData.user_id,
@@ -104,7 +111,9 @@ export class HomePage {
 
               if (this.resposeLastData.sensorLastData) {
                 // this.common.closeLoading();
-                this.sensors_data_last[i] = this.resposeLastData.sensorLastData[0];
+                this.sensors_data_last[
+                  i
+                ] = this.resposeLastData.sensorLastData[0];
                 console.log(this.sensors_data_last[i]);
               } else {
                 console.log("No access");
@@ -119,8 +128,9 @@ export class HomePage {
   }
 
   getLastDataSensors() {
-    this.selectedItemLength = "เเสดง Ruuvitag จำนวน"
-    this.selectedItemLength = this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
+    this.selectedItemLength = "เเสดง Ruuvitag จำนวน";
+    this.selectedItemLength =
+      this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
     console.log(this.selectedItemLength);
     console.log(this.selectedItemTotal);
     if (this.selectedItem.length > 0) {
@@ -131,7 +141,6 @@ export class HomePage {
       console.log(this.sensors_data_last);
 
       for (let i in this.selectedItem) {
-
         this.selectedItemTotal[i] = {
           selected: this.selectedItem[i],
           user_id: this.userPostData.user_id,
@@ -149,7 +158,9 @@ export class HomePage {
 
               if (this.resposeLastData.sensorLastData) {
                 // this.common.closeLoading();
-                this.sensors_data_last[i] = this.resposeLastData.sensorLastData[0];
+                this.sensors_data_last[
+                  i
+                ] = this.resposeLastData.sensorLastData[0];
                 console.log(this.sensors_data_last[i]);
               } else {
                 console.log("No access");
@@ -214,6 +225,32 @@ export class HomePage {
       this.getLastDataSensors();
       check = false;
     }
+  }
+
+  openModalGraphs() {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: true
+    };
+    let graphsModal: Modal = this.modalCtrl.create(
+      AboutPage,{ data: this.sensors_data_last },myModalOptions
+      );
+    graphsModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    graphsModal.present();
+  }
+
+  openModalNotifications(device_id, device_mac, device_name, device_des, image) {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: true
+    };
+    let notificationsModal: Modal = this.modalCtrl.create(
+      "ModalNotificationsPage",{ data:device_id, data2:device_mac, data3:device_name, data4:device_des, data5:image },myModalOptions
+      );
+      notificationsModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    notificationsModal.present();
   }
 
   // slideChanged() {

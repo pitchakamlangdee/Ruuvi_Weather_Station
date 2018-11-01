@@ -7,6 +7,10 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button color="Skyblue" (click)="closeModal()">
+      <ion-icon name="backspace" color="lughtgrey"></ion-icon>
+    </button>
+
     <ion-title>เเก้ไข Ruuvitag</ion-title>
     <!-- <ion-buttons end>
       <button ion-button (click)="closeModal()">Close</button>
@@ -22,12 +26,12 @@
     <ion-input text-uppercase [(ngModel)]="userPostData.device_mac" (keypress)="macSystax()" maxlength="17" placeholder="F4:CC:8D:5E:45:23"></ion-input>
   </ion-item> -->
 
-  
-    <ion-item>
-      <ion-label fixed boild>Mac Address</ion-label>
-      <ion-input text-uppercase disable value={{device_mac}} maxlength="17" disabled></ion-input>
-    </ion-item>
-    <ion-item>
+
+  <ion-item>
+    <ion-label fixed boild>Mac Address</ion-label>
+    <ion-input text-uppercase disable value={{device_mac}} maxlength="17" disabled></ion-input>
+  </ion-item>
+  <ion-item>
     <ion-label fixed>Name</ion-label>
     <ion-input [(ngModel)]="device_name1" placeholder={{device_name1}}></ion-input>
   </ion-item>
@@ -42,7 +46,7 @@
 
 
   <ion-buttons end>
-    <button ion-button round outline (click)="closeModal()">ยกเลิก</button>
+    <!-- <button ion-button round outline (click)="closeModal()">ยกเลิก</button> -->
     <button ion-button round outline (click)="deviceUpdate()">เเก้ไข</button>
   </ion-buttons>
 

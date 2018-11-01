@@ -55,8 +55,8 @@ export class AccountPage {
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
-
-    this.displayAccount();
+    this.getDevice();
+    // this.displayAccount();
   }
 
   getDevice() {
@@ -284,11 +284,11 @@ export class AccountPage {
     alert.present();
   }
 
-  displayAccount(){
-    this.common.presentLoading();
-    this.getDevice();
-    this.common.closeLoading();
-  }
+  // displayAccount(){
+  //   this.common.presentLoading();
+  //   this.getDevice();
+  //   this.common.closeLoading();
+  // }
   // presentToast(msg){
   //   let toast = this.toastCtrl.create({
   //       message: msg,

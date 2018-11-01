@@ -1,8 +1,9 @@
 import { Component} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AboutPage } from '../about/about';
+// import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
+import { AccountPage } from '../account/account';
+// import { HomePage } from '../home/home';
 import { CommonProvider } from "../../providers/common/common";
 
 @Component({
@@ -12,9 +13,9 @@ import { CommonProvider } from "../../providers/common/common";
 export class TabsPage {
 
 pages = [
-    { pageName: HomePage, title: "Home", icon:"home", id: "homeTab"},
-    { pageName: AboutPage, title: "Graphs", icon:"stats", id: "aboutTab"},
-    { pageName: ContactPage, title: "Alert", icon:"notifications", id: "contactTab"}
+    { pageName: ContactPage, title: "การเเจ้งเตือน", icon:"notifications", id: "contactTab"},
+    { pageName: AccountPage, title: "บัญชีผู้ใช้", icon:"contact", id: "accountTab"}
+    // { pageName: AccountPage, title: "บัญชีผู้ใช้", icon:"contact", id: "accountTab"}
 
 ];
  constructor(public navCtrl: NavController, public navParams: NavParams, public common: CommonProvider) {

@@ -7,6 +7,10 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button color="Skyblue" (click)="closeModal()">
+      <ion-icon name="backspace" color="lughtgrey"></ion-icon>
+    </button>
+
     <ion-title>เพิ่ม Ruuvitag</ion-title>
     <!-- <ion-buttons end>
       <button ion-button (click)="closeModal()">Close</button>
@@ -22,14 +26,14 @@
     <ion-input text-uppercase [(ngModel)]="userPostData.device_mac" (keypress)="macSystax()" maxlength="17" placeholder="XX:XX:XX:XX:XX:XX"></ion-input>
   </ion-item>
 
-  <ion-item >
+  <ion-item>
     <ion-label fixed>ชื่อ</ion-label>
-    <ion-input  [(ngModel)]="userPostData.device_name" placeholder="ชื่อของ Ruuvitag" ></ion-input>
+    <ion-input [(ngModel)]="userPostData.device_name" placeholder="ชื่อของ Ruuvitag"></ion-input>
   </ion-item>
 
-  <ion-item >
+  <ion-item>
     <ion-label fixed>รายละเอียด</ion-label>
-    <ion-textarea  [(ngModel)]="userPostData.device_des" placeholder="รายละเอียดของ Ruuvitag"></ion-textarea>
+    <ion-textarea [(ngModel)]="userPostData.device_des" placeholder="รายละเอียดของ Ruuvitag"></ion-textarea>
   </ion-item>
 
 
@@ -37,7 +41,7 @@
 
 
   <ion-buttons end>
-    <button ion-button round outline (click)="closeModal()">ยกเลิก</button>
+    <!-- <button ion-button round outline (click)="closeModal()">ยกเลิก</button> -->
     <button ion-button round outline (click)="deviceInsert()">เพิ่ม</button>
   </ion-buttons>
 

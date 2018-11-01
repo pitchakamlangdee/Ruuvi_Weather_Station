@@ -3,9 +3,9 @@ import { Platform, Nav, AlertController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { WelcomePage } from "../pages/welcome/welcome";
-// import { TabsPage } from "../pages/tabs/tabs";
+import { TabsPage } from "../pages/tabs/tabs";
 import { HomePage } from "../pages/home/home";
-import { AccountPage } from "../pages/account/account";
+import { AboutPage } from "../pages/about/about";
 import { CommonProvider } from "../../src/providers/common/common";
 
 @Component({
@@ -33,7 +33,8 @@ export class MyApp {
     });
     this.pages = [
       { title: "หน้าหลัก", component: HomePage, icon: "home" },
-      { title: "จัดการข้อมูล", component: AccountPage, icon: "contact" }
+      { title: "สภาพอากาศย้อนหลัง", component: AboutPage, icon: "stats" },
+      { title: "จัดการข้อมูล", component: TabsPage, icon: "cog" }
     ];
   }
   openPage(page) {
