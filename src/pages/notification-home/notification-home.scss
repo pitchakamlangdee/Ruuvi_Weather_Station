@@ -1,0 +1,35 @@
+page-notification-home {
+    .iconSize {
+        font-size: 60px;
+      }
+    
+      .bg-image {
+        background-image: url(../../assets/imgs/notifications.jpg);
+        // background-repeat: no-repeat;
+        background-position: center;
+        //background-size: contain;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .label-item {
+        font-size: 25px;
+        font-weight: bold;
+      }
+      .set {
+        opacity: 0.8;
+      }
+      .set-title-div{
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .set-sub-div{
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .toolbar-title {
+        text-overflow: inherit;
+        white-space: normal;
+        
+     }
+}

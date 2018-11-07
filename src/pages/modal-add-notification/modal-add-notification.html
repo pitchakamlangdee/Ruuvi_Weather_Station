@@ -1,0 +1,78 @@
+<!--
+  Generated template for the PopoverAddNotificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button color="Skyblue" (click)="closeModal()">
+      <ion-icon name="backspace" color="lughtgrey"></ion-icon>
+    </button>
+    <ion-title>เพิ่มการเเจ้งเตือน</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>สภาพอากาศ</ion-label>
+    <ion-select [(ngModel)]="userPostData.notification_weather" (ionChange)="showOperatorNotification()">
+      <ion-option>อุณหภูมิ</ion-option>
+      <ion-option>ความชื้น</ion-option>
+      <ion-option>ความดันอากาศ</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>ตัวเลือกการกระทำ</ion-label>
+    <ion-select [disabled]="showOperator == 0" [(ngModel)]="userPostData.notification_operator" (ionChange)="showRangeNotification()">
+      <ion-option>มากกว่า</ion-option>
+      <ion-option>น้อยกว่า</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>เเจ้งเตือนเมื่อ {{userPostData.notification_weather}} {{userPostData.notification_operator}}
+      <button *ngIf="showOperator!=0&&showRange!=0&&userPostData.notification_weather=='อุณหภูมิ'" class="fixButton" ion-button round color="danger">{{userPostData.notification_value}}
+        °C</button>
+      <button *ngIf="showOperator!=0&&showRange!=0&&userPostData.notification_weather=='ความชื้น'" class="fixButton" ion-button round color="DarkTurquoise">{{userPostData.notification_value}}
+        %</button>
+      <button *ngIf="showOperator!=0&&showRange!=0&&userPostData.notification_weather=='ความดันอากาศ'" class="fixButton" ion-button round color="secondary">{{userPostData.notification_value}}
+        hPa</button>
+    </ion-label>
+
+    <ion-range *ngIf="showOperator!=0&&showRange!=0&&userPostData.notification_weather=='อุณหภูมิ'" [(ngModel)]="userPostData.notification_value" pin="true"
+      min="-200" max="200" color="danger">
+      <ion-icon color="danger" name="thermometer" range-left></ion-icon>
+      <ion-label range-left>-200 °C</ion-label>
+      <ion-label range-right>200 °C</ion-label>
+    </ion-range>
+
+    <ion-range *ngIf="showOperator!=0&&showRange!=0&&userPostData.notification_weather=='ความชื้น'" [(ngModel)]="userPostData.notification_value" pin="true"
+      min="0" max="100" color="DarkTurquoise">
+      <ion-icon color="DarkTurquoise" name="water" range-left></ion-icon>
+      <ion-label range-left>0 %</ion-label>
+      <ion-label range-right>100 %</ion-label>
+    </ion-range>
+
+    <ion-range *ngIf="showOperator!=0&&showRange!=0&&userPostData.notification_weather=='ความดันอากาศ'" [(ngModel)]="userPostData.notification_value" pin="true"
+      min="-2000" max="2000" color="secondary">
+      <ion-icon color="secondary" name="leaf" range-left></ion-icon>
+      <ion-label range-left>-2000 hPa</ion-label>
+      <ion-label range-right>2000 hPa</ion-label>
+    </ion-range>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>รายละเอียด</ion-label>
+    <ion-textarea [(ngModel)]="userPostData.notification_description" placeholder="รายละเอียดของการเเจ้งเตือน"></ion-textarea>
+  </ion-item>
+
+  <ion-buttons end>
+    <!-- <button ion-button round outline (click)="closeModal()">ยกเลิก</button> -->
+    <button [disabled]="showOperator==0||showRange==0||showButton==0" ion-button round outline (click)="notificationInsert()">เพิ่ม</button>
+  </ion-buttons>
+</ion-content>

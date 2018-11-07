@@ -10,7 +10,6 @@
     <button ion-button color="Skyblue" (click)="closeModal()">
       <ion-icon name="backspace" color="lughtgrey"></ion-icon>
     </button>
-
     <ion-title>เพิ่ม Ruuvitag</ion-title>
     <!-- <ion-buttons end>
       <button ion-button (click)="closeModal()">Close</button>
@@ -28,12 +27,12 @@
 
   <ion-item>
     <ion-label fixed>ชื่อ</ion-label>
-    <ion-input [(ngModel)]="userPostData.device_name" placeholder="ชื่อของ Ruuvitag"></ion-input>
+    <ion-input [(ngModel)]="userPostData.device_name" maxlength="17" placeholder="ชื่อของ Ruuvitag"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label fixed>รายละเอียด</ion-label>
-    <ion-textarea [(ngModel)]="userPostData.device_des" placeholder="รายละเอียดของ Ruuvitag"></ion-textarea>
+    <ion-textarea [(ngModel)]="userPostData.device_description" placeholder="รายละเอียดของ Ruuvitag"></ion-textarea>
   </ion-item>
 
 

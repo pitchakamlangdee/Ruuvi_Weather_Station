@@ -9,6 +9,7 @@ import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
 import { AboutPage } from "../about/about";
 import { ContactPage } from "../contact/contact";
+import { NotificationHomePage } from "../notification-home/notification-home";
 
 @Component({
   selector: "page-home",
@@ -204,8 +205,8 @@ export class HomePage {
       // console.log(this.check_sensors_data_last[a].Time_Stamp );
       // console.log(this.sensors_data_last[a].Time_Stamp );
       if (
-        this.check_sensors_data_last[a].Time_Stamp >
-        this.sensors_data_last[a].Time_Stamp
+        this.check_sensors_data_last[a].date >
+        this.sensors_data_last[a].date
       ) {
         check = true;
         console.log(check);
@@ -240,18 +241,24 @@ export class HomePage {
     graphsModal.present();
   }
 
-  openModalNotifications(device_id, device_mac, device_name, device_des, image) {
-    const myModalOptions: ModalOptions = {
-      enableBackdropDismiss: true
-    };
-    let notificationsModal: Modal = this.modalCtrl.create(
-      "ModalNotificationsPage",{ data:device_id, data2:device_mac, data3:device_name, data4:device_des, data5:image },myModalOptions
-      );
-      notificationsModal.onDidDismiss(data => {
-      console.log(data);
-    });
-    notificationsModal.present();
-  }
+  // openModalNotifications(device_id, device_mac, device_name, device_description, image) {
+  //   const myModalOptions: ModalOptions = {
+  //     enableBackdropDismiss: true
+  //   };
+  //   let notificationsModal: Modal = this.modalCtrl.create(
+  //     "ModalNotificationsPage",{ data:device_id, data2:device_mac, data3:device_name, data4:device_description, data5:image },myModalOptions
+  //     );
+  //     notificationsModal.onDidDismiss(data => {
+  //     console.log(data);
+  //   });
+  //   notificationsModal.present();
+  // }
+
+    openNotificationsHome(device_id, device_mac, device_name, device_description){
+      this.navCtrl.push(NotificationHomePage, {
+        data: device_id, data2:device_mac, data3:device_name, data4:device_description
+      });
+    }
 
   // slideChanged() {
   //   //this.slides.slidePrev(0);
@@ -261,8 +268,8 @@ export class HomePage {
   // }
 
   images = [
-    { title: "Home", image: "assets/imgs/maple_background.jpg" },
-    { title: "Graphs", image: "assets/imgs/sunset_background.jpg" },
+    { title: "Home", image: "assets/imgs/sunset_background.jpg" },
+    { title: "Graphs", image: "assets/imgs/maple_background.jpg" },
     { title: "Contact", image: "assets/imgs/sunset_background.jpg" }
   ];
 }

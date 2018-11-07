@@ -25,7 +25,7 @@ export class ModalAddMacaddressPage {
   public userDetails: any;
   public resposeData: any;
   public dataSet = [];
-  userPostData = { user_id: "", token: "", device_mac: "", device_id: "", device_name:"", device_des:"" };
+  userPostData = { user_id: "", token: "", device_mac: "", device_id: "", device_name:"", device_description:"" };
 
   constructor(
     public navParams: NavParams,

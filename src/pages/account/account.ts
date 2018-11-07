@@ -38,7 +38,7 @@ export class AccountPage {
     device_mac: "",
     device_id: "",
     device_name: "",
-    device_des: ""
+    device_description: ""
   };
 
   constructor(
@@ -144,13 +144,13 @@ export class AccountPage {
     addMacModal.present();
   }
 
-  openModalUpdateRuuvitag(device_id, device_mac, device_name, device_des) {
+  openModalUpdateRuuvitag(device_id, device_mac, device_name, device_description) {
     const myModalOptions2: ModalOptions = {
       enableBackdropDismiss: true
     };
     let updateRuuvitagModal: Modal = this.modalCtrl.create(
       "ModalUpdateRuuvitagPage",
-      { data:this.dataSet, data2:device_id, data3:device_mac, data4:device_name, data5:device_des},
+      { data:this.dataSet, data2:device_id, data3:device_mac, data4:device_name, data5:device_description},
       myModalOptions2
     );
     updateRuuvitagModal.onDidDismiss(data => {

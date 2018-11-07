@@ -1,0 +1,120 @@
+<!--
+  Generated template for the NotificationHomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+
+
+  <ion-navbar>
+    <ion-title>
+      การเเจ้งเตือน
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar no-lines>
+    <ion-title>
+      {{userPostData.device_name}}
+    </ion-title>
+  </ion-toolbar>
+  <!-- 
+  <ion-toolbar>
+      <ion-title text-wrap>
+        การเเจ้งเตือน {{userPostData.device_name}}
+      </ion-title>
+    </ion-toolbar> -->
+
+</ion-header>
+<!-- <img id="bgrimage" src="{{image}}" alt="imagenotavailable" > -->
+
+<ion-content padding class="bg-image">
+  <ion-card *ngFor="let item of dataNotification; let msgIndex = index" class="set">
+    <ion-list>
+      <ion-item>
+        <ion-label class="label-item">
+          <ion-icon *ngIf="item.notification_weather=='อุณหภูมิ'" color="danger" name="thermometer" item-start>
+          </ion-icon>
+          <ion-icon *ngIf="item.notification_weather=='ความชื้น'" color="DarkTurquoise" name="water" item-start>
+          </ion-icon>
+          <ion-icon *ngIf="item.notification_weather=='ความดันอากาศ'" color="secondary" name="leaf" item-start>
+          </ion-icon>
+          {{item.notification_weather}}
+        </ion-label>
+        <ion-toggle [(ngModel)]="check" item-end></ion-toggle>
+
+        <!-- <ion-icon color="danger" name="thermometer" item-start> </ion-icon> -->
+        <!-- <button [disabled]="item.notification_upper > 30" ion-button class="previous">Previous</button> -->
+        <!-- <h3>{{item.notification_weather}} มากกว่า {{item.notification_upper}} เเละน้อยกว่า{{item.notification_lower}}</h3> -->
+        <!-- <h3 *ngIf="item.notification_upper == 0">{{item.notification_weather}} มากกว่า {{item.notification_upper}}</h3> -->
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item-sliding>
+        <ion-item>
+          <div class="set-title-div">
+            เเจ้งเตือนเมื่อ
+          </div>
+          <div *ngIf="item.notification_weather=='อุณหภูมิ'" class="set-sub-div">
+            {{item.notification_weather}}{{item.notification_operator}} {{item.notification_value}} °C
+          </div>
+          <div *ngIf="item.notification_weather=='ความชื้น'" class="set-sub-div">
+            {{item.notification_weather}}{{item.notification_operator}} {{item.notification_value}} %
+          </div>
+          <div *ngIf="item.notification_weather=='ความดันอากาศ'" class="set-sub-div">
+            {{item.notification_weather}}{{item.notification_operator}} {{item.notification_value}} hPa
+          </div>
+          <br>
+          <div class="set-title-div">
+            รายละเอียดเพิ่มเติม
+          </div>
+          <div *ngIf="item.notification_description==''" class="set-sub-div" text-wrap>
+            -
+          </div>
+          <div *ngIf="item.notification_description!=''" class="set-sub-div" text-wrap>
+            {{item.notification_description}}
+          </div>
+          <ion-icon name="arrow-dropleft-circle" color="lughtgrey" item-end></ion-icon>
+        </ion-item>
+        <!-- <ion-item-options side="left" (ionSwipe)="notificationDelete(item.notification_id,item.notification_weather)"
+          icon-start>
+          <button ion-button (click)="notificationDelete(item.notification_id,item.notification_weather)" color="danger">
+            <ion-icon name="trash" color="lughtgrey"></ion-icon>
+            ลบ
+          </button>
+        </ion-item-options> -->
+        <ion-item-options side="right" icon-start>
+          <button ion-button large (click)="openModalUpdateNotification(item.notification_id, item.notification_weather, item.notification_operator, item.notification_value, item.notification_description)"
+            color="lughtgrey">
+            <ion-icon name="cog" color="Skyblue"></ion-icon>
+            เเก้ไข
+          </button>
+          <button ion-button large (click)="notificationDelete(item.notification_id,item.notification_weather)" color="danger">
+            <ion-icon name="trash" color="lughtgrey"></ion-icon>
+            ลบ
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <!-- <ion-item *ngIf="showSet > 0" color="lughtgrey">
+        <ion-range dualKnobs="true" pin="true" min="-200" max="200" (ionChange)="test(knobValuesTemperature[i].upper,knobValuesTemperature[i].lower)"
+          color="danger">
+          <ion-icon name="" range-left></ion-icon>
+          <ion-label range-left>-200</ion-label>
+          <ion-label range-right>200</ion-label>
+        </ion-range>
+      </ion-item> -->
+    </ion-list>
+  </ion-card>
+
+
+</ion-content>
+
+<ion-footer>
+  <!-- <ion-buttons end>
+    <button ion-button round outline (click)="openPopoverAddNotification()"> -->
+  <ion-item>
+    <ion-icon class="iconSize" name="add-circle" color="primary" (click)="openModalAddNotification($event)" item-right></ion-icon>
+  </ion-item>
+  <!-- </button>
+  </ion-buttons> -->
+</ion-footer>

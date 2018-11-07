@@ -5,14 +5,14 @@ import {
   NavParams,
   ViewController,
   AlertController,
-  PopoverController,
-  PopoverOptions
+  ModalController,
+  ModalOptions
 } from "ionic-angular";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
 
 /**
- * Generated class for the ModalNotificationsPage page.
+ * Generated class for the NotificationHomePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -20,13 +20,13 @@ import { CommonProvider } from "../../providers/common/common";
 
 @IonicPage()
 @Component({
-  selector: "page-modal-notifications",
-  templateUrl: "modal-notifications.html"
+  selector: "page-notification-home",
+  templateUrl: "notification-home.html"
 })
-export class ModalNotificationsPage {
+export class NotificationHomePage {
   public userDetails: any;
   public resposeData: any;
-  public resposeDelete : any;
+  public resposeDelete: any;
 
   public image: any;
   public dataNotification = [];
@@ -38,17 +38,17 @@ export class ModalNotificationsPage {
     device_mac: "",
     device_id: "",
     device_name: "",
-    device_des: "",
+    device_description: "",
     notification_id: ""
   };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private viewCtrl: ViewController,
+    // private viewCtrl: ViewController,
     public sensorsApiProvider: SensorsApiProvider,
     private alertCtrl: AlertController,
     public common: CommonProvider,
-    public popoverCtrl: PopoverController
+    public modalCtrl: ModalController
   ) {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
@@ -57,19 +57,15 @@ export class ModalNotificationsPage {
     this.userPostData.device_id = this.navParams.get("data");
     this.userPostData.device_mac = this.navParams.get("data2");
     this.userPostData.device_name = this.navParams.get("data3");
-    this.userPostData.device_des = this.navParams.get("data4");
+    this.userPostData.device_description = this.navParams.get("data4");
     this.getNotification();
   }
 
   ionViewDidLoad() {
-    this.image = this.navParams.get("data5");
-
     console.log(this.userPostData.device_id);
     console.log(this.userPostData.device_mac);
     console.log(this.userPostData.device_name);
-    console.log(this.userPostData.device_des);
-    console.log(this.image);
-    // this.getNotification();
+    console.log(this.userPostData.device_description);
   }
 
   getNotification() {
@@ -91,24 +87,63 @@ export class ModalNotificationsPage {
     );
   }
 
-  openPopoverAddNotification(myEvent) {
-    const myModalOptions: PopoverOptions = {
+  openModalAddNotification(myEvent) {
+    const myModalOptions: ModalOptions = {
       enableBackdropDismiss: true
     };
-    let addNotificationPopover = this.popoverCtrl.create(
-      "PopoverAddNotificationPage",
-      { data: this.dataNotification },
+    let addNotificationModal = this.modalCtrl.create(
+      "ModalAddNotificationPage",
+      {
+        data: this.dataNotification,
+        data1: this.userPostData.device_id
+      },
       myModalOptions
     );
-    addNotificationPopover.onDidDismiss(data => {
+    addNotificationModal.onDidDismiss(data => {
       console.log(data);
     });
-    addNotificationPopover.present({
+    addNotificationModal.present({
       ev: myEvent
     });
   }
 
-
+  openModalUpdateNotification(
+    notification_id,
+    notification_weather,
+    notification_operator,
+    notification_value,
+    notification_description
+  ) {
+    const myModalOptions2: ModalOptions = {
+      enableBackdropDismiss: true
+    };
+    let updateNotificationModal = this.modalCtrl.create(
+      "ModalUpdateNotificationPage",
+      {
+        data: this.dataNotification,
+        data2: notification_id,
+        data3: notification_weather,
+        data4: notification_operator,
+        data5: notification_value,
+        data6: notification_description,
+        data7: this.userPostData.device_id
+      },
+      myModalOptions2
+    );
+    updateNotificationModal.onDidDismiss(data => {
+      if (data != null) {
+        if(data.status=="ok"){
+          console.log(data);
+        this.getNotification();
+        }else{
+          console.log(data);
+        }
+      } else {
+        console.log(data);
+      }
+    });
+    updateNotificationModal.present();
+  }
 
   notificationDelete(notification_id, notification_weather) {
     if (notification_id > 0) {
@@ -161,8 +196,8 @@ export class ModalNotificationsPage {
     }
   }
 
-  closeModal() {
-    let data = { foo: "bar" };
-    this.viewCtrl.dismiss(data);
-  }
+  // closeModal() {
+  //   let data = { foo: "bar" };
+  //   this.viewCtrl.dismiss(data);
+  // }
 }
