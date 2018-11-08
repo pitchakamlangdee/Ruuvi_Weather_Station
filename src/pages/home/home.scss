@@ -10,10 +10,10 @@ page-home {
   }
 
   //start select
-  .textLabel{
+  .textLabel {
     font-size: 2em;
-      width: 100%;
-      font-weight: bold;
+    width: 100%;
+    font-weight: bold;
   }
   .selector {
     font-family: SFNSDisplay;
@@ -61,7 +61,6 @@ page-home {
     color: #050100;
     font-weight: bold;
     font-family: SFNSDisplay;
-  
   }
   .input-cover {
     pointer-events: auto;
@@ -75,16 +74,42 @@ page-home {
     // border-radius: 10px;
   }
 
+  .scroll-zoom-wrapper {
+    white-space: nowrap;
+  }
+
+  ion-card {
+    // width: 500px !important;
+    display: inline-block;
+  }
+
+  ion-scroll {
+    min-height: 600px;
+    height: auto;
+
+    .scroll-content {
+      padding: 0px !important;
+    }
+  }
+
   .card-background-page {
+    ion-card {
+      border-radius: 10px;
+    }
     ion-list {
-      width: 100%;
-      
       position: relative;
       text-align: center;
+    }
+    .img {
+      width: 100%;
+      height: 125vw;
+
+      // position: relative;
+      // text-align: center;
       // -webkit-text-stroke-width: 0.25px;
       // -webkit-text-stroke-color: rgb(0, 0, 0);
 
-      border-radius: 10px;
+      // border-radius: 10px;
     }
 
     // .card-title {
@@ -98,21 +123,21 @@ page-home {
     // }
 
     .card-subtitle1 {
-      font-size: 2.5em;
+      font-size: 2.2em;
       position: absolute;
-      top: 10%;
+      top: 15%;
       width: 100%;
       color: #fff;
     }
     .card-subtitle2 {
-      font-size: 1.7em;
+      font-size: 1.5em;
       position: absolute;
       top: 37%;
       width: 100%;
       color: #fff;
     }
     .card-subtitle3 {
-      font-size: 1.7em;
+      font-size: 1.5em;
       position: absolute;
       top: 50%;
       width: 100%;

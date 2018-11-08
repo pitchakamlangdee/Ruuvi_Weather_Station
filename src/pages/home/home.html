@@ -48,12 +48,12 @@
 
 
 
-<ion-content>
+<ion-content class="card-background-page">
   <!-- <ion-slides pager="true" direction = "vertical" (ionSlideDidChange)="slideChanged()">
       <ion-slide *ngFor="let n of selectedItem ; let i = index"> -->
-  <ion-card class="card-background-page" *ngFor="let n of sensors_data_last ; let i = index">
+  <ion-scroll scrollX="true" direction="x">
+  <ion-card  *ngFor="let n of sensors_data_last ; let i = index">
     <ion-list>
-
       <ion-item>
         <ion-avatar item-start>
           <img src="assets/icon/ruuvitag_icon.png">
@@ -72,7 +72,7 @@
     </ion-list>
 
     <ion-list>
-      <img src="assets/imgs/sunset_background.jpg" height="500vw" />
+      <img [src]="images[i].image" height="500vw" />
       <!-- <div class="card-title">
           {{n.device_name}}
         </div> -->
@@ -97,6 +97,7 @@
       </div>
     </ion-list>
   </ion-card>
+</ion-scroll>
   <!-- </ion-slide>
     </ion-slides> -->
 

@@ -42,7 +42,7 @@ import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notifica
     BrowserModule,
     IonicModule.forRoot(MyApp,{
       backButtonIcon: 'ios-arrow-back',
-      backButtonText: 'ย้อนหลับ',
+      backButtonText: '',
       pageTransition: 'iostransition',
       activator:'ripple',
       mode:'ios',

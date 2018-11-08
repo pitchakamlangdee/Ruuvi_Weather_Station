@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component} from "@angular/core";
 import {
   NavController,
   ModalController,
@@ -8,7 +8,7 @@ import {
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
 import { AboutPage } from "../about/about";
-import { ContactPage } from "../contact/contact";
+// import { ContactPage } from "../contact/contact";
 import { NotificationHomePage } from "../notification-home/notification-home";
 
 @Component({
@@ -51,7 +51,7 @@ export class HomePage {
     this.getMacSelectHome();
     // setInterval(() => {
     //   this.getCheckLastDataSensors();
-    // }, 15000);
+    // }, 5000);
   }
 
   getMacSelectHome() {
@@ -180,34 +180,55 @@ export class HomePage {
   // }
 
   getCheckLastDataSensors() {
-    console.log(this.selectedItem);
     if (this.selectedItem.length > 0) {
+      // this.common.presentLoading();
+      this.check_sensors_data_last = this.selectedItem;
       this.check_sensors_data_last = [this.selectedItem.length];
-      //console.log(this.check_sensors_data_last);
+      this.check_sensors_data_last = [this.selectedItem.length];
+      console.log(this.check_sensors_data_last);
 
       for (let i in this.selectedItem) {
-        this.sensorsApiProvider
-          .getLastDataSensors(this.selectedItem[i])
-          .then(data_last => {
-            this.check_sensors_data_last[i] = data_last[0];
+        this.selectedItemTotal[i] = {
+          selected: this.selectedItem[i],
+          user_id: this.userPostData.user_id,
+          token: this.userPostData.token
+        };
 
-            //console.log(this.check_sensors_data_last[i]);
-            this.check();
-          });
+        console.log(this.selectedItemTotal);
+
+        this.sensorsApiProvider
+          .postData(this.selectedItemTotal[i], "lastDataRuuvitag")
+          .then(
+            result => {
+              this.resposeLastData = result;
+              console.log(result);
+
+              if (this.resposeLastData.sensorLastData) {
+                // this.common.closeLoading();
+                this.check_sensors_data_last[i] = this.resposeLastData.sensorLastData[0];
+                console.log(this.check_sensors_data_last[i]);
+              } else {
+                console.log("No access");
+              }
+            },
+            err => {
+              //Connection failed message
+            }
+          );
       }
+      this.check();
     }
   }
 
   check() {
     let check: boolean;
     check = false;
+    console.log(check);
     for (let a in this.check_sensors_data_last) {
       // console.log(this.check_sensors_data_last[a].Time_Stamp );
       // console.log(this.sensors_data_last[a].Time_Stamp );
-      if (
-        this.check_sensors_data_last[a].date >
-        this.sensors_data_last[a].date
-      ) {
+      if (this.check_sensors_data_last[a].date > this.sensors_data_last[a].date) 
+      {
         check = true;
         console.log(check);
       } else {
@@ -241,19 +262,6 @@ export class HomePage {
     graphsModal.present();
   }
 
-  // openModalNotifications(device_id, device_mac, device_name, device_description, image) {
-  //   const myModalOptions: ModalOptions = {
-  //     enableBackdropDismiss: true
-  //   };
-  //   let notificationsModal: Modal = this.modalCtrl.create(
-  //     "ModalNotificationsPage",{ data:device_id, data2:device_mac, data3:device_name, data4:device_description, data5:image },myModalOptions
-  //     );
-  //     notificationsModal.onDidDismiss(data => {
-  //     console.log(data);
-  //   });
-  //   notificationsModal.present();
-  // }
-
     openNotificationsHome(device_id, device_mac, device_name, device_description){
       this.navCtrl.push(NotificationHomePage, {
         data: device_id, data2:device_mac, data3:device_name, data4:device_description
@@ -269,7 +277,7 @@ export class HomePage {
 
   images = [
     { title: "Home", image: "assets/imgs/sunset_background.jpg" },
-    { title: "Graphs", image: "assets/imgs/maple_background.jpg" },
-    { title: "Contact", image: "assets/imgs/sunset_background.jpg" }
+    { title: "Graphs", image: "assets/imgs/sunset_background.jpg" },
+    { title: "Contact", image: "assets/imgs/maple_background.jpg" }
   ];
 }
