@@ -4,9 +4,9 @@ page-notification-home {
   }
 
   .bg-image {
-    background-image: url(../../assets/imgs/fantasy_clock.jpg);
-    // background-repeat: no-repeat;
-    // background-position: center;
+    background-image: url(../../assets/imgs/clocks.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
     // background-size: contain;
     background-repeat: no-repeat;
     background-size: cover;
@@ -16,7 +16,7 @@ page-notification-home {
     font-weight: bold;
   }
   .set {
-    opacity: 0.85;
+    opacity: 0.95;
   }
   .set-title-div {
     font-size: 20px;
@@ -39,4 +39,5 @@ page-notification-home {
     border-right: 1px solid grey !important;
     border-bottom: 1px solid grey !important;
   }
+ 
 }

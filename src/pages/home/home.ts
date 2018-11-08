@@ -2,13 +2,12 @@ import { Component} from "@angular/core";
 import {
   NavController,
   ModalController,
-  ModalOptions,
-  Modal
 } from "ionic-angular";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
-import { AboutPage } from "../about/about";
+// import { AboutPage } from "../about/about";
 // import { ContactPage } from "../contact/contact";
+import { GraphHomePage } from "../graph-home/graph-home";
 import { NotificationHomePage } from "../notification-home/notification-home";
 
 @Component({
@@ -249,17 +248,10 @@ export class HomePage {
     }
   }
 
-  openModalGraphs() {
-    const myModalOptions: ModalOptions = {
-      enableBackdropDismiss: true
-    };
-    let graphsModal: Modal = this.modalCtrl.create(
-      AboutPage,{ data: this.sensors_data_last },myModalOptions
-      );
-    graphsModal.onDidDismiss(data => {
-      console.log(data);
+  openGraphsHome(device_id, device_mac, device_name, device_description) {
+    this.navCtrl.push(GraphHomePage, {
+      data: device_id, data2:device_mac, data3:device_name, data4:device_description
     });
-    graphsModal.present();
   }
 
     openNotificationsHome(device_id, device_mac, device_name, device_description){

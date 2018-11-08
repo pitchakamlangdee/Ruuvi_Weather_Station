@@ -1,0 +1,55 @@
+<!--
+  Generated template for the GraphHomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+        <ion-icon name="stats" color="lughtgrey"item-start></ion-icon>
+      สภาพอากาศย้อนหลัง</ion-title>
+  </ion-navbar>
+  <ion-toolbar no-lines>
+      <ion-item color="Skyblue">
+        <div align="center">
+          <!--
+            <ion-avatar item-start>
+              <img src="assets/icon/ruuvitag_icon.png" />
+            </ion-avatar>
+          -->
+          <h2>{{ userPostData.device_name }}</h2>
+        </div>
+      </ion-item>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="bg-image" padding>
+    <ion-item >
+        <ion-label><ion-icon name="calendar"></ion-icon>เลือกวันที่ที่ต้องการ</ion-label>
+        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="userPostData.my_date" (ionChange)="getGraphDataDay()"></ion-datetime>
+      </ion-item>
+      <ion-scroll scrollX="true"  direction="x">
+          <ion-card>
+            <ion-card-header>
+              ข้อมูลสภาพอากาศของทั้งวัน
+            </ion-card-header>
+            <ion-card-content>
+              <canvas height="700vw" width="500vw" #lineCanvas></canvas>
+            </ion-card-content>
+          </ion-card>
+        
+          <ion-card>
+            <ion-card-header>
+                ข้อมูลสภาพอากาศโดยเฉลี่ยของทั้งวัน
+            </ion-card-header>
+            <ion-card-content>
+              <canvas height="700vw" width="500vw" #barCanvas></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-scroll>
+
+</ion-content>

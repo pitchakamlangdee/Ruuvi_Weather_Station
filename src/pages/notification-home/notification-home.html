@@ -7,12 +7,22 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <ion-icon name="notifications" color="yellow"></ion-icon>
+      <ion-icon name="notifications" color="yellow" item-start></ion-icon>
       การเเจ้งเตือน
     </ion-title>
   </ion-navbar>
+
   <ion-toolbar no-lines>
-    <ion-title> {{ userPostData.device_name }} </ion-title>
+    <ion-item color="Skyblue">
+      <div align="center">
+        <!--
+          <ion-avatar item-start>
+            <img src="assets/icon/ruuvitag_icon.png" />
+          </ion-avatar>
+        -->
+        <h2>{{ userPostData.device_name }}</h2>
+      </div>
+    </ion-item>
   </ion-toolbar>
   <!--
     <ion-toolbar>
@@ -151,7 +161,8 @@
             (click)="
               notificationDelete(
                 item.notification_id,
-                item.notification_weather
+                item.notification_weather,
+                msgIndex
               )
             "
             color="danger"

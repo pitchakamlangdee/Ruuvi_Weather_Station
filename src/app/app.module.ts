@@ -12,6 +12,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AccountPage } from '../pages/account/account';
+import { GraphHomePage} from '../pages/graph-home/graph-home';
 import { NotificationHomePage } from '../pages/notification-home/notification-home';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,7 +36,8 @@ import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notifica
     HomePage,
     TabsPage,
     AccountPage,
-    NotificationHomePage
+    NotificationHomePage,
+    GraphHomePage
     
   ],
   imports: [
@@ -65,7 +67,8 @@ import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notifica
     HomePage,
     TabsPage,
     AccountPage,
-    NotificationHomePage
+    NotificationHomePage,
+    GraphHomePage
   ],
   providers: [
     StatusBar,

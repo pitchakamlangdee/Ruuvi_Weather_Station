@@ -145,7 +145,7 @@ export class NotificationHomePage {
     updateNotificationModal.present();
   }
 
-  notificationDelete(notification_id, notification_weather) {
+  notificationDelete(notification_id, notification_weather,msgIndex) {
     if (notification_id > 0) {
       let alert = this.alertCtrl.create({
         title: "ลบการเเจ้งเตือน" + notification_weather,
@@ -169,10 +169,12 @@ export class NotificationHomePage {
                   result => {
                     this.resposeDelete = result;
                     if (this.resposeDelete.success) {
-                      this.getNotification();
+                      // this.getNotification();
+                      this.dataNotification.splice(msgIndex, 1);
                       this.common.closeLoading();
                       // this.dataSet.splice(msgIndex, 1);
                     } else {
+                      this.dataNotification.splice(msgIndex, 0);
                       console.log("No access");
                     }
                   },

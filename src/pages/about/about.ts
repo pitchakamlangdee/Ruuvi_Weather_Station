@@ -97,7 +97,7 @@ export class AboutPage {
         this.Name_Ruuvitag[i] = data[i].Name_Ruuvitag;
         this.temperature[i] = data[i].temperature;
         this.pressure[i] = data[i].pressure;
-        this.time_Stamp[i] = data[i].Time_Stamp.split(" ", 2);
+        this.time_Stamp[i] = data[i].date.split(" ", 2);
         this.date[i] = this.time_Stamp[i][0];
         this.time[i] = this.time_Stamp[i][1];
         this.humidity[i] = data[i].humidity;

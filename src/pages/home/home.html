@@ -59,7 +59,7 @@
           <img src="assets/icon/ruuvitag_icon.png">
         </ion-avatar>
         <h1>{{n.device_name}}</h1>
-        <ion-icon name="stats" color="lughtgrey" (click)="openModalGraphs(item)" item-end></ion-icon>
+        <ion-icon name="stats" color="lughtgrey" (click)="openGraphsHome(n.device_id, n.device_mac, n.device_name, n.device_description)" item-end></ion-icon>
         <ion-icon item-end></ion-icon>
         <ion-icon item-end></ion-icon>
         <ion-icon name="notifications" color="yellow" (click)="openNotificationsHome(n.device_id, n.device_mac, n.device_name, n.device_description)"
