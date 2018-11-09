@@ -3,7 +3,8 @@ import { Platform, Nav, AlertController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { WelcomePage } from "../pages/welcome/welcome";
-import { TabsPage } from "../pages/tabs/tabs";
+// import { TabsPage } from "../pages/tabs/tabs";
+import { AccountPage} from '../pages/account/account';
 import { HomePage } from "../pages/home/home";
 import { AboutPage } from "../pages/about/about";
 import { CommonProvider } from "../../src/providers/common/common";
@@ -34,7 +35,7 @@ export class MyApp {
     this.pages = [
       { title: "หน้าหลัก", component: HomePage, icon: "home" },
       { title: "สภาพอากาศย้อนหลัง", component: AboutPage, icon: "stats" },
-      { title: "จัดการข้อมูล", component: TabsPage, icon: "cog" }
+      { title: "บัญชีผู้ใช้", component: AccountPage, icon: "contacts" }
     ];
   }
   openPage(page) {

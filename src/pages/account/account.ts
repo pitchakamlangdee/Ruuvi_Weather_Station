@@ -29,6 +29,7 @@ import { CommonProvider } from "../../providers/common/common";
 export class AccountPage {
   public userDetails: any;
   public resposeData: any;
+  public resposeDelete: any;
   //public resposeDataSensor : any;
   public dataSet = [];
   //public dataSensor =[];
@@ -78,58 +79,7 @@ export class AccountPage {
     );
   }
 
-  // devicesUpdate() {
-  //   if (this.userPostData.devices) {
-  //     let alert = this.alertCtrl.create({
-  //       title: "ADD",
-  //       message: "คุณต้องการจะเพิ่มข้อมูล Mac Address หรือไม่?",
-
-  //       buttons: [
-  //         {
-  //           text: "Cancel",
-  //           role: "cancel",
-  //           handler: () => {
-  //             console.log("Cancel clicked");
-  //           }
-  //         },
-  //         {
-  //           text: "Add",
-  //           handler: () => {
-
-  //             this.sensorsApiProvider
-  //               .postData(this.userPostData, "devicesUpdate")
-  //               .then(
-  //                 result => {
-  //                   this.resposeData = result;
-  //                   if (this.dataSet == undefined) {
-  //                     this.dataSet[0] = this.userPostData.devices;
-  //                   }
-  //                   else if (this.resposeData.devicesData && this.dataSet ) {
-  //                     this.common.presentLoading();
-  //                     this.dataSet.unshift(this.resposeData.devicesData);
-  //                     console.log(this.dataSet);
-  //                     this.common.closeLoading();
-  //                   }
-  //                    else {
-  //                     this.presentToast("มี Ruuvitag อยู่ในระบบเเล้ว");
-  //                   }
-  //                 },
-  //                 err => {
-  //                   //Connection failed message
-  //                 }
-  //               );
-  //           }
-  //         }
-  //       ]
-  //     });
-  //     alert.present();
-  //   }
-  //   else{
-  //     this.presentToast("กรุณากรอก Mac Address !!");
-  //   }
-  // }
-
-  openModalAddRuuvitag() {
+  openModalAddRuuvitag(myEvent) {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: true
     };
@@ -141,7 +91,9 @@ export class AccountPage {
     addMacModal.onDidDismiss(data => {
       console.log(data);
     });
-    addMacModal.present();
+    addMacModal.present({
+      ev: myEvent
+    });
   }
 
   openModalUpdateRuuvitag(device_id, device_mac, device_name, device_description) {
@@ -154,8 +106,16 @@ export class AccountPage {
       myModalOptions2
     );
     updateRuuvitagModal.onDidDismiss(data => {
-      console.log(data);
-      this.getDevice();
+      if (data != null) {
+        if(data.status=="ok"){
+          console.log(data);
+        this.getDevice();
+        }else{
+          console.log(data);
+        }
+      } else {
+        console.log(data);
+      }
     });
     updateRuuvitagModal.present();
   }
@@ -186,6 +146,7 @@ export class AccountPage {
   // }
 
   deviceDelete(device_id, msgIndex) {
+    console.log(msgIndex);
     if (device_id > 0) {
       let alert = this.alertCtrl.create({
         title: "ลบ Ruuvitag",
@@ -207,12 +168,13 @@ export class AccountPage {
                 .postData(this.userPostData, "deviceDelete")
                 .then(
                   result => {
-                    this.resposeData = result;
-                    if (this.resposeData.success) {
-                      this.getDevice();
+                    this.resposeDelete = result;
+                    if (this.resposeDelete.success) {
+                      // this.getDevice();
+                      this.dataSet.splice(msgIndex, 1);
                       this.common.closeLoading();
-                      // this.dataSet.splice(msgIndex, 1);
                     } else {
+                      this.dataSet.splice(msgIndex, 0);
                       console.log("No access");
                     }
                   },

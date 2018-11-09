@@ -6,29 +6,83 @@
     <ion-title>บัญชีผู้ใช้</ion-title>
   </ion-toolbar>
 </ion-header> -->
-
-
-<ion-content padding>
-
-  <h2>ชื่อบัญชีผู้ใช้ : {{userDetails.name}}</h2>
-  <h3>Email : {{userDetails.email}}</h3>
-  <ion-item no-lines>
-    <!-- <textarea [(ngModel)] = "userPostData.feed" maxlength="17" placeholder="F4:CC:8D:5E:45:23"></textarea> -->
-
-    <ion-buttons end>
-      <button ion-button color="energy" round outline solid (click)="openModalAddRuuvitag()">
-        <ion-icon name="add"></ion-icon>เพิ่ม Ruuvitag
-      </button>
-    </ion-buttons>
-
+<ion-header>
+<ion-toolbar>
+  <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>
+  <ion-icon name="contacts"  item-start></ion-icon>
+    บัญชีผู้ใช้</ion-title>
+</ion-toolbar>
+<!-- <ion-toolbar no-lines>
+  <ion-item color="lughtgrey" class="item-account">
+    <div>
+      <h2><ion-icon name="man" item-start></ion-icon>  ชื่อ : {{userDetails.name}}</h2>
+      <h2><ion-icon name="contact" item-start></ion-icon> ชื่อบัญชีผู้ใช้ : {{userDetails.name}}</h2>
+      <h2><ion-icon name="mail" item-start></ion-icon>Email : {{userDetails.email}}</h2>
+    </div>
   </ion-item>
+</ion-toolbar> -->
+</ion-header> 
+<ion-content padding class="bg-image">
+    <ion-item color="lughtgrey" class="item-account">
+        <div>
+          <h2><ion-icon name="man" item-start></ion-icon>  ชื่อ : {{userDetails.name}}</h2>
+          <h2><ion-icon name="contact" item-start></ion-icon> ชื่อบัญชีผู้ใช้ : {{userDetails.name}}</h2>
+          <h2><ion-icon name="mail" item-start></ion-icon>Email : {{userDetails.email}}</h2>
+        </div>
+      </ion-item>
   <ion-card *ngFor="let item of dataSet; let msgIndex = index">
+    <ion-list>
+      <ion-item-sliding>
+        <ion-item>
+          <div class="set-title-div"><ion-icon name="bluetooth" color="primary" item-start></ion-icon> Mac Address ของ Ruuvitag</div>
+          <div class="set-sub-div" text-uppercase [innerHTML]="item.device_mac | linky"></div>
+          <br/>
+          <div class="set-title-div"> ชื่อ Ruuvitag</div>
+          <div class="set-sub-div" text-uppercase [innerHTML]="item.device_name | linky"></div>
+          <br/>
+          <div class="set-title-div">รายละเอียดเพิ่มเติม Ruuvitag</div>
+          <div *ngIf="item.device_description == ''"class="set-sub-div"text-wrap>
+            -
+          </div>
+          <div *ngIf="item.device_description != ''" [innerHTML]="item.device_description | linky" class="set-sub-div" text-wrap>
+            <!-- {{ item.device_description }} -->
+          </div>
+          <br/>
+          <div class="set-title-div">อัพเดตเมื่อ</div>
+          <div class="set-sub-div" [innerHTML]="item.created | amTimeAgo"></div>
+          <br/>
+          <ion-icon name="arrow-dropleft-circle"color="lughtgrey"item-end></ion-icon>
+        </ion-item>
+        <ion-item-options side="right" icon-start>
+          <button
+            ion-button
+            large
+            (click)="openModalUpdateRuuvitag(item.device_id, item.device_mac, item.device_name, item.device_description)"
+            color="lughtgrey">
+            <ion-icon name="cog" color="Skyblue"></ion-icon>
+            เเก้ไข
+          </button>
+          <button
+            ion-button
+            large
+            (click)="deviceDelete(item.device_id, msgIndex)"
+            color="danger">
+            <ion-icon name="trash" color="lughtgrey"></ion-icon>
+            ลบ
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
 
-    <ion-grid>
-      <!-- <ion-icon name="trash" item-right (click)="feedDelete(item.feed_id, index)"></ion-icon> -->
+
+    <!-- <ion-grid>
       <ion-row>
         <ion-col>
-          <!-- <ion-card-content> -->
+          
           <ion-item>
             <ion-label fixed>MacAddress:</ion-label>
             <ion-input text-uppercase [innerHTML]="item.device_mac | linky"></ion-input>
@@ -46,8 +100,7 @@
             <ion-input [innerHTML]="item.created | amTimeAgo"></ion-input>
           </ion-item>
 
-          <!-- <span>{{item.created | amTimeAgo}}</span> -->
-          <!-- </ion-card-content> -->
+         
         </ion-col>
         <ion-col>
           <ion-buttons end>
@@ -60,13 +113,24 @@
           </ion-buttons>
         </ion-col>
       </ion-row>
-    </ion-grid>
-
-
-
-  </ion-card>
-  <!-- <button ion-button round outline color="danger" (click)="logout()">
-    <ion-icon name="log-out"></ion-icon>ออกจากระบบ
-  </button> -->
-
+    </ion-grid> -->
 </ion-content>
+<ion-footer>
+  <!--
+    <ion-buttons end>
+    <button ion-button round outline (click)="openPopoverAddNotification()">
+  -->
+  <ion-item>
+    <ion-icon
+      class="iconSize"
+      name="add-circle"
+      color="primary"
+      (click)="openModalAddRuuvitag($event)"
+      item-right
+    ></ion-icon>
+  </ion-item>
+  <!--
+    </button>
+    </ion-buttons>
+  -->
+</ion-footer>

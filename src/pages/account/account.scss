@@ -1,11 +1,52 @@
 page-account {
+  .iconSize {
+    font-size: 60px;
+  }
+  .bg-image {
+    background-image: url(../../assets/imgs/tulips.jpg);
+    background-repeat: no-repeat;
+    // background-position: center;
+    //background-size: contain;
+  }
 
-    .bg-image {
-        background-image: url(../../assets/imgs/rice_background.jpg);
-        background-repeat: no-repeat;
-        background-position: center;
-        //background-size: contain;
-      }
+  .label-item {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  // .set {
+  //   opacity: 0.90;
+  // }
+  .set-title-div {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    color: brown;
+  }
+  .set-sub-div {
+    font-size: 13px;
+    text-align: center;
+    // font-weight: bold;
+  }
 
+  .toolbar-title {
+    text-overflow: inherit;
+    white-space: normal;
+  }
 
+  ion-card.card {
+    border-radius: 10px;
+    border-top: 1px solid grey !important;
+    border-left: 1px solid grey !important;
+    border-right: 1px solid grey !important;
+    border-bottom: 1px solid grey !important;
+    opacity: 0.95;
+  }
+
+  .item-account {
+    border-radius: 10px;
+    border-top: 1px solid grey !important;
+    border-left: 1px solid grey !important;
+    border-right: 1px solid grey !important;
+    border-bottom: 1px solid grey !important;
+  }
 }

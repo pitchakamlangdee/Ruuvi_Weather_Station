@@ -88,7 +88,8 @@ export class ModalUpdateRuuvitagPage {
                     console.log(result);
                     if (this.resposeData.deviceData) {
                       this.dataSet = this.resposeData.deviceData;
-                      this.viewCtrl.dismiss(this.dataSet);
+                      let data = { status: "ok" };
+                      this.viewCtrl.dismiss(data);
                       this.common.closeLoading();
                     } else {
                       console.log("No access");
@@ -114,7 +115,7 @@ export class ModalUpdateRuuvitagPage {
   }
 
   closeModal() {
-    let data = { foo: "bar" };
+    let data = { status: "close" };
     this.viewCtrl.dismiss(data);
   }
 }

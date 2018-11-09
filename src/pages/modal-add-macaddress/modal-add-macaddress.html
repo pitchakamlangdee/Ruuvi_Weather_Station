@@ -21,17 +21,17 @@
 
 <ion-content padding>
   <ion-item id="updateBox">']'
-    <ion-label fixed>MacAddress</ion-label>
-    <ion-input text-uppercase [(ngModel)]="userPostData.device_mac" (keypress)="macSystax()" maxlength="17" placeholder="XX:XX:XX:XX:XX:XX"></ion-input>
+    <ion-label text-wrap fixed>Mac Address</ion-label>
+    <ion-input text-uppercase [(ngModel)]="userPostData.device_mac" (ionChange)="macSystax()" maxlength="17" placeholder="XX:XX:XX:XX:XX:XX"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label fixed>ชื่อ</ion-label>
+    <ion-label text-wrap fixed>ชื่อ</ion-label>
     <ion-input [(ngModel)]="userPostData.device_name" maxlength="17" placeholder="ชื่อของ Ruuvitag"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label fixed>รายละเอียด</ion-label>
+    <ion-label text-wrap fixed>รายละเอียด</ion-label>
     <ion-textarea [(ngModel)]="userPostData.device_description" placeholder="รายละเอียดของ Ruuvitag"></ion-textarea>
   </ion-item>
 

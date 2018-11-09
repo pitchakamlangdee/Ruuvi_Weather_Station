@@ -115,7 +115,12 @@ export class ModalAddMacaddressPage {
     ) {
       this.userPostData.device_mac = this.userPostData.device_mac + ":";
       console.log(this.userPostData.device_mac);
+      return true;
+    }else if(this.userPostData.device_mac.length == 17){
+
+      this.userPostData.device_mac = this.userPostData.device_mac;
     }
+    
   }
 
   presentToast(msg) {
