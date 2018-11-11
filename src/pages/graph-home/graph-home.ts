@@ -71,6 +71,7 @@ export class GraphHomePage {
     this.userPostData.device_mac = this.navParams.get("data2");
     this.userPostData.device_name = this.navParams.get("data3");
     this.userPostData.device_description = this.navParams.get("data4");
+    //  this.userPostData.my_date = new Date().toISOString();
   }
 
   ionViewDidLoad() {

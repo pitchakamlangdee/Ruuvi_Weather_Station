@@ -43,13 +43,13 @@ import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notifica
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp
-      ,{
-      backButtonIcon: 'ios-arrow-back',
-      backButtonText: '',
-      pageTransition: 'iostransition',
-      activator:'ripple',
-      mode:'ios',
-      tabsHideonSubPages: true}
+      // ,{
+      // backButtonIcon: 'ios-arrow-back',
+      // backButtonText: '',
+      // pageTransition: 'iostransition',
+      // activator:'ripple',
+      // mode:'ios',
+      // tabsHideonSubPages: true}
       ),
     SuperTabsModule.forRoot(),
     HttpClientModule,

@@ -29,10 +29,15 @@
     <ion-item color="lughtgrey" class="item-account">
         <div>
           <h2><ion-icon name="man" item-start></ion-icon>  ชื่อ : {{userDetails.name}}</h2>
-          <h2><ion-icon name="contact" item-start></ion-icon> ชื่อบัญชีผู้ใช้ : {{userDetails.name}}</h2>
+          <h2><ion-icon name="contact" item-start></ion-icon> ชื่อบัญชีผู้ใช้ : {{userDetails.username}}</h2>
           <h2><ion-icon name="mail" item-start></ion-icon>Email : {{userDetails.email}}</h2>
         </div>
       </ion-item>
+      <ion-item color="lughtgrey" class="item-account">
+          <div>
+            <h2><ion-icon name="man" item-start></ion-icon>Ruuvitag ในบัญชี : 2 ตัว</h2>
+          </div>
+        </ion-item>
   <ion-card *ngFor="let item of dataSet; let msgIndex = index">
     <ion-list>
       <ion-item-sliding>

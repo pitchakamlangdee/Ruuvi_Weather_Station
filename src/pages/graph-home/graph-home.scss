@@ -5,12 +5,16 @@ page-graph-home {
     
       ion-card {
         // width: 500px !important;
+        height: auto;
+        width: auto;
+    
         display: inline-block;
       }
     
       ion-scroll {
         min-height: 600px;
         height: auto;
+        width: auto;
     
         .scroll-content {
           padding: 0px !important;
