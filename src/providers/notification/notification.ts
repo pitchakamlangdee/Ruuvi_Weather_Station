@@ -149,7 +149,7 @@ export class NotificationProvider {
         this.dataNotification[i].notification_operator == "มากกว่า"
       ) {
         for (let j in this.sensors_data_last) {
-          if (this.sensors_data_last[i].temperature > 3) {
+          if (this.sensors_data_last[j].temperature > this.dataNotification[i].value) {
             try {
               await this.platform.ready();
               const permission = await this.notification.requestPermission();
@@ -294,7 +294,7 @@ export class NotificationProvider {
         this.dataNotification[i].notification_operator == "น้อยกว่า"
       ) {
         for (let j in this.sensors_data_last) {
-          if (this.sensors_data_last[i].temperature > 3) {
+          if (this.sensors_data_last[j].temperature > 3) {
             try {
               await this.platform.ready();
               const permission = await this.notification.requestPermission();
