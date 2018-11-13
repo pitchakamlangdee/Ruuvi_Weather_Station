@@ -32,6 +32,7 @@ export class AccountPage {
   public resposeDelete: any;
   //public resposeDataSensor : any;
   public dataSet = [];
+  public count_dataSet : number;
   //public dataSensor =[];
   userPostData = {
     user_id: "",
@@ -52,6 +53,7 @@ export class AccountPage {
     // private toastCtrl : ToastController,
     private modalCtrl: ModalController
   ) {
+    this.count_dataSet = 0;
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
@@ -68,6 +70,7 @@ export class AccountPage {
         if (this.resposeData.deviceData) {
           // this.common.closeLoading();
           this.dataSet = this.resposeData.deviceData;
+          this.count_dataSet = this.dataSet.length;
           console.log(this.dataSet);
         } else {
           console.log("No access");
@@ -89,7 +92,9 @@ export class AccountPage {
       myModalOptions
     );
     addMacModal.onDidDismiss(data => {
+      this.count_dataSet = this.dataSet.length;
       console.log(data);
+      
     });
     addMacModal.present({
       ev: myEvent
@@ -108,6 +113,7 @@ export class AccountPage {
     updateRuuvitagModal.onDidDismiss(data => {
       if (data != null) {
         if(data.status=="ok"){
+          this.count_dataSet = this.dataSet.length;
           console.log(data);
         this.getDevice();
         }else{
@@ -172,8 +178,10 @@ export class AccountPage {
                     if (this.resposeDelete.success) {
                       // this.getDevice();
                       this.dataSet.splice(msgIndex, 1);
+                      this.count_dataSet = this.dataSet.length;
                       this.common.closeLoading();
                     } else {
+                      this.count_dataSet = 0;
                       this.dataSet.splice(msgIndex, 0);
                       console.log("No access");
                     }

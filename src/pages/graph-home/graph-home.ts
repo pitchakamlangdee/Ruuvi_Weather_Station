@@ -2,6 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import { NavController, NavParams, IonicPage } from "ionic-angular";
 import chartJs from "chart.js";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
+import * as moment from "moment";
 /**
  * Generated class for the GraphHomePage page.
  *
@@ -43,6 +44,9 @@ export class GraphHomePage {
   sum_humidity: any = 0;
   average_pressure: any = 0;
   sum_pressure: any = 0;
+  get_moment: any;
+  show_graph: boolean;
+  set_date = [];
 
   public resposeData: any;
   public dataGraph = [];
@@ -56,13 +60,14 @@ export class GraphHomePage {
     device_name: "",
     device_description: "",
     notification_id: "",
-    my_date:""
+    my_date: ""
   };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public sensorsApiProvider: SensorsApiProvider
   ) {
+    
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
     this.userPostData.user_id = this.userDetails.user_id;
@@ -71,7 +76,14 @@ export class GraphHomePage {
     this.userPostData.device_mac = this.navParams.get("data2");
     this.userPostData.device_name = this.navParams.get("data3");
     this.userPostData.device_description = this.navParams.get("data4");
-    //  this.userPostData.my_date = new Date().toISOString();
+    this.userPostData.my_date = new Date().toISOString();
+    this.userPostData.my_date= moment().format();
+    this.get_moment = moment().format().split("T", 2);
+    this.userPostData.my_date = this.get_moment[0];
+    this.set_date = this.userPostData.my_date.split("-", 3);
+    console.log(this.set_date);
+    // this.userPostData.my_date = moment().format("DD-MM-YYYY");
+    this.getGraphDataDay();
   }
 
   ionViewDidLoad() {
@@ -79,6 +91,9 @@ export class GraphHomePage {
   }
 
   getGraphDataDay() {
+    
+    console.log(this.userPostData.my_date);
+
     let count: number = 0;
     console.log(this.userPostData.my_date);
     this.sensorsApiProvider
@@ -88,6 +103,7 @@ export class GraphHomePage {
 
         this.resposeData = result;
         if (this.resposeData.graphData) {
+          this.show_graph = true;
           this.dataGraph = this.resposeData.graphData;
           for (let i in this.dataGraph) {
             this.mac_address[i] = this.dataGraph[i].mac_id;
@@ -101,7 +117,7 @@ export class GraphHomePage {
             this.sum_temperature += parseFloat(this.dataGraph[i].temperature);
             this.sum_humidity += parseFloat(this.dataGraph[i].humidity);
             this.sum_pressure += parseFloat(this.dataGraph[i].pressure);
-            
+
             count++;
           }
           if (
@@ -120,8 +136,25 @@ export class GraphHomePage {
           //console.log(time);
           this.getLineChart();
           this.getBarChart();
-        } else {
+        } else if (this.resposeData.graphData == "") {
+          this.show_graph = false;
           console.log("No access");
+          this.mac_address = [];
+          this.Name_Ruuvitag = [];
+          this.temperature = [];
+          this.pressure = [];
+          this.time_Stamp = [];
+          this.date = [];
+          this.time = [];
+          this.humidity = [];
+          this.sum_temperature = 0;
+          this.sum_humidity = 0;
+          this.sum_pressure = 0;
+          this.average_temperature = 0;
+          this.average_humidity = 0;
+          this.average_pressure = 0;
+          this.getLineChart();
+          this.getBarChart();
         }
       });
   }
@@ -146,81 +179,96 @@ export class GraphHomePage {
     });
   }
   getLineChart() {
-    const data = {
-      labels: this.time,
-      datasets: [
-        {
-          label: "อุณหภูมิ",
-          fill: true,
-          LineTension: 0.1,
-          backgroundColor: "rgb(254, 0, 0)",
-          borderColor: "rgb(254, 0, 0)",
-          borderCapStyle: "butt",
-          borderJoinStyle: "mitter",
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: this.temperature,
-          scanGaps: false
-        },
-        {
-          label: "ความชื้น",
-          fill: true,
-          LineTension: 0.1,
-          backgroundColor: "rgb(76, 163, 224)",
-          borderColor: "rgb(76, 163, 224)",
-          borderCapStyle: "butt",
-          borderJoinStyle: "mitter",
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: this.humidity,
-          scanGaps: false
-        },
-        {
-          label: "ความดันอากาศ",
-          fill: true,
-          LineTension: 0.1,
-          backgroundColor: "rgb(76, 214, 103)",
-          borderColor: "rgb(76, 214, 103)",
-          borderCapStyle: "butt",
-          borderJoinStyle: "mitter",
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: this.pressure,
-          scanGaps: false
-        }
-      ]
-    };
-    return this.getChart(this.lineCanvas.nativeElement, "line", data);
-  }
-  getBarChart() {
-    const data = {
-      labels: ["", "อุณหภูมิ", "ความชื้น","ความดันอากาศ"],
-      datasets: [
-        {
-          label: ["ค่าเฉลี่ยสภาพอากาศ"],
-          data: ["", this.average_temperature, this.average_humidity, this.average_pressure],
-          backgroundColor: [
-            "rgb(84, 132, 80)",
-            "rgb(254, 0, 0)",
-            "rgb(76, 163, 224)",
-            "rgb(76, 214, 103)",
-            "rgb(60, 0, 70)"
-          ],
-          borderWidth: 1
-        }
-      ]
-    };
-    const options = {
-      scales: {
-        yAxes: [
+    // if (this.show_graph == true) {
+      const data = {
+        labels: this.time,
+        datasets: [
           {
-            tickes: {
-              beginAtZero: true
-            }
+            label: "อุณหภูมิ",
+            fill: true,
+            LineTension: 0.1,
+            backgroundColor: "rgb(254, 0, 0)",
+            borderColor: "rgb(254, 0, 0)",
+            borderCapStyle: "butt",
+            borderJoinStyle: "mitter",
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: this.temperature,
+            scanGaps: false
+          },
+          {
+            label: "ความชื้น",
+            fill: true,
+            LineTension: 0.1,
+            backgroundColor: "rgb(76, 163, 224)",
+            borderColor: "rgb(76, 163, 224)",
+            borderCapStyle: "butt",
+            borderJoinStyle: "mitter",
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: this.humidity,
+            scanGaps: false
+          },
+          {
+            label: "ความดันอากาศ",
+            fill: true,
+            LineTension: 0.1,
+            backgroundColor: "rgb(76, 214, 103)",
+            borderColor: "rgb(76, 214, 103)",
+            borderCapStyle: "butt",
+            borderJoinStyle: "mitter",
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: this.pressure,
+            scanGaps: false
           }
         ]
-      }
-    };
-    return this.getChart(this.barCanvas.nativeElement, "bar", data, options);
+      };
+      return this.getChart(this.lineCanvas.nativeElement, "line", data);
+    // } else {
+    //   const no_data = "";
+    //   return this.getChart(this.lineCanvas.nativeElement, "line", no_data);
+    //   console.log("no graph");
+    // }
+  }
+  getBarChart() {
+    // if (this.show_graph == true) {
+      const data = {
+        labels: ["", "อุณหภูมิ", "ความชื้น", "ความดันอากาศ"],
+        datasets: [
+          {
+            label: ["ค่าเฉลี่ยสภาพอากาศ"],
+            data: [
+              "",
+              this.average_temperature,
+              this.average_humidity,
+              this.average_pressure
+            ],
+            backgroundColor: [
+              "rgb(84, 132, 80)",
+              "rgb(254, 0, 0)",
+              "rgb(76, 163, 224)",
+              "rgb(76, 214, 103)",
+              "rgb(60, 0, 70)"
+            ],
+            borderWidth: 1
+          }
+        ]
+      };
+      const options = {
+        scales: {
+          yAxes: [
+            {
+              tickes: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      };
+      return this.getChart(this.barCanvas.nativeElement, "bar", data, options);
+    // } else {
+    //   console.log("no graph");
+    // }
   }
 }

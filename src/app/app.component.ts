@@ -1,13 +1,15 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, Nav, AlertController } from "ionic-angular";
+import { Platform, Nav, AlertController, MenuController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { WelcomePage } from "../pages/welcome/welcome";
 // import { TabsPage } from "../pages/tabs/tabs";
-import { AccountPage} from '../pages/account/account';
+import { AccountPage } from "../pages/account/account";
 import { HomePage } from "../pages/home/home";
 import { AboutPage } from "../pages/about/about";
 import { CommonProvider } from "../../src/providers/common/common";
+import { SplitPaneProvider } from "../providers/split-pane/split-pane";
+import { NotificationProvider } from "../providers/notification/notification";
 
 @Component({
   templateUrl: "app.html"
@@ -24,8 +26,20 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     private alertCtrl: AlertController,
-    public common: CommonProvider
+    public common: CommonProvider,
+    public splitPaneProvider: SplitPaneProvider,
+    public menu: MenuController,
+    public notificationProvider: NotificationProvider
   ) {
+    // if (localStorage.getItem("userData")) {
+    //   this.notificationProvider.getLastDataSensors();
+    //   setInterval(() => {
+    //     if (localStorage.getItem("userData")) {
+    //     this.notificationProvider.getCheckLastDataSensors();
+    //     }
+    //   }, 12000);
+    // } else { console.log("no Userdata")}
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -45,6 +59,8 @@ export class MyApp {
   }
 
   backToWelcome() {
+    // const root = this.app.getRootNav();
+    // root.popToRoot();
     this.nav.push(WelcomePage);
   }
 
@@ -68,6 +84,7 @@ export class MyApp {
           handler: () => {
             this.common.presentLoading();
             localStorage.clear();
+            this.menu.enable(false);
             setTimeout(() => this.backToWelcome(), 1000);
             setTimeout(() => this.common.closeLoading(), 1000);
             //this.common.closeLoading();

@@ -28,7 +28,7 @@ export class ModalUpdateRuuvitagPage {
     device_mac: "",
     device_id: "",
     device_name: "",
-    device_des: ""
+    device_description: ""
   };
   constructor(
     public navParams: NavParams,
@@ -79,7 +79,7 @@ export class ModalUpdateRuuvitagPage {
               this.common.presentLoading();
               this.userPostData.device_id = this.device_id;
               this.userPostData.device_name = this.device_name1;
-              this.userPostData.device_des = this.device_des1;
+              this.userPostData.device_description = this.device_des1;
               this.sensorsApiProvider
                 .postData(this.userPostData, "deviceUpdate")
                 .then(

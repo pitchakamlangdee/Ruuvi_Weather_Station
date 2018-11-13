@@ -26,6 +26,7 @@ import { CommonProvider } from "../../providers/common/common";
 export class NotificationHomePage {
   public userDetails: any;
   public resposeData: any;
+  public resposeChangeData : any;
   public resposeDelete: any;
 
   public image: any;
@@ -39,7 +40,8 @@ export class NotificationHomePage {
     device_id: "",
     device_name: "",
     device_description: "",
-    notification_id: ""
+    notification_id: "",
+    notification_status: ""
   };
   constructor(
     public navCtrl: NavController,
@@ -76,6 +78,14 @@ export class NotificationHomePage {
         if (this.resposeData.notificationData) {
           // this.common.closeLoading();
           this.dataNotification = this.resposeData.notificationData;
+          // console.log(this.dataNotification);
+          for (let a in this.dataNotification) {
+            if (this.dataNotification[a].notification_status == 0) {
+              this.dataNotification[a].notification_status = 0;
+            } else if (this.dataNotification[a].notification_status == 1) {
+              this.dataNotification[a].notification_status = 1;
+            }
+          }
           console.log(this.dataNotification);
         } else {
           console.log("No access");
@@ -85,6 +95,30 @@ export class NotificationHomePage {
         //Connection failed message
       }
     );
+  }
+
+  changeStatus(notification_id,notification_status) {
+    console.log(notification_status);
+    // this.common.presentLoading();
+    this.userPostData.notification_id = notification_id;
+    this.userPostData.notification_status = notification_status;
+    this.sensorsApiProvider
+      .postData(this.userPostData, "notificationStatusUpdate")
+      .then(
+        result => {
+          this.resposeChangeData = result;
+          console.log(result);
+          if (this.resposeChangeData.notificationData) {
+            this.resposeChangeData.notificationData;
+            // this.common.closeLoading();
+          } else {
+            console.log("No access");
+          }
+        },
+        err => {
+          //Connection failed message
+        }
+      );
   }
 
   openModalAddNotification(myEvent) {
@@ -132,10 +166,10 @@ export class NotificationHomePage {
     );
     updateNotificationModal.onDidDismiss(data => {
       if (data != null) {
-        if(data.status=="ok"){
+        if (data.status == "ok") {
           console.log(data);
-        this.getNotification();
-        }else{
+          this.getNotification();
+        } else {
           console.log(data);
         }
       } else {
@@ -145,7 +179,7 @@ export class NotificationHomePage {
     updateNotificationModal.present();
   }
 
-  notificationDelete(notification_id, notification_weather,msgIndex) {
+  notificationDelete(notification_id, notification_weather, msgIndex) {
     if (notification_id > 0) {
       let alert = this.alertCtrl.create({
         title: "ลบการเเจ้งเตือน" + notification_weather,

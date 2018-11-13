@@ -13,7 +13,7 @@
   </ion-navbar>
 
   <ion-toolbar no-lines>
-    <ion-item color="lughtgrey">
+    <ion-item class="item-toolbar" color="lughtgrey">
       <div align="center">
         <!--
           <ion-avatar item-start>
@@ -65,7 +65,7 @@
           </ion-icon>
           {{ item.notification_weather }}
         </ion-label>
-        <ion-toggle [(ngModel)]="check" item-end></ion-toggle>
+        <ion-toggle [(ngModel)]="item.notification_status" (ionChange)="changeStatus(item.notification_id,item.notification_status)" item-end></ion-toggle>
 
         <!--
           <ion-icon color="danger" name="thermometer" item-start> </ion-icon>

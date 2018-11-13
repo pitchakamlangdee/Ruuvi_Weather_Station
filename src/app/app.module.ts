@@ -23,6 +23,8 @@ import { MomentModule} from 'angular2-moment';
 import { LinkyModule} from 'angular-linky';
 import { CommonProvider } from '../providers/common/common';
 import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
+import { SplitPaneProvider } from '../providers/split-pane/split-pane';
+import { NotificationProvider } from '../providers/notification/notification';
 
 
 @NgModule({
@@ -77,7 +79,10 @@ import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notifica
     PhonegapLocalNotification,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SensorsApiProvider,
-    CommonProvider
+    CommonProvider,
+    SplitPaneProvider,
+    NotificationProvider
+    
   ]
 })
 export class AppModule {}

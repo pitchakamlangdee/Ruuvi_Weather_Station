@@ -1,5 +1,11 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ToastController,
+  MenuController
+} from "ionic-angular";
 // import { TabsPage } from "../tabs/tabs";
 import { HomePage } from "../home/home";
 import { LoginPage } from "../login/login";
@@ -24,7 +30,8 @@ export class SignupPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public sensorsApiProvider: SensorsApiProvider,
-    private toastCtrl : ToastController
+    public menu: MenuController,
+    private toastCtrl: ToastController
   ) {}
 
   ionViewDidLoad() {
@@ -44,12 +51,12 @@ export class SignupPage {
           this.resposeData = result;
           console.log(this.resposeData);
 
-          if(this.resposeData.userData){
+          if (this.resposeData.userData) {
             localStorage.setItem("userData", JSON.stringify(this.resposeData));
-          this.navCtrl.push(HomePage);
+            this.menu.enable(true);
+            this.navCtrl.push(HomePage);
             this.presentToast("Login Sucess !");
-          }
-          else{
+          } else {
             this.presentToast("Give valid details");
           }
         },
@@ -57,8 +64,7 @@ export class SignupPage {
           //Connection failed message
         }
       );
-    }
-    else {
+    } else {
       this.presentToast("Give username and password");
     }
   }
@@ -66,13 +72,11 @@ export class SignupPage {
     this.navCtrl.push(LoginPage);
   }
 
-  presentToast(msg){
+  presentToast(msg) {
     let toast = this.toastCtrl.create({
-        message: msg,
-        duration: 2000
+      message: msg,
+      duration: 2000
     });
     toast.present();
-
-
   }
 }

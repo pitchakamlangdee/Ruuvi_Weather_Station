@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
+import { IonicPage, NavController, NavParams, ToastController, MenuController } from "ionic-angular";
 // import { TabsPage } from "../tabs/tabs";
 import { HomePage } from "../home/home";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
@@ -25,7 +25,7 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public sensorsApiProvider: SensorsApiProvider,
-    
+    public menu: MenuController,
     private toastCtrl : ToastController
   ) {}
 
@@ -41,6 +41,7 @@ export class LoginPage {
            
            
           localStorage.setItem("userData", JSON.stringify(this.resposeData));
+          this.menu.enable(true);
           this.navCtrl.push(HomePage);
            
           }

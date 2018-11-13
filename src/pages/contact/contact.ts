@@ -53,9 +53,9 @@ export class ContactPage {
   ionViewDidLoad() {
     //this.getMacSelectHome();
     
-    setInterval(() => {
-      this.addNotificationTemperature();
-    }, 5000);
+    // setInterval(() => {
+    //   this.addNotificationTemperature();
+    // }, 5000);
   }
 
   getMacSelectHome() {

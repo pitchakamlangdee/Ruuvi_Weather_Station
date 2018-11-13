@@ -1,3 +1,4 @@
+<ion-split-pane [when]="splitPaneProvider.getSplitPane()">
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar> <ion-title>เมนู</ion-title> </ion-toolbar>
@@ -12,12 +13,8 @@
           <ion-icon name="log-out"></ion-icon>ออกจากระบบ
         </button>
     </ion-list>
-    <!-- <ion-list>
-      <button menuClose ion-item color="danger" (click)="logout()">
-        <ion-icon name="log-out"></ion-icon>ออกจากระบบ
-      </button>
-    </ion-list> -->
   </ion-content>
 </ion-menu>
 
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" main #content ></ion-nav>
+</ion-split-pane>

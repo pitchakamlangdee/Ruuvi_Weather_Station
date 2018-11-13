@@ -12,7 +12,7 @@
       สภาพอากาศย้อนหลัง</ion-title>
   </ion-navbar>
   <ion-toolbar no-lines>
-      <ion-item color="lughtgrey">
+      <ion-item class="item-toolbar" color="lughtgrey">
         <div align="center">
           <!--
             <ion-avatar item-start>
@@ -30,28 +30,28 @@
 <ion-content class="bg-image" padding>
     <ion-item >
         <ion-label><ion-icon name="calendar"></ion-icon>เลือกวันที่ที่ต้องการ</ion-label>
-        <ion-datetime displayFormat="YYYY-MM-DD"  [(ngModel)]="userPostData.my_date" (ionChange)="getGraphDataDay()"></ion-datetime>
+        <ion-datetime displayFormat="DD-MM-YYYY" PickerFormat="DD-MM-YYYY" max="{{set_date[0]}}-{{set_date[1]}}-{{set_date[2]}}" [(ngModel)]="userPostData.my_date" (ionChange)="getGraphDataDay()"></ion-datetime>
       </ion-item>
       <div >
-      <!-- <ion-scroll scrollY="true"  direction="y"> -->
-          <ion-card >
-            <ion-card-header  >
+      <ion-scroll scrollX="true"  direction="x">
+          <ion-card>
+            <ion-card-header >
               ข้อมูลสภาพอากาศของวันที่ {{userPostData.my_date}}
             </ion-card-header>
-            <ion-card-content>
-              <canvas height="700vw" width="500vw" #lineCanvas></canvas>
+            <ion-card-content >
+              <canvas  height="700vw" width="500vw" #lineCanvas></canvas>
             </ion-card-content>
           </ion-card>
         
           <ion-card >
-            <ion-card-header>
-                ข้อมูลสภาพอากาศโดยเฉลี่ยของทั้งวัน
+            <ion-card-header text-wrap>
+                ข้อมูลสภาพอากาศโดยเฉลี่ยของวันที่ {{userPostData.my_date}}
             </ion-card-header>
             <ion-card-content>
-              <canvas height="700vw" width="500vw" #barCanvas></canvas>
+              <canvas  height="700vw" width="500vw" #barCanvas></canvas>
             </ion-card-content>
           </ion-card>
-        <!-- </ion-scroll> -->
+        </ion-scroll>
       </div>
 
 </ion-content>

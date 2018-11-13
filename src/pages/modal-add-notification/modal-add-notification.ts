@@ -35,7 +35,7 @@ export class ModalAddNotificationPage {
     notification_weather: "",
     notification_operator: "",
     notification_value: "",
-    notification_description: ""
+    notification_description: "",
   };
 
   constructor(

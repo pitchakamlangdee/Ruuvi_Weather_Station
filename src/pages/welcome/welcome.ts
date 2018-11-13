@@ -1,7 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { SignupPage } from '../signup/signup';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  MenuController
+} from "ionic-angular";
+import { LoginPage } from "../login/login";
+import { SignupPage } from "../signup/signup";
 import { HomePage } from "../home/home";
 // import { TabsPage } from '../tabs/tabs';
 /**
@@ -13,27 +18,32 @@ import { HomePage } from "../home/home";
 
 @IonicPage()
 @Component({
-  selector: 'page-welcome',
-  templateUrl: 'welcome.html',
+  selector: "page-welcome",
+  templateUrl: "welcome.html"
 })
 export class WelcomePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  if(localStorage.getItem("userData")){
-      this.navCtrl.setRoot(HomePage);  
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public menu: MenuController
+  ) {
+    if (localStorage.getItem("userData")) {
+      this.menu.enable(true);
+      this.navCtrl.setRoot(HomePage);
+    } else {
+      this.menu.enable(false);
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WelcomePage');
+    console.log("ionViewDidLoad WelcomePage");
   }
 
-  login(){
-      this.navCtrl.push(LoginPage);
+  login() {
+    this.navCtrl.push(LoginPage);
   }
 
-  signup(){
-      this.navCtrl.push(SignupPage, {animate:false});
+  signup() {
+    this.navCtrl.push(SignupPage, { animate: false });
   }
-
 }
