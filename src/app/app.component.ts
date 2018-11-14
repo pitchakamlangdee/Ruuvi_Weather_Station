@@ -31,14 +31,14 @@ export class MyApp {
     public menu: MenuController,
     public notificationProvider: NotificationProvider
   ) {
-    // if (localStorage.getItem("userData")) {
-    //   this.notificationProvider.getLastDataSensors();
-    //   setInterval(() => {
-    //     if (localStorage.getItem("userData")) {
-    //     this.notificationProvider.getCheckLastDataSensors();
-    //     }
-    //   }, 12000);
-    // } else { console.log("no Userdata")}
+    if (localStorage.getItem("userData")) {
+      // this.notificationProvider.getLastDataSensors();
+      setInterval(() => {
+        if (localStorage.getItem("userData")) {
+        this.notificationProvider.getNotification();
+        }
+      }, 12000);
+    } else { console.log("no Userdata")}
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
