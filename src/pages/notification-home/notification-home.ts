@@ -3,13 +3,13 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  ViewController,
   AlertController,
   ModalController,
   ModalOptions
 } from "ionic-angular";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
+import { NotificationProvider } from "../../providers/notification/notification";
 
 /**
  * Generated class for the NotificationHomePage page.
@@ -50,7 +50,8 @@ export class NotificationHomePage {
     public sensorsApiProvider: SensorsApiProvider,
     private alertCtrl: AlertController,
     public common: CommonProvider,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public notificationProvider: NotificationProvider,
   ) {
     const data = JSON.parse(localStorage.getItem("userData"));
     this.userDetails = data.userData;
@@ -109,7 +110,8 @@ export class NotificationHomePage {
           this.resposeChangeData = result;
           console.log(result);
           if (this.resposeChangeData.notificationData) {
-            this.resposeChangeData.notificationData;
+            console.log(this.resposeChangeData.notificationData);
+            this.notificationProvider.setIntervalNotification();
             // this.common.closeLoading();
           } else {
             console.log("No access");

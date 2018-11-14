@@ -25,6 +25,7 @@ import { CommonProvider } from '../providers/common/common';
 import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
 import { SplitPaneProvider } from '../providers/split-pane/split-pane';
 import { NotificationProvider } from '../providers/notification/notification';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { NotificationProvider } from '../providers/notification/notification';
     SensorsApiProvider,
     CommonProvider,
     SplitPaneProvider,
-    NotificationProvider
+    NotificationProvider,
+    LocalNotifications
     
   ]
 })

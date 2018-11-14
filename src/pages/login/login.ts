@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController, MenuController } 
 // import { TabsPage } from "../tabs/tabs";
 import { HomePage } from "../home/home";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
+import { NotificationProvider } from "../../providers/notification/notification";
+
 
 
 /**
@@ -26,6 +28,7 @@ export class LoginPage {
     public navParams: NavParams,
     public sensorsApiProvider: SensorsApiProvider,
     public menu: MenuController,
+    public notificationProvider: NotificationProvider,
     private toastCtrl : ToastController
   ) {}
 
@@ -42,6 +45,7 @@ export class LoginPage {
            
           localStorage.setItem("userData", JSON.stringify(this.resposeData));
           this.menu.enable(true);
+          this.notificationProvider.setIntervalNotification();
           this.navCtrl.push(HomePage);
            
           }
