@@ -20,6 +20,7 @@
         <ion-item no-lines color="Skyblue">
           <ion-label class="content">เลือก Ruuvitag ที่ต้องการเเสดง</ion-label>
           <ion-select
+            [disabled]="dataMac == ''"
             [(ngModel)]="selectedItem"
             multiple="true"
             (ionChange)="getLastDataSensors()"
@@ -44,7 +45,7 @@
 </ion-header>
 
 <ion-content class="card-background-page">
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="dataMac != ''">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
       pullingText="ดึงลงเพื่อรีเฟรช"
@@ -64,7 +65,11 @@
           สภาพอากาศล่าสุด</ion-title>
     </ion-item>
   -->
-  <ion-slides pager="true" (ionSlideDidChange)="slideChanged()">
+  <ion-slides
+    pager="true"
+    (ionSlideDidChange)="slideChanged()"
+    *ngIf="dataMac != ''"
+  >
     <ion-slide *ngFor="let n of sensors_data_last; let i = index">
       <ion-card>
         <ion-list>
@@ -129,7 +134,10 @@
           <br />
           <div class="card-subtitle4">
             <ion-icon name="clock"></ion-icon>
-            วันที่ {{set_day_last_sensor[i]}}/{{set_month_last_sensor[i]}}/{{set_year_last_sensor[i]}} เวลา {{set_time_last_sensor[i]}} น.
+            วันที่ {{ set_day_last_sensor[i] }}/{{
+              set_month_last_sensor[i]
+            }}/{{ set_year_last_sensor[i] }} เวลา
+            {{ set_time_last_sensor[i] }} น.
           </div>
           <div class="card-subtitle5">
             <ion-icon name="pulse"></ion-icon> อัพเดตเมื่อ :
@@ -140,4 +148,17 @@
     </ion-slide>
   </ion-slides>
   <!-- </ion-scroll> -->
+
+  <ion-card *ngIf="dataMac == ''" class="card-background-page">
+    <ion-list>
+    <img class="img-size" src="assets/imgs/graph_background.jpg" />
+    <div class="card-subtitles1">ยังไม่มีข้อมูล Ruuvitag ในบัญชี</div>
+    <div class="card-subtitles2">ถ้าต้องการเพิ่มข้อมูล Ruuvitag</div>
+    <ion-buttons class="card-subtitles3">
+    <button ion-button large round (click)="openModalAddRuuvitag($event)">
+      <ion-icon name="add"> เพิ่ม Ruuvitag</ion-icon>
+    </button>
+  </ion-buttons>
+  </ion-list>
+  </ion-card>
 </ion-content>

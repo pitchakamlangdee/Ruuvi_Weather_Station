@@ -1,5 +1,5 @@
 import { Component, ViewChild  } from "@angular/core";
-import { NavController, ModalController, Slides  } from "ionic-angular";
+import { NavController, ModalController, Slides, ModalOptions,Modal  } from "ionic-angular";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
 // import { AboutPage } from "../about/about";
@@ -30,10 +30,14 @@ export class HomePage {
   public set_month_last_sensor = [];
   public set_day_last_sensor = [];
 
+  public dataSet = [];
+  public count_dataSet : number;
+
 
   public userDetails: any;
   public resposeDataMac: any;
   public resposeLastData: any;
+  public resposeData: any;
   public dataMac = [];
   userPostData = { user_id: "", token: "", device_mac: "", device_id: "" };
   //numbers = ["a", "b", "c", "d", "e"];
@@ -84,6 +88,7 @@ export class HomePage {
           console.log(this.dataMac);
         } else {
           console.log("No access");
+          this.getDevice();
         }
         this.selectedItem = this.dataMac;
 
@@ -267,6 +272,45 @@ export class HomePage {
       data4: device_description
     });
   }
+  getDevice() {
+    // this.common.presentLoading();
+    this.sensorsApiProvider.postData(this.userPostData, "device").then(
+      result => {
+        this.resposeData = result;
+        if (this.resposeData.deviceData) {
+          // this.common.closeLoading();
+          this.dataSet = this.resposeData.deviceData;
+          this.count_dataSet = this.dataSet.length;
+          console.log(this.dataSet);
+        } else {
+          console.log("No access");
+        }
+      },
+      err => {
+        //Connection failed message
+      }
+    );
+  }
+
+  openModalAddRuuvitag(myEvent) {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: true
+    };
+    let addMacModal: Modal = this.modalCtrl.create(
+      "ModalAddMacaddressPage",
+      { data: this.dataSet },
+      myModalOptions
+    );
+    addMacModal.onDidDismiss(data => {
+      this.count_dataSet = this.dataSet.length;
+      console.log(data);
+      this.getMacSelectHome();
+    });
+    addMacModal.present({
+      ev: myEvent
+    });
+  }
+
 
   slideChanged() {
     //this.slides.slidePrev(0);
