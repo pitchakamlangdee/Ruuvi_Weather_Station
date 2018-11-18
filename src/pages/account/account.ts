@@ -33,6 +33,8 @@ export class AccountPage {
   //public resposeDataSensor : any;
   public dataSet = [];
   public count_dataSet : number;
+  public check_data_account : number = 0;
+  public check_data_ruuvitag : number = 1;
   //public dataSensor =[];
   userPostData = {
     user_id: "",
@@ -126,30 +128,6 @@ export class AccountPage {
     updateRuuvitagModal.present();
   }
 
-  // openModal(){
-  // const myModalOptions: ModalOptions = {
-  //   enableBackdropDismiss: false,
-
-  // }
-
-  //   const myModalData = {
-  //     name: 'Pitcha',
-  //     occupation: 'Developer'
-  //   };
-  //   const myModal: Modal = this.modal.create('ModalAddMacaddressPage', {data:myModalData},myModalOptions);
-
-  //   myModal.present();
-
-  //   myModal.onDidDismiss((data) => {
-  //     console.log("I have dismiss");
-  //     console.log(data);
-  //   })
-
-  //   myModal.onWillDismiss((data) =>{
-  //     console.log("I'm about to dismiss");
-  //     console.log(data);
-  //   })
-  // }
 
   deviceDelete(device_id, msgIndex) {
     console.log(msgIndex);
@@ -198,28 +176,7 @@ export class AccountPage {
     }
   }
 
-  // getSensor() {
-  //   // this.common.presentLoading();
-  //   this.sensorsApiProvider.postData(this.userPostData, "sensor").then(
-  //     result => {
-  //       this.resposeDataSensor = result;
-  //       if (this.resposeDataSensor.sensorData) {
-  //         // this.common.closeLoading();
-  //         this.dataSensor = this.resposeDataSensor.sensorData;
-  //         console.log(this.dataSensor);
-  //       } else {
-  //         console.log("No access");
-  //       }
-  //     },
-  //     err => {
-  //       //Connection failed message
-  //     }
-  //   );
-  // }
-  // converTime(time) {
-  //   let a = new Date(time * 1000);
-  //   return a;
-  // }
+  
 
   backToWelcome() {
     this.navCtrl.push(WelcomePage);
@@ -254,6 +211,21 @@ export class AccountPage {
     alert.present();
   }
 
+  showDataAccount(){
+    if(this.check_data_account==0){
+    this.check_data_account ++;
+    }else{
+      this.check_data_account --;
+    }
+  }
+
+  showDataRuuvitag(){
+    if(this.check_data_ruuvitag==1){
+    this.check_data_ruuvitag --;
+    }else{
+      this.check_data_ruuvitag ++;
+    }
+  }
   // displayAccount(){
   //   this.common.presentLoading();
   //   this.getDevice();

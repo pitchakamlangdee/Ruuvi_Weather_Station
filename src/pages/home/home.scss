@@ -74,23 +74,26 @@ page-home {
     // border-radius: 10px;
   }
 
-  .scroll-zoom-wrapper {
-    white-space: nowrap;
-  }
+  // .scroll-zoom-wrapper {
+  //   white-space: nowrap;
+  // }
 
   ion-card {
     // width: 500px !important;
-    display: inline-block;
+    height: 500px !important;
+    // display: inline-block;
   }
-
-  ion-scroll {
-    min-height: 600px;
-    height: auto;
-
-    .scroll-content {
-      padding: 0px !important;
-    }
+  .img-size{
+    height: 450px !important;
   }
+  // ion-scroll {
+  //   min-height: 600px;
+  //   height: auto;
+
+  //   .scroll-content {
+  //     padding: 0px !important;
+  //   }
+  // }
 
   .card-background-page {
     ion-card {
@@ -175,4 +178,18 @@ page-home {
       border-radius: 10px;
     }
   }
+
+  .has-refresher  .scroll-content {
+    border-top: 0 !important;
+    
+  }
+
+  .item-toolbar{
+    border-radius: 10px;
+    border-top: 2px solid rgb(255, 255, 255) !important;
+    border-left: 2px solid rgb(255, 255, 255) !important;
+    border-right: 2px solid rgb(255, 255, 255) !important;
+    border-bottom: 2px solid rgb(255, 255, 255) !important;
+  }
+  
 }

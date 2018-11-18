@@ -1,22 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     <ion-title>
-        <ion-icon name="home"  item-start></ion-icon>
-      หน้าหลัก</ion-title>
+      <ion-icon name="sunny" item-start></ion-icon>
+      สภาพอากาศล่าสุด</ion-title
+    >
   </ion-toolbar>
 
   <ion-toolbar>
+    <!--
+      <ion-item color="Skyblue">
+        <ion-title>
+            <ion-icon name="sunny" item-start></ion-icon>
+            สภาพอากาศล่าสุด</ion-title>
+      </ion-item>
+    -->
     <ion-row>
       <ion-col col-12>
         <ion-item no-lines color="Skyblue">
           <ion-label class="content">เลือก Ruuvitag ที่ต้องการเเสดง</ion-label>
-          <ion-select [(ngModel)]="selectedItem" multiple="true" (ionChange)="getLastDataSensors()" interface="popover"
-            class="selector" placeholder="เลือก Ruuvitag " [selectedText]="selectedItemLength">
-            <ion-option *ngFor="let item of dataMac" [value]="item.mac_id" class="option" text-wrap>
-              {{item.device_name}}
+          <ion-select
+            [(ngModel)]="selectedItem"
+            multiple="true"
+            (ionChange)="getLastDataSensors()"
+            interface="popover"
+            class="selector"
+            placeholder="เลือก Ruuvitag"
+            [selectedText]="selectedItemLength"
+          >
+            <ion-option
+              *ngFor="let item of dataMac"
+              [value]="item.mac_id"
+              class="option"
+              text-wrap
+            >
+              {{ item.device_name }}
             </ion-option>
           </ion-select>
         </ion-item>
@@ -25,115 +43,101 @@
   </ion-toolbar>
 </ion-header>
 
-
-<!-- <ion-item>
-    <ion-label>Select Show Ruuvitag</ion-label>
-    <ion-select [(ngModel)]="selectedItem" multiple="true"  (ionChange)="getLastDataSensors()">
-      <ion-option *ngFor="let item of select_mac_home"  [value]="item.mac_id" >{{item.Name_Ruuvitag}}</ion-option>
-    </ion-select>
-  </ion-item> -->
-
-<!-- <ion-row>
-    <ion-col col-12>
-      <ion-item no-lines>
-        <ion-label class="content">เลือก Ruuvitag ที่ต้องการ</ion-label>
-        <ion-select [(ngModel)]="selectedItem" multiple="true" (ionChange)="getLastDataSensors()" interface="popover"
-          class="selector" placeholder="เลือก Ruuvitag">
-          <ion-option *ngFor="let item of dataMac" [value]="item.mac_id" class="option" text-wrap>
-            {{item.device_name}}
-          </ion-option>
-        </ion-select>
-      </ion-item>
-
-    </ion-col>
-  </ion-row> -->
-
-
-
 <ion-content class="card-background-page">
-  <!-- <ion-slides pager="true" direction = "vertical" (ionSlideDidChange)="slideChanged()">
-      <ion-slide *ngFor="let n of selectedItem ; let i = index"> -->
-  <ion-scroll scrollX="true" direction="x">
-  <ion-card  *ngFor="let n of sensors_data_last ; let i = index">
-    <ion-list>
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="assets/icon/ruuvitag_icon.png">
-        </ion-avatar>
-        <h1>{{n.device_name}}</h1>
-        <ion-icon name="stats" color="lughtgrey" (click)="openGraphsHome(n.device_id, n.device_mac, n.device_name, n.device_description)" item-end></ion-icon>
-        <ion-icon item-end></ion-icon>
-        <ion-icon item-end></ion-icon>
-        <ion-icon name="notifications" color="yellow" (click)="openNotificationsHome(n.device_id, n.device_mac, n.device_name, n.device_description)"
-          item-end></ion-icon>
-      </ion-item>
-      <!-- <ion-item-options side="left">
-            <button ion-button (click)="favorite(item)">Favorite</button>
-            <button ion-button color="danger" (click)="share(item)">Share</button>
-          </ion-item-options> -->
-    </ion-list>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="ดึงลงเพื่อรีเฟรช"
+      refreshingSpinner="dots"
+      refreshingText="กำลังรีเฟรช..."
+    ></ion-refresher-content>
+  </ion-refresher>
+  <!--
+    <ion-slides pager="true" direction = "vertical" (ionSlideDidChange)="slideChanged()">
+    <ion-slide *ngFor="let n of selectedItem ; let i = index">
+  -->
+  <!-- <ion-scroll scrollX="true" direction="x"> -->
+  <!--
+    <ion-item color="Skyblue">
+      <ion-title>
+          <ion-icon name="sunny" item-start></ion-icon>
+          สภาพอากาศล่าสุด</ion-title>
+    </ion-item>
+  -->
+  <ion-slides pager="true" (ionSlideDidChange)="slideChanged()">
+    <ion-slide *ngFor="let n of sensors_data_last; let i = index">
+      <ion-card>
+        <ion-list>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="assets/icon/ruuvitag_icon.png" />
+            </ion-avatar>
+            <h1>{{ n.device_name }}</h1>
+            <ion-icon
+              name="stats"
+              color="lughtgrey"
+              (click)="
+                openGraphsHome(
+                  n.device_id,
+                  n.device_mac,
+                  n.device_name,
+                  n.device_description
+                )
+              "
+              item-end
+            ></ion-icon>
+            <ion-icon item-end></ion-icon>
+            <ion-icon item-end></ion-icon>
+            <ion-icon
+              name="notifications"
+              color="yellow"
+              (click)="
+                openNotificationsHome(
+                  n.device_id,
+                  n.device_mac,
+                  n.device_name,
+                  n.device_description
+                )
+              "
+              item-end
+            ></ion-icon>
+          </ion-item>
+        </ion-list>
 
-    <ion-list>
-      <img [src]="images[i].image" height="500vw" />
-      <!-- <div class="card-title">
-          {{n.device_name}}
-        </div> -->
+        <ion-list>
+          <img class="img-size" [src]="images[i].image" />
+          <!--
+            <div class="card-title">
+              {{n.device_name}}
+            </div>
+          -->
 
-      <div class="card-subtitle1" floating>
-        <ion-icon color="danger" name="thermometer"></ion-icon> อุณหภูมิ : {{n.temperature}} °C
-      </div>
+          <div class="card-subtitle1" floating>
+            <ion-icon color="danger" name="thermometer"></ion-icon> อุณหภูมิ :
+            {{ n.temperature }} °C
+          </div>
 
-      <div class="card-subtitle2" floating>
-        <ion-icon color="DarkTurquoise" name="water"></ion-icon> ความชื้น : {{n.humidity}} %
-      </div>
+          <div class="card-subtitle2" floating>
+            <ion-icon color="DarkTurquoise" name="water"></ion-icon> ความชื้น :
+            {{ n.humidity }} %
+          </div>
 
-      <div class="card-subtitle3">
-        <ion-icon color="secondary" name="leaf"></ion-icon> ความดันอากาศ : {{n.pressure}} hPa
-      </div>
-      <br>
-      <div class="card-subtitle4">
-        <ion-icon name="clock"></ion-icon> {{n.date}}
-      </div>
-      <div class="card-subtitle5">
-        <ion-icon name="pulse"></ion-icon> อัพเดตเมื่อ : {{n.date| amTimeAgo}}
-      </div>
-    </ion-list>
-  </ion-card>
-</ion-scroll>
-  <!-- </ion-slide>
-    </ion-slides> -->
-
-  <!-- <ion-content padding class="bg-image" *ngFor="let last_data of sensors_data_last">
-      <h1 align='center'>
-           {{last_data.Name_Ruuvitag}}
-        </h1><br><br>
-    <h1 align='center'>
-      <ion-icon color="primary" name="bluetooth"></ion-icon> {{last_data.mac_id}}
-    </h1><br><br>
-    <h1 align='center'>
-      <ion-icon color="danger" name="thermometer"></ion-icon> {{last_data.temperature}} ํC
-    </h1>
-    <br>
-    <h1 align='center'>
-      <ion-icon color="water" name="water"></ion-icon> {{last_data.humidity}} %
-    </h1>
-    <br>
-    <h1 align='center'>
-      <ion-icon color="secondary" name="leaf"></ion-icon> {{last_data.pressure}} hPa
-    </h1>
-    <br><br><br>
-    <h1 align='center'>
-      <ion-icon name="clock"></ion-icon> {{last_data.Time_Stamp}}
-      
-    </h1>
-
-
-
-
-  </ion-content> -->
-
-
-
-
-
+          <div class="card-subtitle3">
+            <ion-icon color="secondary" name="leaf"></ion-icon> ความดันอากาศ :
+            {{ n.pressure }} hPa
+          </div>
+          <br />
+          <div class="card-subtitle4">
+            <ion-icon name="clock"></ion-icon>
+            วันที่ {{set_day_last_sensor[i]}}/{{set_month_last_sensor[i]}}/{{set_year_last_sensor[i]}} เวลา {{set_time_last_sensor[i]}} น.
+          </div>
+          <div class="card-subtitle5">
+            <ion-icon name="pulse"></ion-icon> อัพเดตเมื่อ :
+            {{ n.date | amTimeAgo }}
+          </div>
+        </ion-list>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  <!-- </ion-scroll> -->
 </ion-content>

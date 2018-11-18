@@ -43,5 +43,15 @@ page-graph-home {
         border-right: 2px solid rgb(255, 255, 255) !important;
         border-bottom: 2px solid rgb(255, 255, 255) !important;
       }
+      .fixButton{
+        width: 150px;
+        height: 35px;
+      }
+
+      .no-graph{
+        color: rgb(255, 0, 0);
+        font-weight: bold;
+        
+      }
       
 }

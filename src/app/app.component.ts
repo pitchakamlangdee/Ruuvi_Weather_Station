@@ -47,7 +47,7 @@ export class MyApp {
       splashScreen.hide();
     });
     this.pages = [
-      { title: "หน้าหลัก", component: HomePage, icon: "home" },
+      { title: "สภาพอากาศล่าสุด", component: HomePage, icon: "sunny" },
       { title: "สภาพอากาศย้อนหลัง", component: AboutPage, icon: "stats" },
       { title: "บัญชีผู้ใช้", component: AccountPage, icon: "contacts" }
     ];

@@ -1,6 +1,7 @@
 page-account {
   .iconSize {
     font-size: 60px;
+    text-align: center;
   }
   .bg-image {
     background-image: url(../../assets/imgs/tulips.jpg);
@@ -16,6 +17,13 @@ page-account {
   // .set {
   //   opacity: 0.90;
   // }
+
+  .set-title-account-div {
+    font-size: 17px;
+    font-weight: bold;
+    color: black;
+  }
+  
   .set-title-div {
     font-size: 17px;
     font-weight: bold;
@@ -43,11 +51,15 @@ page-account {
   }
 
   .item-account {
+    
     border-radius: 10px;
     border-top: 2px solid rgb(255, 255, 255) !important;
     border-left: 2px solid rgb(255, 255, 255) !important;
     border-right: 2px solid rgb(255, 255, 255) !important;
     border-bottom: 2px solid rgb(255, 255, 255) !important;
   }
+
+  
+  
 
 }

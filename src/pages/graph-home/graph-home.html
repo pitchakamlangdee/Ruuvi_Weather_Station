@@ -5,53 +5,107 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>
-        <ion-icon name="stats" color="lughtgrey"item-start></ion-icon>
-      สภาพอากาศย้อนหลัง</ion-title>
+      <ion-icon name="stats" color="lughtgrey" item-start></ion-icon>
+      สภาพอากาศย้อนหลัง</ion-title
+    >
   </ion-navbar>
   <ion-toolbar no-lines>
-      <ion-item class="item-toolbar" color="lughtgrey">
-        <div align="center">
-          <!--
-            <ion-avatar item-start>
-              <img src="assets/icon/ruuvitag_icon.png" />
-            </ion-avatar>
-          -->
-          <h2>{{ userPostData.device_name }}</h2>
-        </div>
-      </ion-item>
-    </ion-toolbar>
-
+    <ion-item class="item-toolbar" color="lughtgrey">
+      <div align="center">
+        <!--
+          <ion-avatar item-start>
+            <img src="assets/icon/ruuvitag_icon.png" />
+          </ion-avatar>
+        -->
+        <h2>{{ userPostData.device_name }}</h2>
+      </div>
+    </ion-item>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="bg-image" padding>
-    <ion-item >
-        <ion-label><ion-icon name="calendar"></ion-icon>เลือกวันที่ที่ต้องการ</ion-label>
-        <ion-datetime displayFormat="DD-MM-YYYY" PickerFormat="DD-MM-YYYY" max="{{set_date[0]}}-{{set_date[1]}}-{{set_date[2]}}" [(ngModel)]="userPostData.my_date" (ionChange)="getGraphDataDay()"></ion-datetime>
-      </ion-item>
-      <div >
-      <ion-scroll scrollX="true"  direction="x">
-          <ion-card>
-            <ion-card-header >
-              ข้อมูลสภาพอากาศของวันที่ {{userPostData.my_date}}
-            </ion-card-header>
-            <ion-card-content >
-              <canvas  height="700vw" width="500vw" #lineCanvas></canvas>
-            </ion-card-content>
-          </ion-card>
-        
-          <ion-card >
-            <ion-card-header text-wrap>
-                ข้อมูลสภาพอากาศโดยเฉลี่ยของวันที่ {{userPostData.my_date}}
-            </ion-card-header>
-            <ion-card-content>
-              <canvas  height="700vw" width="500vw" #barCanvas></canvas>
-            </ion-card-content>
-          </ion-card>
-        </ion-scroll>
-      </div>
-
+  <ion-buttons align="center" >
+    <button ion-button color="Skyblue" (click)="getGraphDatahour(hour_1)" class="fixButton">ย้อนหลัง 1 ชั่วโมง</button>
+    <button ion-button color="Skyblue" (click)="getGraphDatahour(hour_3)" class="fixButton">ย้อนหลัง 3 ชั่วโมง</button>
+  </ion-buttons>
+  <ion-buttons align="center">
+    <button ion-button color="Skyblue" (click)="getGraphDatahour(hour_12)" class="fixButton">ย้อนหลัง 12 ชั่วโมง</button>
+    <button ion-button color="Skyblue" (click)="getGraphDatahour(hour_24)" class="fixButton">ย้อนหลัง 24 ชั่วโมง</button>
+  </ion-buttons>
+  <ion-item>
+    <ion-label
+      ><ion-icon name="calendar"></ion-icon>เลือกวันที่ที่ต้องการ</ion-label
+    >
+    <ion-datetime
+      displayFormat="DD-MM-YYYY"
+      PickerFormat="DD-MM-YYYY"
+      max="{{set_max_date[0]}}-{{set_max_date[1]}}-{{set_max_date[2]}}"
+      [(ngModel)]="userPostData.my_date"
+      (ionChange)="getGraphDataDay()"
+    ></ion-datetime>
+  </ion-item>
+  <div>
+    <ion-slides pager="true">
+      <ion-slide>
+        <!-- <ion-scroll scrollX="true" direction="x"> -->
+        <ion-card>
+          <ion-card-header>
+            <div *ngIf="day_or_hour==1 && show_graph==true">ข้อมูลสภาพอากาศเมื่อ</div>
+            <div *ngIf="day_or_hour==1 && show_graph==true">{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">ข้อมูลสภาพอากาศของวันที่</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]
+              }}
+            </div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศเมื่อ</div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศวันที่</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]}}</div>
+          </ion-card-header>
+          <ion-card-content >
+            <canvas height="700vw" width="500vw" #lineCanvas></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide>
+        <ion-card>
+          <ion-card-header text-wrap>
+            <div *ngIf="day_or_hour==1 && show_graph==true">ข้อมูลสภาพอากาศโดยเฉลี่ยเมื่อ</div>
+            <div *ngIf="day_or_hour==1 && show_graph==true">{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">ข้อมูลสภาพอากาศโดยเฉลี่ยของวันที่</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]
+              }}
+            </div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศโดยเฉลี่ยเมื่อ</div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศโดยเฉลี่ยวันที่</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]}}</div>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas height="700vw" width="500vw" #barCanvas></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+    <!-- </ion-scroll> -->
+  </div>
 </ion-content>
+<!--
+  <ion-footer>
+    <ion-item>
+      <ion-segment [(ngModel)]="icons" color="secondary">
+        <ion-segment-button value="camera"> camera </ion-segment-button>
+        <ion-segment-button value="bookmark"> bookmark </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+  </ion-footer>
+-->

@@ -9,12 +9,12 @@
 <ion-content class="background">
   <ion-card>
     <ion-card-header>
-      SIGNUP
+      สมัครสมาชิก
     </ion-card-header>
     <ion-card-content>
       <ion-list no-lines>
         <ion-item>
-          <ion-label fixed>Name</ion-label>
+          <ion-label fixed>ชื่อ</ion-label>
           <ion-input type="text" value="" [(ngModel)]="userData.name"></ion-input>
         </ion-item>
 
@@ -23,12 +23,12 @@
           <ion-input type="text" value="" [(ngModel)]="userData.email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label fixed>Username</ion-label>
+          <ion-label fixed>ชื่อบัญชีผู้ใช้</ion-label>
           <ion-input type="text" value="" [(ngModel)]="userData.username"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label fixed>Password</ion-label>
+          <ion-label fixed>รหัสผ่าน</ion-label>
           <ion-input type="password" value="" [(ngModel)]="userData.password"></ion-input>
         </ion-item>
         <br>
@@ -36,7 +36,7 @@
           <ion-icon name="person-add"></ion-icon>สมัครสมาชิก
         </button>
         <ion-item>
-          <a href="#" (click)="login()">Login Page</a>
+          <a href="#" (click)="login()">ถ้ามีบัญชีผู้ใช้อยู่เเล้ว เข้าสู่ระบบ</a>
         </ion-item>
       </ion-list>
     </ion-card-content>

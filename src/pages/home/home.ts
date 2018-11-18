@@ -1,8 +1,5 @@
-import { Component} from "@angular/core";
-import {
-  NavController,
-  ModalController,
-} from "ionic-angular";
+import { Component, ViewChild  } from "@angular/core";
+import { NavController, ModalController, Slides  } from "ionic-angular";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
 import { CommonProvider } from "../../providers/common/common";
 // import { AboutPage } from "../about/about";
@@ -15,16 +12,24 @@ import { NotificationHomePage } from "../notification-home/notification-home";
   templateUrl: "home.html"
 })
 export class HomePage {
-  // @ViewChild(Slides)
-  // slides: Slides;
+  @ViewChild(Slides)
+  slides: Slides;
   // numbers = [0, 1, 2];
   // firstLoad = true;
   select_mac_home: any;
   sensors_data_last: any;
   check_sensors_data_last: any;
   selectedItem: any;
-  selectedItemLength: string;
+  selectedItemLength: string = "";
   selectedItemTotal = [];
+  currentIndex :number;
+  public time_Stamp = [];
+  public set_date_last_sensor = [];
+  public set_time_last_sensor = [];
+  public set_year_last_sensor = [];
+  public set_month_last_sensor = [];
+  public set_day_last_sensor = [];
+
 
   public userDetails: any;
   public resposeDataMac: any;
@@ -52,7 +57,20 @@ export class HomePage {
     //   this.getCheckLastDataSensors();
     // }, 5000);
   }
+  doRefresh(refresher) {
+    console.log("Begin async operation", refresher);
 
+    setTimeout(() => {
+      console.log("Async operation has ended");
+      if (this.selectedItemLength == "") {
+        this.getFirstLastDataSensors();
+      } else if (this.selectedItemLength) 
+      {
+        this.getRefreshLastDataSensors();
+      }
+      refresher.complete();
+    }, 1000);
+  }
   getMacSelectHome() {
     // this.common.presentLoading();
     this.sensorsApiProvider.postData(this.userPostData, "macRuuvitag").then(
@@ -81,15 +99,14 @@ export class HomePage {
     );
   }
   getFirstLastDataSensors() {
-    this.selectedItemLength = "เเสดง Ruuvitag จำนวน";
-    this.selectedItemLength =
-      this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
+    // this.selectedItemLength = "เเสดง Ruuvitag จำนวน";
+    // this.selectedItemLength =
+    //   this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
     console.log(this.selectedItemLength);
     console.log(this.selectedItemTotal);
     if (this.selectedItem.length > 0) {
       // this.common.presentLoading();
       this.sensors_data_last = this.selectedItem;
-
       this.selectedItemTotal = [this.selectedItem.length];
       console.log(this.sensors_data_last);
 
@@ -110,11 +127,16 @@ export class HomePage {
               console.log(result);
 
               if (this.resposeLastData.sensorLastData) {
+                
                 // this.common.closeLoading();
-                this.sensors_data_last[
-                  i
-                ] = this.resposeLastData.sensorLastData[0];
-                console.log(this.sensors_data_last[i]);
+                this.sensors_data_last[i] = this.resposeLastData.sensorLastData[0];
+                this.time_Stamp[i] = this.sensors_data_last[i].date.split(" ", 2);
+                this.set_date_last_sensor[i] = this.time_Stamp[i][0].split("-", 3);
+                this.set_year_last_sensor[i] = this.set_date_last_sensor[i][0];
+                this.set_month_last_sensor[i] = this.set_date_last_sensor[i][1];
+                this.set_day_last_sensor[i] = this.set_date_last_sensor[i][2];
+                this.set_time_last_sensor[i] = this.time_Stamp[i][1];
+                console.log(this.time_Stamp[i]);
               } else {
                 console.log("No access");
               }
@@ -126,8 +148,10 @@ export class HomePage {
       }
     }
   }
-
   getLastDataSensors() {
+    
+    this.slides.slideTo(0, 500);
+    
     this.selectedItemLength = "เเสดง Ruuvitag จำนวน";
     this.selectedItemLength =
       this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
@@ -135,7 +159,7 @@ export class HomePage {
     console.log(this.selectedItemTotal);
     if (this.selectedItem.length > 0) {
       // this.common.presentLoading();
-      this.sensors_data_last = this.selectedItem;
+      // this.sensors_data_last = this.selectedItem;
       this.sensors_data_last = [this.selectedItem.length];
       this.selectedItemTotal = [this.selectedItem.length];
       console.log(this.sensors_data_last);
@@ -174,17 +198,18 @@ export class HomePage {
     }
   }
 
-  // setDataToLocal(){
-  //   localStorage.setItem("sensorsDataLast", JSON.stringify(this.sensors_data_last));
-  // }
-
-  getCheckLastDataSensors() {
+  getRefreshLastDataSensors() {
+    // this.selectedItemLength = "เเสดง Ruuvitag จำนวน";
+    // this.selectedItemLength =
+    //   this.selectedItemLength + " " + this.selectedItem.length + " " + "ตัว";
+    console.log(this.selectedItemLength);
+    console.log(this.selectedItemTotal);
     if (this.selectedItem.length > 0) {
       // this.common.presentLoading();
-      this.check_sensors_data_last = this.selectedItem;
-      this.check_sensors_data_last = [this.selectedItem.length];
-      this.check_sensors_data_last = [this.selectedItem.length];
-      console.log(this.check_sensors_data_last);
+      // this.sensors_data_last = this.selectedItem;
+      this.sensors_data_last = [this.selectedItem.length];
+      this.selectedItemTotal = [this.selectedItem.length];
+      console.log(this.sensors_data_last);
 
       for (let i in this.selectedItem) {
         this.selectedItemTotal[i] = {
@@ -204,8 +229,10 @@ export class HomePage {
 
               if (this.resposeLastData.sensorLastData) {
                 // this.common.closeLoading();
-                this.check_sensors_data_last[i] = this.resposeLastData.sensorLastData[0];
-                console.log(this.check_sensors_data_last[i]);
+                this.sensors_data_last[
+                  i
+                ] = this.resposeLastData.sensorLastData[0];
+                console.log(this.sensors_data_last[i]);
               } else {
                 console.log("No access");
               }
@@ -215,57 +242,38 @@ export class HomePage {
             }
           );
       }
-      this.check();
-    }
-  }
-
-  check() {
-    let check: boolean;
-    check = false;
-    console.log(check);
-    for (let a in this.check_sensors_data_last) {
-      // console.log(this.check_sensors_data_last[a].Time_Stamp );
-      // console.log(this.sensors_data_last[a].Time_Stamp );
-      if (this.check_sensors_data_last[a].date > this.sensors_data_last[a].date) 
-      {
-        check = true;
-        console.log(check);
-      } else {
-        console.log("No Data");
-        //check = false;
-      }
-    }
-    if (check == true) {
-      localStorage.setItem(
-        "checkSensorsDataLast",
-        JSON.stringify(this.check_sensors_data_last)
-      );
-      console.log("Check > 0");
-      this.check_sensors_data_last = [];
-      this.sensors_data_last = [];
-      this.getLastDataSensors();
-      check = false;
     }
   }
 
   openGraphsHome(device_id, device_mac, device_name, device_description) {
     this.navCtrl.push(GraphHomePage, {
-      data: device_id, data2:device_mac, data3:device_name, data4:device_description
+      data: device_id,
+      data2: device_mac,
+      data3: device_name,
+      data4: device_description
     });
   }
 
-    openNotificationsHome(device_id, device_mac, device_name, device_description){
-      this.navCtrl.push(NotificationHomePage, {
-        data: device_id, data2:device_mac, data3:device_name, data4:device_description
-      });
-    }
+  openNotificationsHome(
+    device_id,
+    device_mac,
+    device_name,
+    device_description
+  ) {
+    this.navCtrl.push(NotificationHomePage, {
+      data: device_id,
+      data2: device_mac,
+      data3: device_name,
+      data4: device_description
+    });
+  }
 
-  // slideChanged() {
-  //   //this.slides.slidePrev(0);
-  //   let currentIndex = this.slides.getActiveIndex();
-
-  //   console.log("Current index is", currentIndex);
-  // }
+  slideChanged() {
+    //this.slides.slidePrev(0);
+    this.currentIndex = this.slides.getActiveIndex();
+    let endIndex = this.slides.isEnd()
+    console.log("Current index is", this.currentIndex);
+  }
 
   images = [
     { title: "Home", image: "assets/imgs/sunset_background.jpg" },

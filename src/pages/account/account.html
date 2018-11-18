@@ -16,35 +16,45 @@
       บัญชีผู้ใช้</ion-title
     >
   </ion-toolbar>
-  <!--
-    <ion-toolbar no-lines>
-      <ion-item color="lughtgrey" class="item-account">
-        <div>
-          <h2><ion-icon name="man" item-start></ion-icon>  ชื่อ : {{userDetails.name}}</h2>
-          <h2><ion-icon name="contact" item-start></ion-icon> ชื่อบัญชีผู้ใช้ : {{userDetails.name}}</h2>
-          <h2><ion-icon name="mail" item-start></ion-icon>Email : {{userDetails.email}}</h2>
-        </div>
-      </ion-item>
-    </ion-toolbar>
-  -->
+  
 </ion-header>
 <ion-content padding class="bg-image">
-  <ion-item color="lughtgrey" class="item-account">
-    <div>
-      <h2>
-        <ion-icon name="man" item-start></ion-icon> ชื่อ :
-        {{ userDetails.name }}
-      </h2>
-      <h2>
-        <ion-icon name="contact" item-start></ion-icon> ชื่อบัญชีผู้ใช้ :
-        {{ userDetails.username }}
-      </h2>
-      <h2>
-        <ion-icon name="mail" item-start></ion-icon>Email :
-        {{ userDetails.email }}
-      </h2>
-    </div>
-  </ion-item>
+  <ion-card color="lughtgrey" class="item-account">
+    <ion-item no-lines color="lughtgrey">
+      <ion-icon name="contacts" item-start></ion-icon>
+      <h1>ข้อมูลบัญชีผู้ใช้</h1>
+      <ion-icon
+        *ngIf="check_data_account == 0"
+        name="arrow-dropdown"
+        item-end
+        (click)="showDataAccount()"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="check_data_account == 1"
+        name="arrow-dropup"
+        item-end
+        (click)="showDataAccount()"
+      ></ion-icon>
+    </ion-item>
+    <ion-card *ngIf="check_data_account == 1" class="item-account" >
+    <ion-list>
+        <ion-item >
+          
+        <div class="set-title-div" text-wrap>ชื่อ</div>
+        <div class="set-sub-div" text-wrap>{{userDetails.name}}</div>
+         <br>
+        <div class="set-title-div" text-wrap>ชื่อบัญชีผู้ใช้</div>
+        <div class="set-sub-div" text-wrap>{{userDetails.username}}</div>
+        <br>
+        <div class="set-title-div" text-wrap>Email</div>
+        <div class="set-sub-div" text-wrap>{{userDetails.email}}</div>
+        <br>
+        <div class="set-title-div" text-wrap>จำนวน Ruuvitag ในบัญชี</div>
+        <div class="set-sub-div" text-wrap>{{count_dataSet}} ตัว</div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  </ion-card>
   <!--
     <ion-item color="lughtgrey" class="item-account">
       <div>
@@ -54,126 +64,102 @@
   -->
   <ion-card color="lughtgrey">
     <ion-item color="lughtgrey">
-      <h2>จำนวน Ruuvitag ในบัญชี : {{ count_dataSet }} ตัว</h2>
+      <h1>ข้อมูล Ruuvitag</h1>
+      <ion-icon
+        *ngIf="check_data_ruuvitag == 0"
+        name="arrow-dropdown"
+        item-end
+        (click)="showDataRuuvitag()"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="check_data_ruuvitag == 1"
+        name="arrow-dropup"
+        item-end
+        (click)="showDataRuuvitag()"
+      ></ion-icon>
     </ion-item>
+
     <ion-card-content *ngFor="let item of dataSet; let msgIndex = index">
-      <ion-list>
-        <ion-item-sliding>
-          <ion-item>
-            <div class="set-title-div">
-              Mac Address ของ Ruuvitag
-            </div>
-            <div
-              class="set-sub-div"
-              text-uppercase
-              [innerHTML]="item.device_mac | linky"
-            ></div>
-            <br />
-            <div class="set-title-div">ชื่อ Ruuvitag</div>
-            <div
-              class="set-sub-div"
-              text-uppercase
-              [innerHTML]="item.device_name | linky"
-            ></div>
-            <br />
-            <div class="set-title-div">รายละเอียดเพิ่มเติม Ruuvitag</div>
-            <div
-              *ngIf="item.device_description == ''"
-              class="set-sub-div"
-              text-wrap
-            >
-              -
-            </div>
-            <div
-              *ngIf="item.device_description != ''"
-              [innerHTML]="item.device_description | linky"
-              class="set-sub-div"
-              text-wrap
-            >
-              <!-- {{ item.device_description }} -->
-            </div>
-            <br />
-            <div class="set-title-div">อัพเดตเมื่อ</div>
-            <div
-              class="set-sub-div"
-              [innerHTML]="item.created | amTimeAgo"
-            ></div>
-            <br />
-            <ion-icon
-              name="arrow-dropleft-circle"
-              color="lughtgrey"
-              item-end
-            ></ion-icon>
-          </ion-item>
-          <ion-item-options side="right" icon-start>
-            <button
-              ion-button
-              large
-              (click)="
-                openModalUpdateRuuvitag(
-                  item.device_id,
-                  item.device_mac,
-                  item.device_name,
-                  item.device_description
-                )
-              "
-              color="lughtgrey"
-            >
-              <ion-icon name="cog" color="Skyblue"></ion-icon>
-              เเก้ไข
-            </button>
-            <button
-              ion-button
-              large
-              (click)="deviceDelete(item.device_id, msgIndex)"
-              color="danger"
-            >
-              <ion-icon name="trash" color="lughtgrey"></ion-icon>
-              ลบ
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
+      <ion-card *ngIf="check_data_ruuvitag == 1" class="item-account" >
+        <ion-list >
+          <ion-item-sliding>
+            <ion-item>
+              <div class="set-title-div">Mac Address ของ Ruuvitag</div>
+              <div
+                class="set-sub-div"
+                text-uppercase
+                [innerHTML]="item.device_mac | linky"
+              ></div>
+              <br />
+              <div class="set-title-div">ชื่อ Ruuvitag</div>
+              <div
+                class="set-sub-div"
+                text-uppercase
+                [innerHTML]="item.device_name | linky"
+              ></div>
+              <br />
+              <div class="set-title-div">รายละเอียดเพิ่มเติม Ruuvitag</div>
+              <div
+                *ngIf="item.device_description == ''"
+                class="set-sub-div"
+                text-wrap
+              >
+                -
+              </div>
+              <div
+                *ngIf="item.device_description != ''"
+                [innerHTML]="item.device_description | linky"
+                class="set-sub-div"
+                text-wrap
+              >
+                <!-- {{ item.device_description }} -->
+              </div>
+              <br />
+              <div class="set-title-div">อัพเดตเมื่อ</div>
+              <div
+                class="set-sub-div"
+                [innerHTML]="item.created | amTimeAgo"
+              ></div>
+              <br />
+              <ion-icon
+                name="arrow-dropleft-circle"
+                color="lughtgrey"
+                item-end
+              ></ion-icon>
+            </ion-item>
+            <ion-item-options side="right" icon-start>
+              <button
+                ion-button
+                large
+                (click)="
+                  openModalUpdateRuuvitag(
+                    item.device_id,
+                    item.device_mac,
+                    item.device_name,
+                    item.device_description
+                  )
+                "
+                color="lughtgrey"
+              >
+                <ion-icon name="cog" color="Skyblue"></ion-icon>
+                เเก้ไข
+              </button>
+              <button
+                ion-button
+                large
+                (click)="deviceDelete(item.device_id, msgIndex)"
+                color="danger"
+              >
+                <ion-icon name="trash" color="lughtgrey"></ion-icon>
+                ลบ
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-card>
     </ion-card-content>
   </ion-card>
 
-  <!--
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-
-          <ion-item>
-            <ion-label fixed>MacAddress:</ion-label>
-            <ion-input text-uppercase [innerHTML]="item.device_mac | linky"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label fixed>ชื่อ :</ion-label>
-            <ion-input  [innerHTML]="item.device_name | linky"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label fixed>รายละเอียด :</ion-label>
-            <ion-input  [innerHTML]="item.device_description | linky"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label fixed>อัพเดตเมื่อ :</ion-label>
-            <ion-input [innerHTML]="item.created | amTimeAgo"></ion-input>
-          </ion-item>
-
-
-        </ion-col>
-        <ion-col>
-          <ion-buttons end>
-            <button ion-button color="yellow" round outline solid (click)="openModalUpdateRuuvitag(item.device_id, item.device_mac, item.device_name, item.device_description)">
-              <ion-icon name="hammer"></ion-icon>เเก้ไข Ruuvitag
-            </button>
-            <button ion-button color="danger" round outline solid (click)="deviceDelete(item.device_id, index)">
-              <ion-icon name="trash"></ion-icon>ลบ Ruuvitag
-            </button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  -->
 </ion-content>
 <ion-footer>
   <!--
