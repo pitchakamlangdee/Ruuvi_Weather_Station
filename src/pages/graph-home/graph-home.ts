@@ -16,19 +16,37 @@ import * as moment from "moment";
   templateUrl: "graph-home.html"
 })
 export class GraphHomePage {
-  @ViewChild("barCanvas")
-  barCanvas;
-  @ViewChild("lineCanvas")
-  lineCanvas;
-  @ViewChild("pieCanvas")
-  pieCanvas;
-  @ViewChild("doughnutCanvas")
-  doughnutCanvas;
+  @ViewChild("lineCanvasTemperature")
+  lineCanvasTemperature;
+  @ViewChild("lineCanvasHumidity")
+  lineCanvasHumidity;
+  @ViewChild("lineCanvasPressure")
+  lineCanvasPressure;
 
-  barChart: any;
-  lineChart: any;
-  pieChart: any;
-  doughnutChart: any;
+  @ViewChild("barCanvasTemperature")
+  barCanvasTemperature;
+  @ViewChild("barCanvasHumidity")
+  barCanvasHumidity;
+  @ViewChild("barCanvasPressure")
+  barCanvasPressure;
+ 
+  // @ViewChild("pieCanvas")
+  // pieCanvas;
+  // @ViewChild("doughnutCanvas")
+  // doughnutCanvas;
+
+  
+
+  lineChartTemperature: any;
+  lineChartHumidity: any;
+  lineChartPressure: any;
+
+  barChartTemperature: any;
+  barChartHumidity: any;
+  barChartPressure: any;
+
+  // pieChart: any;
+  // doughnutChart: any;
 
   mac_address = [];
   Name_Ruuvitag = [];
@@ -158,8 +176,13 @@ export class GraphHomePage {
           console.log(this.average_temperature);
           console.log(this.average_humidity);
           //console.log(time);
-          this.getLineChart();
-          this.getBarChart();
+          this.getLineChartTemperature();
+          this.getLineChartHumidity();
+          this.getLineChartPressure();
+          this.getBarChartTemperature();
+          this.getBarChartHumidity();
+          this.getBarChartPressure();
+
         } else if (this.resposeData.graphData == "") {
           this.show_graph = false;
           console.log("No access");
@@ -177,8 +200,12 @@ export class GraphHomePage {
           this.average_temperature = 0;
           this.average_humidity = 0;
           this.average_pressure = 0;
-          this.getLineChart();
-          this.getBarChart();
+          this.getLineChartTemperature();
+          this.getLineChartHumidity();
+          this.getLineChartPressure();
+          this.getBarChartTemperature();
+          this.getBarChartHumidity();
+          this.getBarChartPressure();
         }
       });
   }
@@ -242,8 +269,13 @@ export class GraphHomePage {
           console.log(this.average_temperature);
           console.log(this.average_humidity);
           //console.log(time);
-          this.getLineChart();
-          this.getBarChart();
+          this.getLineChartTemperature();
+          this.getLineChartHumidity();
+          this.getLineChartPressure();
+          this.getBarChartTemperature();
+          this.getBarChartHumidity();
+          this.getBarChartPressure();
+
         } else if (this.resposeData.graphData == "") {
           this.show_graph = false;
           console.log("No access");
@@ -261,8 +293,12 @@ export class GraphHomePage {
           this.average_temperature = 0;
           this.average_humidity = 0;
           this.average_pressure = 0;
-          this.getLineChart();
-          this.getBarChart();
+          this.getLineChartTemperature();
+          this.getLineChartHumidity();
+          this.getLineChartPressure();
+          this.getBarChartTemperature();
+          this.getBarChartHumidity();
+          this.getBarChartPressure();
         }
       });
   }
@@ -270,8 +306,13 @@ export class GraphHomePage {
   /////////////////////////////////////start function graph//////////////////////////////
   ngAfterViewInit() {
     setTimeout(() => {
-      this.lineChart = this.getLineChart();
-      this.barChart = this.getBarChart();
+      this.lineChartTemperature = this.getLineChartTemperature();
+      this.lineChartHumidity = this.getLineChartHumidity();
+      this.lineChartPressure = this.getLineChartPressure();
+
+      this.barChartTemperature = this.getBarChartTemperature();
+      this.barChartHumidity = this.getBarChartHumidity();
+      this.barChartPressure = this.getBarChartPressure();
     }, 150);
     // setTimeout(() => {
     //   this.pieChart = this.getPieChart();
@@ -286,16 +327,16 @@ export class GraphHomePage {
       type: chartType
     });
   }
-  getLineChart() {
+  getLineChartTemperature() {
     // if (this.show_graph == true) {
       const data = {
         labels: this.time,
         datasets: [
           {
-            label: "อุณหภูมิ",
+            label: "อุณหภูมิ (°C)",
             fill: true,
             LineTension: 0.1,
-            // backgroundColor: "rgb(254, 0, 0)",
+            backgroundColor: "rgb(254, 0, 0)",
             borderColor: "rgb(254, 0, 0)",
             borderCapStyle: "butt",
             borderJoinStyle: "mitter",
@@ -303,12 +344,23 @@ export class GraphHomePage {
             pointHitRadius: 10,
             data: this.temperature,
             scanGaps: false
-          },
+          }
+        ]
+      };
+      return this.getChart(this.lineCanvasTemperature.nativeElement, "line", data);
+    
+  }
+
+  getLineChartHumidity() {
+    // if (this.show_graph == true) {
+      const data = {
+        labels: this.time,
+        datasets: [
           {
-            label: "ความชื้น",
+            label: "ความชื้น (%)",
             fill: true,
             LineTension: 0.1,
-            // backgroundColor: "rgb(76, 163, 224)",
+            backgroundColor: "rgb(76, 163, 224)",
             borderColor: "rgb(76, 163, 224)",
             borderCapStyle: "butt",
             borderJoinStyle: "mitter",
@@ -316,12 +368,24 @@ export class GraphHomePage {
             pointHitRadius: 10,
             data: this.humidity,
             scanGaps: false
-          },
+          }
+          
+        ]
+      };
+      return this.getChart(this.lineCanvasHumidity.nativeElement, "line", data);
+    
+  }
+
+  getLineChartPressure() {
+    // if (this.show_graph == true) {
+      const data = {
+        labels: this.time,
+        datasets: [
           {
-            label: "ความดันอากาศ",
+            label: "ความดันอากาศ (hPa)",
             fill: true,
             LineTension: 0.1,
-            // backgroundColor: "rgb(76, 214, 103)",
+            backgroundColor: "rgb(76, 214, 103)",
             borderColor: "rgb(76, 214, 103)",
             borderCapStyle: "butt",
             borderJoinStyle: "mitter",
@@ -332,42 +396,28 @@ export class GraphHomePage {
           }
         ]
       };
-      return this.getChart(this.lineCanvas.nativeElement, "line", data);
-    // } else {
-    //   const no_data = "";
-    //   return this.getChart(this.lineCanvas.nativeElement, "line", no_data);
-    //   console.log("no graph");
-    // }
+      return this.getChart(this.lineCanvasPressure.nativeElement, "line", data);
+   
   }
-  getBarChart() {
+
+  getBarChartTemperature() {
     // if (this.show_graph == true) {
       const data = {
-        labels: ["", "อุณหภูมิ", "ความชื้น", "ความดันอากาศ"],
+        labels: ["อุณหภูมิ"],
         datasets: [
           {
-            label: ["ค่าเฉลี่ยสภาพอากาศ"],
+            label: ["ค่าเฉลี่ยอุณหภูมิ (°C)"],
             data: [
-              "",
-              this.average_temperature,
-              this.average_humidity,
-              this.average_pressure
+              this.average_temperature
+              // ,
+              // this.average_temperature,
+              // this.average_humidity,
+              // this.average_pressure
             ],
-            backgroundColor: [
-              "rgb(255, 255, 255)",
-              "rgb(254, 0, 0)",
-              "rgb(76, 163, 224)",
-              "rgb(76, 214, 103)",
-              "rgb(60, 0, 70)"
-            ],
-            borderWidth: 5 
+            backgroundColor: ["rgb(254, 0, 0)"],
+            borderWidth: 3 
             ,
-            borderColor: [
-              "rgb(254, 0, 0)",
-              "rgb(254, 0, 0)",
-              "rgb(76, 163, 224)",
-              "rgb(76, 214, 103)",
-              "rgb(60, 0, 70)"
-            ]
+            borderColor: ["rgb(254, 0, 0)"]
           }
         ]
       };
@@ -382,7 +432,73 @@ export class GraphHomePage {
           ]
         }
       };
-      return this.getChart(this.barCanvas.nativeElement, "bar", data, options);
+      return this.getChart(this.barCanvasTemperature.nativeElement, "bar", data, options);
+    // } else {
+    //   console.log("no graph");
+    // }
+  }
+
+  getBarChartHumidity() {
+    // if (this.show_graph == true) {
+      const data = {
+        labels: ["อุณหภูมิ"],
+        datasets: [
+          {
+            label: ["ค่าเฉลี่ยความชื้น (%)"],
+            data: [
+              this.average_humidity
+              
+            ],
+            backgroundColor: ["rgb(76, 163, 224)",],
+            borderWidth: 3 
+            ,
+            borderColor: ["rgb(76, 163, 224)",]
+          }
+        ]
+      };
+      const options = {
+        scales: {
+          yAxes: [
+            {
+              tickes: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      };
+      return this.getChart(this.barCanvasHumidity.nativeElement, "bar", data, options);
+    // } else {
+    //   console.log("no graph");
+    // }
+  }
+
+  getBarChartPressure() {
+    // if (this.show_graph == true) {
+      const data = {
+        labels: ["ความดันอากาศ"],
+        datasets: [
+          {
+            label: ["ค่าเฉลี่ยความดันอากาศ (hPa)"],
+            data: [this.average_pressure],
+            backgroundColor: ["rgb(76, 214, 103)"],
+            borderWidth: 3 ,
+            borderColor: ["rgb(76, 214, 103)"]
+          }
+        ]
+      };
+      const options = {
+        scales: {
+          yAxes: [
+            {
+              tickes: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      };
+      return this.getChart(this.barCanvasPressure.nativeElement, "bar", data, options);
     // } else {
     //   console.log("no graph");
     // }

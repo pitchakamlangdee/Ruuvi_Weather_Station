@@ -47,7 +47,7 @@
     ></ion-datetime>
   </ion-item>
   <div>
-    <ion-slides pager="true">
+    <ion-slides >
       <ion-slide>
         <!-- <ion-scroll scrollX="true" direction="x"> -->
         <ion-card>
@@ -68,7 +68,80 @@
                 set_graph_date[0]}}</div>
           </ion-card-header>
           <ion-card-content >
-            <canvas height="700vw" width="500vw" #lineCanvas></canvas>
+            <canvas height="700vw" width="500vw" #lineCanvasTemperature></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide>
+        <!-- <ion-scroll scrollX="true" direction="x"> -->
+        <ion-card>
+          <ion-card-header>
+            <div *ngIf="day_or_hour==1 && show_graph==true">ข้อมูลสภาพอากาศเมื่อ</div>
+            <div *ngIf="day_or_hour==1 && show_graph==true">{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">ข้อมูลสภาพอากาศของวันที่</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]
+              }}
+            </div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศเมื่อ</div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศวันที่</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]}}</div>
+          </ion-card-header>
+          <ion-card-content >
+            <canvas height="700vw" width="500vw" #lineCanvasHumidity></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide>
+        <ion-card>
+          <ion-card-header>
+            <div *ngIf="day_or_hour==1 && show_graph==true">ข้อมูลสภาพอากาศเมื่อ</div>
+            <div *ngIf="day_or_hour==1 && show_graph==true">{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">ข้อมูลสภาพอากาศของวันที่</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]
+              }}
+            </div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศเมื่อ</div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศวันที่</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]}}</div>
+          </ion-card-header>
+          <ion-card-content >
+            <canvas height="700vw" width="500vw" #lineCanvasPressure></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+
+    <ion-slides >
+      <ion-slide>
+        <ion-card>
+          <ion-card-header text-wrap>
+            <div *ngIf="day_or_hour==1 && show_graph==true">ข้อมูลสภาพอากาศโดยเฉลี่ยเมื่อ</div>
+            <div *ngIf="day_or_hour==1 && show_graph==true">{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">ข้อมูลสภาพอากาศโดยเฉลี่ยของวันที่</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]
+              }}
+            </div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศโดยเฉลี่ยเมื่อ</div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศโดยเฉลี่ยวันที่</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]}}</div>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas height="700vw" width="500vw" #barCanvasTemperature></canvas>
           </ion-card-content>
         </ion-card>
       </ion-slide>
@@ -91,7 +164,30 @@
                 set_graph_date[0]}}</div>
           </ion-card-header>
           <ion-card-content>
-            <canvas height="700vw" width="500vw" #barCanvas></canvas>
+            <canvas height="700vw" width="500vw" #barCanvasHumidity></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide>
+        <ion-card>
+          <ion-card-header text-wrap>
+            <div *ngIf="day_or_hour==1 && show_graph==true">ข้อมูลสภาพอากาศโดยเฉลี่ยเมื่อ</div>
+            <div *ngIf="day_or_hour==1 && show_graph==true">{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">ข้อมูลสภาพอากาศโดยเฉลี่ยของวันที่</div>
+            <div *ngIf="day_or_hour==0 && show_graph==true">
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]
+              }}
+            </div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศโดยเฉลี่ยเมื่อ</div>
+            <div class="no-graph" *ngIf="day_or_hour==1 && show_graph==false" >{{userPostData.my_hour}} ชั่วโมงที่เเล้ว</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >ไม่มีข้อมูลสภาพอากาศโดยเฉลี่ยวันที่</div>
+            <div class="no-graph" *ngIf="day_or_hour==0 && show_graph==false" >
+              {{ set_graph_date[2] }}-{{ set_graph_date[1] }}-{{
+                set_graph_date[0]}}</div>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas height="700vw" width="500vw" #barCanvasPressure></canvas>
           </ion-card-content>
         </ion-card>
       </ion-slide>
