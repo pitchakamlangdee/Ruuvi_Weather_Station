@@ -82,7 +82,7 @@ export class ContactPage {
         }
         this.display = "ปิด";
         console.log(this.checkStatusTemperature[0]);
-        this.getLastDataSensors();
+        // this.getLastDataSensors();
       },
       err => {
         //Connection failed message
@@ -90,24 +90,24 @@ export class ContactPage {
     );
   }
 
-  getLastDataSensors() {
-    if (this.selectedItem.length > 0) {
-      // this.common.presentLoading();
-      this.sensors_data_last = [this.selectedItem.length];
-      console.log(this.sensors_data_last);
-      for (let i in this.selectedItem) {
-        //console.log(this.selectedItem[i]);
-        this.sensorsApiProvider
-          .getLastDataSensors(this.selectedItem[i])
-          .then(data_last => {
-            this.sensors_data_last[i] = data_last[0];
-            console.log(this.sensors_data_last[i]);
-          });
-      }
+  // getLastDataSensors() {
+  //   if (this.selectedItem.length > 0) {
+  //     // this.common.presentLoading();
+  //     this.sensors_data_last = [this.selectedItem.length];
+  //     console.log(this.sensors_data_last);
+  //     for (let i in this.selectedItem) {
+  //       //console.log(this.selectedItem[i]);
+  //       this.sensorsApiProvider
+  //         .getLastDataSensors(this.selectedItem[i])
+  //         .then(data_last => {
+  //           this.sensors_data_last[i] = data_last[0];
+  //           console.log(this.sensors_data_last[i]);
+  //         });
+  //     }
 
-      // this.common.closeLoading();
-    }
-  }
+  //     // this.common.closeLoading();
+  //   }
+  // }
 
   images = [
     { title: "Home", image: "assets/imgs/maple_background.jpg" },

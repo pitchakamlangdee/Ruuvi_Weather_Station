@@ -88,37 +88,37 @@ export class AboutPage {
     
   }
 
-  getGraphsDataDay() {
-   let count : number = 0;
+  // getGraphsDataDay() {
+  //  let count : number = 0;
     
-    this.sensorsApiProvider.getGraphsDataDay(this.myDate, this.selectedItemGraphs).then(data => {
-      for (let i in data) {
-        this.mac_address[i] = data[i].mac_id;
-        this.Name_Ruuvitag[i] = data[i].Name_Ruuvitag;
-        this.temperature[i] = data[i].temperature;
-        this.pressure[i] = data[i].pressure;
-        this.time_Stamp[i] = data[i].date.split(" ", 2);
-        this.date[i] = this.time_Stamp[i][0];
-        this.time[i] = this.time_Stamp[i][1];
-        this.humidity[i] = data[i].humidity;
-        this.sum_temperature += parseFloat(data[i].temperature);
-        this.sum_humidity += parseFloat(data[i].humidity);
-        count ++;
+  //   this.sensorsApiProvider.getGraphsDataDay(this.myDate, this.selectedItemGraphs).then(data => {
+  //     for (let i in data) {
+  //       this.mac_address[i] = data[i].mac_id;
+  //       this.Name_Ruuvitag[i] = data[i].Name_Ruuvitag;
+  //       this.temperature[i] = data[i].temperature;
+  //       this.pressure[i] = data[i].pressure;
+  //       this.time_Stamp[i] = data[i].date.split(" ", 2);
+  //       this.date[i] = this.time_Stamp[i][0];
+  //       this.time[i] = this.time_Stamp[i][1];
+  //       this.humidity[i] = data[i].humidity;
+  //       this.sum_temperature += parseFloat(data[i].temperature);
+  //       this.sum_humidity += parseFloat(data[i].humidity);
+  //       count ++;
         
         
-      }
-      if(this.sum_temperature != undefined && this.sum_humidity != undefined ){
-      this.average_temperature = (this.sum_temperature / count).toFixed(2);
-      this.average_humidity = (this.sum_humidity / count).toFixed(2);
-      }
-       console.log(this.average_temperature);
-       console.log(this.average_humidity);
-       //console.log(time);
-       this.getLineChart();
-       this.getBarChart();
-    });
+  //     }
+  //     if(this.sum_temperature != undefined && this.sum_humidity != undefined ){
+  //     this.average_temperature = (this.sum_temperature / count).toFixed(2);
+  //     this.average_humidity = (this.sum_humidity / count).toFixed(2);
+  //     }
+  //      console.log(this.average_temperature);
+  //      console.log(this.average_humidity);
+  //      //console.log(time);
+  //      this.getLineChart();
+  //      this.getBarChart();
+  //   });
     
-  }
+  // }
 
   /////////////////////////////////////start function graph//////////////////////////////
   ngAfterViewInit() {

@@ -8,7 +8,8 @@ import {
   // ToastController,
   ModalController,
   ModalOptions,
-  Modal
+  Modal,
+  PopoverController 
 } from "ionic-angular";
 import { WelcomePage } from "../welcome/welcome";
 import { SensorsApiProvider } from "../../providers/sensors-api/sensors-api";
@@ -53,7 +54,8 @@ export class AccountPage {
     private alertCtrl: AlertController,
     public common: CommonProvider,
     // private toastCtrl : ToastController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    public popoverCtrl: PopoverController
   ) {
     this.count_dataSet = 0;
     const data = JSON.parse(localStorage.getItem("userData"));
@@ -84,6 +86,18 @@ export class AccountPage {
     );
   }
 
+  openPopoverUpdateAccount(myEvent) {
+    let updateAccountPopover = this.popoverCtrl.create("PopoverUpdateAccountPage");
+    updateAccountPopover.onDidDismiss(data => {
+      const data1 = JSON.parse(localStorage.getItem("userData"));
+      this.userDetails = data1.userData;
+      console.log(data);
+    });
+    updateAccountPopover.present({
+      ev: myEvent
+    });
+  }
+
   openModalAddRuuvitag(myEvent) {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: true
@@ -103,7 +117,7 @@ export class AccountPage {
     });
   }
 
-  openModalUpdateRuuvitag(device_id, device_mac, device_name, device_description) {
+  openModalUpdateRuuvitag(myEvent,device_id, device_mac, device_name, device_description) {
     const myModalOptions2: ModalOptions = {
       enableBackdropDismiss: true
     };
@@ -125,7 +139,9 @@ export class AccountPage {
         console.log(data);
       }
     });
-    updateRuuvitagModal.present();
+    updateRuuvitagModal.present({
+      ev: myEvent
+    });
   }
 
 

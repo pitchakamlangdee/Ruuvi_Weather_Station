@@ -40,17 +40,27 @@
     <ion-list>
         <ion-item >
           
-        <div class="set-title-div" text-wrap>ชื่อ</div>
-        <div class="set-sub-div" text-wrap>{{userDetails.name}}</div>
-         <br>
-        <div class="set-title-div" text-wrap>ชื่อบัญชีผู้ใช้</div>
-        <div class="set-sub-div" text-wrap>{{userDetails.username}}</div>
-        <br>
-        <div class="set-title-div" text-wrap>Email</div>
-        <div class="set-sub-div" text-wrap>{{userDetails.email}}</div>
-        <br>
-        <div class="set-title-div" text-wrap>จำนวน Ruuvitag ในบัญชี</div>
-        <div class="set-sub-div" text-wrap>{{count_dataSet}} ตัว</div>
+        <div class="set-title-account-div" text-wrap>ชื่อ </div> 
+        <div class="set-subtitle-account-div" text-wrap>{{userDetails.name}}</div>
+        <button item-end ion-button round outline icon-start (click)="openPopoverUpdateAccount($event)">
+        <ion-icon  name="cog" color="Skyblue"></ion-icon>เเก้ไข
+      </button>
+        </ion-item >
+      <ion-item>
+        <div class="set-title-account-div" text-wrap>ชื่อบัญชีผู้ใช้</div>
+        <div class="set-subtitle-account-div" text-wrap>{{userDetails.username}}</div>
+      </ion-item>
+      <ion-item>
+        <div class="set-title-account-div" text-wrap>Email</div>
+        <div class="set-subtitle-account-div" text-wrap>{{userDetails.email}}</div>
+      </ion-item>
+    <ion-item>
+        <div class="set-title-account-div" text-wrap>จำนวน Ruuvitag ในบัญชี</div>
+        <div class="set-subtitle-account-div" text-wrap>{{count_dataSet}} ตัว</div>
+        <!-- <button ion-button large item-end color="lughtgrey">
+          <ion-icon item-end name="cog" color="Skyblue"></ion-icon>
+            เเก้ไข
+        </button> -->
       </ion-item>
     </ion-list>
   </ion-card>
@@ -79,9 +89,9 @@
       ></ion-icon>
     </ion-item>
 
-    <ion-card-content *ngFor="let item of dataSet; let msgIndex = index">
-      <ion-card *ngIf="check_data_ruuvitag == 1" class="item-account" >
-        <ion-list >
+    <!-- <ion-card-content *ngFor="let item of dataSet; let msgIndex = index"> -->
+      <ion-card  *ngFor="let item of dataSet; let msgIndex = index" class="item-account" >
+        <ion-list *ngIf="check_data_ruuvitag == 1" >
           <ion-item-sliding>
             <ion-item>
               <div class="set-title-div">Mac Address ของ Ruuvitag</div>
@@ -133,6 +143,7 @@
                 large
                 (click)="
                   openModalUpdateRuuvitag(
+                    $event,
                     item.device_id,
                     item.device_mac,
                     item.device_name,
@@ -157,7 +168,7 @@
           </ion-item-sliding>
         </ion-list>
       </ion-card>
-    </ion-card-content>
+    <!-- </ion-card-content> -->
   </ion-card>
 
 </ion-content>

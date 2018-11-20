@@ -81,9 +81,9 @@ export class NotificationHomePage {
           this.dataNotification = this.resposeData.notificationData;
           // console.log(this.dataNotification);
           for (let a in this.dataNotification) {
-            if (this.dataNotification[a].notification_status == 0) {
+            if (this.dataNotification[a].notification_status == false) {
               this.dataNotification[a].notification_status = 0;
-            } else if (this.dataNotification[a].notification_status == 1) {
+            } else if (this.dataNotification[a].notification_status == true) {
               this.dataNotification[a].notification_status = 1;
             }
           }

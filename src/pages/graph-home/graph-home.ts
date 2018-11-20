@@ -441,7 +441,7 @@ export class GraphHomePage {
   getBarChartHumidity() {
     // if (this.show_graph == true) {
       const data = {
-        labels: ["อุณหภูมิ"],
+        labels: ["ความชื้น"],
         datasets: [
           {
             label: ["ค่าเฉลี่ยความชื้น (%)"],
