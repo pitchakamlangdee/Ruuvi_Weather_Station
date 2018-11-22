@@ -67,16 +67,18 @@ export class AccountPage {
   }
 
   getDevice() {
-    // this.common.presentLoading();
+    this.common.presentLoading();
     this.sensorsApiProvider.postData(this.userPostData, "device").then(
       result => {
         this.resposeData = result;
+        
         if (this.resposeData.deviceData) {
-          // this.common.closeLoading();
+          this.common.closeLoading();
           this.dataSet = this.resposeData.deviceData;
           this.count_dataSet = this.dataSet.length;
           console.log(this.dataSet);
         } else {
+          this.common.closeLoading();
           console.log("No access");
         }
       },

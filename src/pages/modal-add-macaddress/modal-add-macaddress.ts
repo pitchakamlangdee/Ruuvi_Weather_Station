@@ -86,7 +86,7 @@ export class ModalAddMacaddressPage {
                       this.viewCtrl.dismiss(this.dataSet);
                       this.common.closeLoading();
                     } else {
-                      this.presentToast("มี Ruuvitag อยู่ในระบบเเล้ว");
+                      this.presentToast("มี Ruuvitag อยู่ในระบบเเล้ว !");
                     }
                   },
                   err => {
@@ -99,10 +99,10 @@ export class ModalAddMacaddressPage {
       });
       alert.present();
       } else{
-        this.presentToast("กรุณากรอก Mac Address ให้ครบ !!");
+        this.presentToast("กรุณากรอก Mac Address ให้ครบ !");
       }
     } else {
-      this.presentToast("กรุณากรอก Mac Address !!");
+      this.presentToast("กรุณากรอก Mac Address !");
     }
   }
   macSystax() {

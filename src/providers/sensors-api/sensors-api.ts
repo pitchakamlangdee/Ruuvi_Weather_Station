@@ -7,7 +7,7 @@ import { Http,Headers} from '@angular/http';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-let apiUrl = 'http://10.5.50.189:8080/PHP-Slim-Restful/api/';
+let apiUrl = 'http://localhost:8080/PHP-Slim-Restful/api/';
 @Injectable()
 
 export class SensorsApiProvider {

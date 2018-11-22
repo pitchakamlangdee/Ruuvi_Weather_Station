@@ -76,19 +76,21 @@ export class HomePage {
     }, 1000);
   }
   getMacSelectHome() {
-    // this.common.presentLoading();
+    this.common.presentLoading();
     this.sensorsApiProvider.postData(this.userPostData, "macRuuvitag").then(
       result => {
         this.resposeDataMac = result;
         console.log(result);
+        
         if (this.resposeDataMac.macData) {
-          // this.common.closeLoading();
+          this.common.closeLoading();
           this.dataMac = this.resposeDataMac.macData;
 
           console.log(this.dataMac);
         } else {
           console.log("No access");
           this.getDevice();
+          this.common.closeLoading();
         }
         this.selectedItem = this.dataMac;
 

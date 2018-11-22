@@ -47,10 +47,11 @@ export class LoginPage {
           this.menu.enable(true);
           this.notificationProvider.setIntervalNotification();
           this.navCtrl.push(HomePage);
+          this.presentToast("เข้าสู่ระบบสำเร็จ !");
            
           }
           else{
-            this.presentToast("Please give valid username and password");
+            this.presentToast("ชื่อผู้ใช้/อีเมล หรือรหัสผ่านไม่ถูกต้อง !");
           }
         },
         (err) => {
@@ -59,7 +60,7 @@ export class LoginPage {
       );
     }
     else{
-      this.presentToast("Give username and password");
+      this.presentToast("กรุณาใส่ชื่อผู้ใช้/อีเมล เเละรหัสผ่านให้ครบ !");
     }
   }
 

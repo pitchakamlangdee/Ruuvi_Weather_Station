@@ -55,9 +55,9 @@ export class SignupPage {
             localStorage.setItem("userData", JSON.stringify(this.resposeData));
             this.menu.enable(true);
             this.navCtrl.push(HomePage);
-            this.presentToast("Login Sucess !");
+            this.presentToast("สมัครสมาชิกสำเร็จ !");
           } else {
-            this.presentToast("Give valid details");
+            this.presentToast("ชื่อผู้ใช้ หรืออีเมล มีอยู่ในระบบอยู่เเล้ว !");
           }
         },
         err => {
@@ -65,7 +65,7 @@ export class SignupPage {
         }
       );
     } else {
-      this.presentToast("Give username and password");
+      this.presentToast("กรุณาใส่ข้อมูลให้ครบทุกช่อง");
     }
   }
   login() {
